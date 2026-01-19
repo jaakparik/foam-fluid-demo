@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { talents } from "../data/talents";
+import { talents, calculateAge } from "../data/talents";
 import { TalentInfoCard } from "../components/talent-record/TalentInfoCard";
 import { TalentSubmenu } from "../components/talent-record/TalentSubmenu";
+import { BrandsSection } from "../components/talent-record/BrandsSection";
 import { OverviewTab } from "../components/talent-record/OverviewTab";
 import { ContentTab } from "../components/talent-record/ContentTab";
 import { MediaKitsListsTab } from "../components/talent-record/MediaKitsListsTab";
@@ -20,7 +21,10 @@ export function TalentRecord({ isDark = false }: TalentRecordProps) {
   const talentId = id ? Number(id) : 1;
   
   // Find the talent by ID
-  const talent = talents.find((t) => t.id === talentId);
+  const initialTalent = talents.find((t) => t.id === talentId);
+
+  // State for the talent (allows for local editing)
+  const [talent, setTalent] = useState(initialTalent);
 
   if (!talent) {
     return (
@@ -35,13 +39,46 @@ export function TalentRecord({ isDark = false }: TalentRecordProps) {
     );
   }
 
+  // Handler functions for updating talent data
+  const handleUpdateBio = (newBio: string) => {
+    setTalent({ ...talent, bio: newBio });
+  };
+
+  const handleUpdateBirthday = (newBirthday: string) => {
+    const newAge = calculateAge(newBirthday);
+    setTalent({ ...talent, birthday: newBirthday, age: newAge });
+  };
+
+  const handleUpdateLocation = (newLocation: string) => {
+    setTalent({ ...talent, location: newLocation });
+  };
+
+  const handleUpdateGender = (newGender: "Male" | "Female") => {
+    setTalent({ ...talent, gender: newGender });
+  };
+
+  const handleUpdateVerticals = (newVerticals: string[]) => {
+    setTalent({ ...talent, verticals: newVerticals });
+  };
+
   return (
     <div className="p-8 w-full">
-      {/* Talent Info Card */}
-      <TalentInfoCard talent={talent} isDark={isDark} />
-
-      {/* Submenu */}
+      {/* Submenu - Above the name */}
       <TalentSubmenu activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Talent Info Card */}
+      <TalentInfoCard
+        talent={talent}
+        isDark={isDark}
+        onUpdateBio={handleUpdateBio}
+        onUpdateBirthday={handleUpdateBirthday}
+        onUpdateLocation={handleUpdateLocation}
+        onUpdateGender={handleUpdateGender}
+        onUpdateVerticals={handleUpdateVerticals}
+      />
+
+      {/* Brands Section */}
+      <BrandsSection isDark={isDark} />
 
       {/* Tab Content */}
       {activeTab === "overview" && (

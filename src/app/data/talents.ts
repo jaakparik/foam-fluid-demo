@@ -30,6 +30,7 @@ export interface Talent {
   location: string;
   gender: "Male" | "Female";
   age: number;
+  birthday: string; // Format: "YYYY-MM-DD"
   bio: string;
   followers: SocialMetrics;
   connections: SocialConnections;
@@ -65,6 +66,34 @@ function calculateTotal(instagram: string, tiktok: string, youtube: string, snap
   return formatFollowerCount(total);
 }
 
+// Helper function to calculate age from birthday
+export function calculateAge(birthday: string): number {
+  if (!birthday) return 0;
+  
+  const birthDate = new Date(birthday);
+  
+  // Check if date is valid
+  if (isNaN(birthDate.getTime())) return 0;
+  
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  
+  return age;
+}
+
+// Helper function to calculate birthday from age (approximation)
+function calculateBirthdayFromAge(age: number): string {
+  const today = new Date();
+  const birthYear = today.getFullYear() - age;
+  // Use July 1st as a default birthday for existing data
+  return `${birthYear}-07-01`;
+}
+
 export const talents: Talent[] = [
   {
     id: 1,
@@ -72,6 +101,7 @@ export const talents: Talent[] = [
     location: "Los Angeles, CA, USA",
     gender: "Female",
     age: 27,
+    birthday: calculateBirthdayFromAge(27),
     bio: "LA-based lifestyle creator blending fashion, travel, and wellness tips with candid behind-the-scenes moments of her everyday life. Advocates for slow fashion and mindful living.",
     followers: {
       instagram: "482.3k",
@@ -108,6 +138,7 @@ export const talents: Talent[] = [
     location: "Austin, TX, USA",
     gender: "Male",
     age: 34,
+    birthday: calculateBirthdayFromAge(34),
     bio: "Tech-savvy dad and drone videographer capturing Texas landscapes. Known for cinematic reels, gear reviews, and relatable family vlogs.",
     followers: {
       instagram: "243.9k",
@@ -144,6 +175,7 @@ export const talents: Talent[] = [
     location: "Seattle, WA, USA",
     gender: "Female",
     age: 22,
+    birthday: calculateBirthdayFromAge(22),
     bio: "Vegan recipe creator and plant enthusiast sharing budget-friendly, eco-conscious meals. Loves storytelling through colorful, short-form cooking videos.",
     followers: {
       instagram: "512.6k",
@@ -180,6 +212,7 @@ export const talents: Talent[] = [
     location: "Chicago, IL, USA",
     gender: "Male",
     age: 28,
+    birthday: calculateBirthdayFromAge(28),
     bio: "Streetwear stylist and sneaker collector documenting the culture of Chicago's fashion scene. Drops style guides and thrift store treasure hunts weekly.",
     followers: {
       instagram: "325.8k",
@@ -216,6 +249,7 @@ export const talents: Talent[] = [
     location: "San Francisco, CA, USA",
     gender: "Female",
     age: 25,
+    birthday: calculateBirthdayFromAge(25),
     bio: "UX designer by day, cozy gamer by night. Streams indie games, shares home office setups, and posts practical design tips for aspiring creatives.",
     followers: {
       instagram: "188.7k",
@@ -252,6 +286,7 @@ export const talents: Talent[] = [
     location: "Nashville, TN, USA",
     gender: "Male",
     age: 31,
+    birthday: calculateBirthdayFromAge(31),
     bio: "Country singer-songwriter sharing acoustic sessions, songwriting tips, and behind-the-scenes tour life. Fans love his heartfelt storytelling through music.",
     followers: {
       instagram: "402.5k",
@@ -288,6 +323,7 @@ export const talents: Talent[] = [
     location: "Miami, FL, USA",
     gender: "Female",
     age: 29,
+    birthday: calculateBirthdayFromAge(29),
     bio: "Fitness coach and former pro dancer creating dance-based workouts, wellness challenges, and mindset motivation. Passionate about body positivity.",
     followers: {
       instagram: "678.3k",
@@ -324,6 +360,7 @@ export const talents: Talent[] = [
     location: "Denver, CO, USA",
     gender: "Male",
     age: 26,
+    birthday: calculateBirthdayFromAge(26),
     bio: "Adventure photographer hiking across the Rockies. Posts jaw-dropping landscapes, camping tips, and outdoor gear reviews.",
     followers: {
       instagram: "351.1k",
@@ -360,6 +397,7 @@ export const talents: Talent[] = [
     location: "New York, NY, USA",
     gender: "Female",
     age: 24,
+    birthday: calculateBirthdayFromAge(24),
     bio: "Aspiring chef documenting her journey through culinary school in NYC. Combines classic techniques with modern street food inspiration.",
     followers: {
       instagram: "429.5k",
@@ -396,6 +434,7 @@ export const talents: Talent[] = [
     location: "Portland, OR, USA",
     gender: "Male",
     age: 21,
+    birthday: calculateBirthdayFromAge(21),
     bio: "Minimalist lifestyle vlogger documenting his vanlife journey through the Pacific Northwest. Focuses on sustainability, travel, and simple living tips.",
     followers: {
       instagram: "193.4k",
@@ -432,6 +471,7 @@ export const talents: Talent[] = [
     location: "Brooklyn, NY, USA",
     gender: "Female",
     age: 30,
+    birthday: calculateBirthdayFromAge(30),
     bio: "Fashion blogger turned capsule wardrobe coach, helping busy women simplify their closets without sacrificing style. Weekly outfit formulas and styling hacks.",
     followers: {
       instagram: "512.4k",
@@ -468,6 +508,7 @@ export const talents: Talent[] = [
     location: "Phoenix, AZ, USA",
     gender: "Male",
     age: 25,
+    birthday: calculateBirthdayFromAge(25),
     bio: "Travel vlogger exploring hidden gems across the American Southwest. Known for cinematic drone shots and budget-friendly adventure tips.",
     followers: {
       instagram: "387.2k",
@@ -504,6 +545,7 @@ export const talents: Talent[] = [
     location: "Raleigh, NC, USA",
     gender: "Female",
     age: 21,
+    birthday: calculateBirthdayFromAge(21),
     bio: "College lifestyle influencer sharing productivity tips, study vlogs, and dorm-friendly meal ideas. Advocates for mental health awareness on campus.",
     followers: {
       instagram: "275.8k",
@@ -540,6 +582,7 @@ export const talents: Talent[] = [
     location: "Orlando, FL, USA",
     gender: "Male",
     age: 32,
+    birthday: calculateBirthdayFromAge(32),
     bio: "Disney parks content creator sharing insider tips, ride POVs, and hidden secrets from theme parks. Known for cheerful and family-friendly style.",
     followers: {
       instagram: "621.9k",
@@ -576,6 +619,7 @@ export const talents: Talent[] = [
     location: "San Diego, CA, USA",
     gender: "Female",
     age: 26,
+    birthday: calculateBirthdayFromAge(26),
     bio: "Surfer and ocean conservation advocate. Shares surf tutorials, travel vlogs, and environmental activism content.",
     followers: {
       instagram: "442.3k",
@@ -612,6 +656,7 @@ export const talents: Talent[] = [
     location: "Boston, MA, USA",
     gender: "Male",
     age: 29,
+    birthday: calculateBirthdayFromAge(29),
     bio: "Self-taught chef and food stylist making gourmet recipes approachable for home cooks. Known for mouth-watering plating and step-by-step videos.",
     followers: {
       instagram: "518.2k",
@@ -648,6 +693,7 @@ export const talents: Talent[] = [
     location: "Dallas, TX, USA",
     gender: "Female",
     age: 24,
+    birthday: calculateBirthdayFromAge(24),
     bio: "Fitness and lifestyle creator focusing on HIIT workouts, smoothie recipes, and personal growth challenges. Energetic and uplifting content.",
     followers: {
       instagram: "386.7k",
@@ -684,6 +730,7 @@ export const talents: Talent[] = [
     location: "Salt Lake City, UT, USA",
     gender: "Male",
     age: 27,
+    birthday: calculateBirthdayFromAge(27),
     bio: "Outdoor survivalist teaching wilderness skills, gear setup, and minimalistic camping techniques. Blends educational content with adventure storytelling.",
     followers: {
       instagram: "451.2k",
@@ -720,6 +767,7 @@ export const talents: Talent[] = [
     location: "Minneapolis, MN, USA",
     gender: "Female",
     age: 20,
+    birthday: calculateBirthdayFromAge(20),
     bio: "Art student sharing digital painting tutorials, sketchbook tours, and creative challenges. Encourages followers to find joy in everyday creativity.",
     followers: {
       instagram: "209.8k",
@@ -756,6 +804,7 @@ export const talents: Talent[] = [
     location: "Portland, ME, USA",
     gender: "Male",
     age: 33,
+    birthday: calculateBirthdayFromAge(33),
     bio: "Chef-turned-forager documenting wild food recipes, sustainable sourcing tips, and culinary experiments from the Maine coast.",
     followers: {
       instagram: "328.4k",
@@ -792,6 +841,7 @@ export const talents: Talent[] = [
     location: "Denver, CO, USA",
     gender: "Female",
     age: 16,
+    birthday: calculateBirthdayFromAge(16),
     bio: "High schooler sharing goofy GRWM videos, braces-friendly snack hacks, and funny moments from her everyday life.",
     followers: {
       instagram: "148.2k",
@@ -828,6 +878,7 @@ export const talents: Talent[] = [
     location: "Chicago, IL, USA",
     gender: "Female",
     age: 27,
+    birthday: calculateBirthdayFromAge(27),
     bio: "Career coach and business vlogger teaching personal branding, LinkedIn strategies, and workplace confidence.",
     followers: {
       instagram: "-",
@@ -864,6 +915,7 @@ export const talents: Talent[] = [
     location: "Portland, OR, USA",
     gender: "Female",
     age: 24,
+    birthday: calculateBirthdayFromAge(24),
     bio: "Alternative style creator mixing thrift store finds, bold hair colors, and sustainability tips with edgy street photography.",
     followers: {
       instagram: "351.2k",
@@ -900,6 +952,7 @@ export const talents: Talent[] = [
     location: "Dearborn, MI, USA",
     gender: "Female",
     age: 25,
+    birthday: calculateBirthdayFromAge(25),
     bio: "Modest fashion and lifestyle creator celebrating culture, faith, and modern style with inspiring lookbooks and life tips.",
     followers: {
       instagram: "284.5k",
@@ -936,6 +989,7 @@ export const talents: Talent[] = [
     location: "Phoenix, AZ, USA",
     gender: "Female",
     age: 28,
+    birthday: calculateBirthdayFromAge(28),
     bio: "Mom sharing parenting hacks, baby milestones, and relatable mom-life humor in short-form videos and vlogs.",
     followers: {
       instagram: "398.1k",
@@ -972,6 +1026,7 @@ export const talents: Talent[] = [
     location: "Nashville, TN, USA",
     gender: "Female",
     age: 23,
+    birthday: calculateBirthdayFromAge(23),
     bio: "Music vlogger documenting behind-the-scenes sessions, songwriting, and indie artist interviews.",
     followers: {
       instagram: "275.3k",
@@ -1008,6 +1063,7 @@ export const talents: Talent[] = [
     location: "Miami, FL, USA",
     gender: "Female",
     age: 26,
+    birthday: calculateBirthdayFromAge(26),
     bio: "Party host and lifestyle influencer curating epic events, outfit inspo, and tips for creating memorable nights with friends.",
     followers: {
       instagram: "512.8k",
@@ -1044,6 +1100,7 @@ export const talents: Talent[] = [
     location: "Los Angeles, CA, USA",
     gender: "Female",
     age: 24,
+    birthday: calculateBirthdayFromAge(24),
     bio: "Streetwear influencer mixing high-fashion pieces with casual LA vibes, spotlighting emerging brands and sneaker drops.",
     followers: {
       instagram: "336.7k",
@@ -1080,6 +1137,7 @@ export const talents: Talent[] = [
     location: "Atlanta, GA, USA",
     gender: "Female",
     age: 44,
+    birthday: calculateBirthdayFromAge(44),
     bio: "Home cook and recipe blogger sharing Southern classics, family-friendly meals, and kitchen tips.",
     followers: {
       instagram: "189.4k",
@@ -1116,6 +1174,7 @@ export const talents: Talent[] = [
     location: "Kansas City, MO, USA",
     gender: "Male",
     age: 16,
+    birthday: calculateBirthdayFromAge(16),
     bio: "High schooler sharing funny school-life skits, gaming clips, and teen trends.",
     followers: {
       instagram: "121.8k",
@@ -1152,6 +1211,7 @@ export const talents: Talent[] = [
     location: "Phoenix, AZ, USA",
     gender: "Male",
     age: 17,
+    birthday: calculateBirthdayFromAge(17),
     bio: "Comedy creator posting awkward teen moments, braces humor, and relatable high school life.",
     followers: {
       instagram: "108.5k",
@@ -1188,6 +1248,7 @@ export const talents: Talent[] = [
     location: "Dallas, TX, USA",
     gender: "Male",
     age: 24,
+    birthday: calculateBirthdayFromAge(24),
     bio: "Casual lifestyle creator vlogging coffee runs, travel days, and apartment life.",
     followers: {
       instagram: "201.9k",
@@ -1224,6 +1285,7 @@ export const talents: Talent[] = [
     location: "Seattle, WA, USA",
     gender: "Male",
     age: 26,
+    birthday: calculateBirthdayFromAge(26),
     bio: "Grooming and skincare influencer sharing routines, beard care tips, and self-confidence content.",
     followers: {
       instagram: "278.6k",
@@ -1260,6 +1322,7 @@ export const talents: Talent[] = [
     location: "New York, NY, USA",
     gender: "Male",
     age: 27,
+    birthday: calculateBirthdayFromAge(27),
     bio: "Fashion creator blending oversized coats with sleek streetwear looks, inspired by NYC culture.",
     followers: {
       instagram: "392.4k",
@@ -1296,6 +1359,7 @@ export const talents: Talent[] = [
     location: "Miami, FL, USA",
     gender: "Male",
     age: 25,
+    birthday: calculateBirthdayFromAge(25),
     bio: "Car enthusiast and lifestyle vlogger sharing supercar content, maintenance tips, and road trip diaries.",
     followers: {
       instagram: "334.5k",
@@ -1332,6 +1396,7 @@ export const talents: Talent[] = [
     location: "Boston, MA, USA",
     gender: "Male",
     age: 30,
+    birthday: calculateBirthdayFromAge(30),
     bio: "Public speaking coach and entrepreneur sharing tips on confidence, career growth, and business networking.",
     followers: {
       instagram: "245.6k",
@@ -1368,6 +1433,7 @@ export const talents: Talent[] = [
     location: "San Francisco, CA, USA",
     gender: "Male",
     age: 28,
+    birthday: calculateBirthdayFromAge(28),
     bio: "Tech reviewer and app developer creating tutorials, gadget breakdowns, and startup life diaries.",
     followers: {
       instagram: "198.2k",
@@ -1404,6 +1470,7 @@ export const talents: Talent[] = [
     location: "Austin, TX, USA",
     gender: "Male",
     age: 38,
+    birthday: calculateBirthdayFromAge(38),
     bio: "Marketing strategist helping brands scale through storytelling and social campaigns. Shares productivity tips and leadership advice.",
     followers: {
       instagram: "154.3k",
@@ -1440,6 +1507,7 @@ export const talents: Talent[] = [
     location: "Los Angeles, CA, USA",
     gender: "Male",
     age: 26,
+    birthday: calculateBirthdayFromAge(26),
     bio: "Foodie and lifestyle creator posting espresso recipes, coffee shop reviews, and cooking experiments.",
     followers: {
       instagram: "311.4k",
@@ -1476,6 +1544,7 @@ export const talents: Talent[] = [
     location: "San Diego, CA, USA",
     gender: "Male",
     age: 27,
+    birthday: calculateBirthdayFromAge(27),
     bio: "Lifestyle vlogger sharing minimalist apartment tours, morning routines, and laid-back California living.",
     followers: {
       instagram: "-",
@@ -1512,6 +1581,7 @@ export const talents: Talent[] = [
     location: "Portland, OR, USA",
     gender: "Male",
     age: 29,
+    birthday: calculateBirthdayFromAge(29),
     bio: "Marathon runner and fitness coach posting training tips, race-day vlogs, and healthy eating guides.",
     followers: {
       instagram: "292.4k",
@@ -1548,6 +1618,7 @@ export const talents: Talent[] = [
     location: "New York, NY, USA",
     gender: "Male",
     age: 28,
+    birthday: calculateBirthdayFromAge(28),
     bio: "Travel and lifestyle influencer with a focus on hidden city gems, cafe hopping, and style inspiration.",
     followers: {
       instagram: "243.5k",
@@ -1584,6 +1655,7 @@ export const talents: Talent[] = [
     location: "Chicago, IL, USA",
     gender: "Male",
     age: 27,
+    birthday: calculateBirthdayFromAge(27),
     bio: "Menswear content creator known for sharp streetwear looks and editorial-style photoshoots.",
     followers: {
       instagram: "398.4k",
@@ -1620,6 +1692,7 @@ export const talents: Talent[] = [
     location: "Washington, DC, USA",
     gender: "Male",
     age: 33,
+    birthday: calculateBirthdayFromAge(33),
     bio: "Remote work expert and productivity coach offering tips on video calls, digital workflows, and personal branding.",
     followers: {
       instagram: "178.5k",
@@ -1656,6 +1729,7 @@ export const talents: Talent[] = [
     location: "Tampa, FL, USA",
     gender: "Male",
     age: 72,
+    birthday: calculateBirthdayFromAge(72),
     bio: "Retired teacher sharing wisdom, storytelling videos, and DIY woodworking projects.",
     followers: {
       instagram: "85.2k",

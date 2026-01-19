@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* Hanken Grotesk utility classes */
+.hanken-grotesk-thin {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.hanken-grotesk-extralight {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.hanken-grotesk-light {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.hanken-grotesk-regular {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.hanken-grotesk-medium {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.hanken-grotesk-semibold {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hanken-grotesk-bold {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.hanken-grotesk-extrabold {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.hanken-grotesk-black {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Fragment Mono utility classes */
+.fragment-mono-regular {
+  font-family: "Fragment Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fragment-mono-regular-italic {
+  font-family: "Fragment Mono", monospace;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Roboto Mono utility classes */
+.roboto-mono-thin {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-mono-extralight {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.roboto-mono-light {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-mono-regular {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-mono-medium {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-mono-semibold {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.roboto-mono-bold {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-mono-thin-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-mono-extralight-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.roboto-mono-light-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-mono-regular-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-mono-medium-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-mono-semibold-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.roboto-mono-bold-italic {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Shorthand mono class */
+.mono {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
