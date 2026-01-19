@@ -1,11 +1,10 @@
 import { TabButton } from "./TabButton";
-import svgPaths from "@/imports/svg-ov1kx2hcox";
+import { RefreshCw } from 'foamicons';
 import { InstagramIcon } from "../icons/InstagramIcon";
 import { TikTokIcon } from "../icons/TikTokIcon";
 import { YouTubeIcon } from "../icons/YouTubeIcon";
 import { SnapIcon } from "../icons/SnapIcon";
 import { ShareIcon } from "../icons/ShareIcon";
-import reloadSvgPaths from "@/imports/svg-nvulfnq6oe";
 
 interface PlatformsDataMenuProps {
   activeTab?: string;
@@ -21,36 +20,11 @@ function ReloadButton() {
         console.log("Reload clicked");
       }}
     >
-      <div className="relative shrink-0 size-[16px]">
-        <svg
-          className="block size-full"
-          fill="none"
-          preserveAspectRatio="none"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d={reloadSvgPaths.p25edad20}
-            stroke="#54657D"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <path
-            d={reloadSvgPaths.p27931500}
-            stroke="#54657D"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <path
-            d={reloadSvgPaths.p1d2e4780}
-            stroke="#54657D"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-        </svg>
-      </div>
+      <RefreshCw 
+        size={16} 
+        strokeWidth="var(--icon-stroke-width)" 
+        style={{ color: '#54657D' }} 
+      />
     </button>
   );
 }

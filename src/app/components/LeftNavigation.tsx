@@ -5,6 +5,11 @@ import Home from "../../imports/Home";
 import CogwheelIcon from "../../imports/Cogwheel";
 import BellIcon from "../../imports/Bell";
 import Frame26 from "../../imports/Frame26";
+import { PersonsIcon } from "./icons/PersonsIcon";
+import { PicturesIcon } from "./icons/PicturesIcon";
+import { ListIcon } from "./icons/ListIcon";
+import { MediaPacksIcon } from "./icons/MediaPacksIcon";
+import { EyeIcon } from "./icons/EyeIcon";
 import imgAvatar from "../../assets/ee58b14a9045d0e024e00d41f0adefe967cdb999.png";
 import imgAvatar1 from "../../assets/ddc25c8c5e86bf6e74b0a0b2c4b59dafbe137784.png";
 import imgAvatar2 from "../../assets/60668e2e2279b5f5a3e31741327e568f55f28a7b.png";
@@ -42,282 +47,6 @@ function NavSeparator() {
       <div className="size-full">
         <div className="size-full" />
       </div>
-    </div>
-  );
-}
-
-function Persons() {
-  return (
-    <div
-      className="relative shrink-0 size-[20px]"
-      data-name="Persons"
-    >
-      <svg
-        className="block size-full"
-        fill="none"
-        preserveAspectRatio="none"
-        viewBox="0 0 20 20"
-      >
-        <g id="Persons">
-          <circle
-            cx="7.09595"
-            cy="5.6543"
-            id="Ellipse 98"
-            r="2.1582"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <circle
-            cx="14.043"
-            cy="6.15906"
-            id="Ellipse 99"
-            r="1.65344"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <path
-            d={svgPaths.p3376ba00}
-            id="Rectangle 520"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <g id="Mask group">
-            <mask
-              height="7"
-              id="mask0_1_2470"
-              maskUnits="userSpaceOnUse"
-              style={{ maskType: "alpha" }}
-              width="9"
-              x="10"
-              y="9"
-            >
-              <path
-                d={svgPaths.p20cc8d00}
-                id="Rectangle 521"
-                stroke="var(--stroke-0, #54657D)"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.2"
-              />
-            </mask>
-            <g mask="url(#mask0_1_2470)">
-              <path
-                d={svgPaths.p34a575c0}
-                fill="var(--fill-0, #54657D)"
-                id="Rectangle 561"
-              />
-            </g>
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Pictures() {
-  return (
-    <div
-      className="relative shrink-0 size-[20px]"
-      data-name="Pictures"
-    >
-      <svg
-        className="block size-full"
-        fill="none"
-        preserveAspectRatio="none"
-        viewBox="0 0 20 20"
-      >
-        <g id="Pictures">
-          <path
-            d={svgPaths.p330caa00}
-            id="Rectangle 519"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <path
-            d={svgPaths.p2d219ae0}
-            id="Vector 624"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <circle
-            cx="13.9062"
-            cy="7.125"
-            fill="var(--fill-0, #54657D)"
-            id="Ellipse 45"
-            r="0.9375"
-          />
-          <path
-            d={svgPaths.p1c72f400}
-            id="Vector 684"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeWidth="1.2"
-          />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function List() {
-  return (
-    <div
-      className="relative shrink-0 size-[20px]"
-      data-name="List"
-    >
-      <svg
-        className="block size-full"
-        fill="none"
-        preserveAspectRatio="none"
-        viewBox="0 0 20 20"
-      >
-        <g id="List">
-          <path
-            d="M6.875 5H16.25"
-            id="Vector 662"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <path
-            d="M6.875 10H16.25"
-            id="Vector 664"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <path
-            d="M6.875 15H16.25"
-            id="Vector 663"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <circle
-            cx="3.4375"
-            cy="5"
-            fill="var(--fill-0, #54657D)"
-            id="Ellipse 70"
-            r="0.9375"
-          />
-          <circle
-            cx="3.4375"
-            cy="10"
-            fill="var(--fill-0, #54657D)"
-            id="Ellipse 71"
-            r="0.9375"
-          />
-          <circle
-            cx="3.4375"
-            cy="15"
-            fill="var(--fill-0, #54657D)"
-            id="Ellipse 72"
-            r="0.9375"
-          />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function MediaPacks() {
-  return (
-    <div
-      className="relative shrink-0 size-[20px]"
-      data-name="Media packs"
-    >
-      <svg
-        className="block size-full"
-        fill="none"
-        preserveAspectRatio="none"
-        viewBox="0 0 20 20"
-      >
-        <g id="Media packs">
-          <g id="Group 10">
-            <circle
-              cx="12.3863"
-              cy="6.24462"
-              id="Ellipse 99"
-              r="1.16616"
-              stroke="var(--stroke-0, #54657D)"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.2"
-            />
-            <path
-              d={svgPaths.p3cf4d3c0}
-              id="Rectangle 521"
-              stroke="var(--stroke-0, #54657D)"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.2"
-            />
-          </g>
-          <path
-            d={svgPaths.p1daa3500}
-            fill="var(--stroke-0, #54657D)"
-            id="Rectangle 559"
-          />
-          <path
-            d={svgPaths.p1693900}
-            id="Rectangle 560"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Eye() {
-  return (
-    <div
-      className="relative shrink-0 size-[20px]"
-      data-name="Eye"
-    >
-      <svg
-        className="block size-full"
-        fill="none"
-        preserveAspectRatio="none"
-        viewBox="0 0 20 20"
-      >
-        <g id="Eye">
-          <path
-            d={svgPaths.p490a880}
-            id="Ellipse 38"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-          <circle
-            cx="10"
-            cy="10"
-            id="Ellipse 30"
-            r="2.5"
-            stroke="var(--stroke-0, #54657D)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.2"
-          />
-        </g>
-      </svg>
     </div>
   );
 }
@@ -934,24 +663,28 @@ export default function LeftNavigation() {
   const mainNavItems = [
     { icon: <div className="size-[20px]"><Home /></div>, label: "Dashboard", id: "Dashboard" },
     {
-      icon: <Persons />,
+      icon: <PersonsIcon isDark={isDark} isActive={activeNav === "Talent Directory"} />,
       label: "Talent Directory",
       count: "456",
       id: "Talent Directory",
     },
     {
-      icon: <Pictures />,
+      icon: <PicturesIcon isDark={isDark} isActive={activeNav === "Content Feed"} />,
       label: "Content Feed",
       id: "Content Feed",
     },
-    { icon: <List />, label: "Lists", id: "Lists" },
+    { 
+      icon: <ListIcon isDark={isDark} isActive={activeNav === "Lists"} />, 
+      label: "Lists", 
+      id: "Lists" 
+    },
     {
-      icon: <MediaPacks />,
+      icon: <MediaPacksIcon isDark={isDark} isActive={activeNav === "Media Kits"} />,
       label: "Media Kits",
       id: "Media Kits",
     },
     {
-      icon: <Eye />,
+      icon: <EyeIcon isDark={isDark} isActive={activeNav === "Scouting Watchlists"} />,
       label: "Scouting Watchlists",
       id: "Scouting Watchlists",
     },

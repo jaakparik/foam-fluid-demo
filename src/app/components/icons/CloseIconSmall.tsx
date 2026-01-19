@@ -1,4 +1,4 @@
-import svgPaths from "../../../imports/svg-4ljqsnxugt";
+import { CircleX } from 'foamicons';
 
 interface CloseIconSmallProps {
   color?: string;
@@ -6,25 +6,10 @@ interface CloseIconSmallProps {
 
 export function CloseIconSmall({ color }: CloseIconSmallProps) {
   return (
-    <div className="relative shrink-0 size-[16px]">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g>
-          <path 
-            d={svgPaths.p1678a280} 
-            stroke={color || "var(--mention-pill-icon)"} 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="1.2" 
-          />
-          <path 
-            d={svgPaths.p1560fc00} 
-            stroke={color || "var(--mention-pill-icon)"} 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="1.2" 
-          />
-        </g>
-      </svg>
-    </div>
+    <CircleX
+      size={16}
+      strokeWidth="var(--icon-stroke-width)"
+      style={{ color: color || 'var(--mention-pill-icon)' }}
+    />
   );
 }

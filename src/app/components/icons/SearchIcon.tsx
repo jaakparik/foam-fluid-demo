@@ -1,4 +1,4 @@
-import svgPaths from "../../../imports/svg-q7ixiy5xgy";
+import { Search } from 'foamicons';
 
 interface SearchIconProps {
   className?: string;
@@ -7,17 +7,13 @@ interface SearchIconProps {
 
 export function SearchIcon({ className = "size-[16px]", color }: SearchIconProps) {
   return (
-    <div className={className}>
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g>
-          <path
-            clipRule="evenodd"
-            d={svgPaths.p7a69800}
-            fill={color || "var(--search-text-default)"}
-            fillRule="evenodd"
-          />
-        </g>
-      </svg>
-    </div>
+    <Search
+      size={16}
+      strokeWidth="var(--icon-stroke-width)"
+      className={className}
+      style={{
+        color: color || 'var(--search-text-default)',
+      }}
+    />
   );
 }
