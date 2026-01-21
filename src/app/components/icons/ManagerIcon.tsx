@@ -1,4 +1,4 @@
-import { User } from 'foamicons';
+import { UserDuotone } from 'foamicons';
 
 interface ManagerIconProps {
   className?: string;
@@ -9,7 +9,7 @@ export function ManagerIcon({ className = "", isDark = false }: ManagerIconProps
   const strokeColor = isDark ? "#b7bdc7" : "#54657d";
   
   return (
-    <User
+    <UserDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       className={className}

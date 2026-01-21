@@ -1,4 +1,4 @@
-import { CircleX } from 'foamicons';
+import { CircleXDuotone } from 'foamicons';
 
 interface CloseIconSmallProps {
   color?: string;
@@ -6,7 +6,7 @@ interface CloseIconSmallProps {
 
 export function CloseIconSmall({ color }: CloseIconSmallProps) {
   return (
-    <CircleX
+    <CircleXDuotone
       size={16}
       strokeWidth="var(--icon-stroke-width)"
       style={{ color: color || 'var(--mention-pill-icon)' }}

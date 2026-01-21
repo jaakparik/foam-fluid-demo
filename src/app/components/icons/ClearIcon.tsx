@@ -1,4 +1,4 @@
-import { CircleX } from 'foamicons';
+import { CircleXDuotone } from 'foamicons';
 
 interface ClearIconProps {
   className?: string;
@@ -6,7 +6,7 @@ interface ClearIconProps {
 
 export function ClearIcon({ className = "size-[16px]" }: ClearIconProps) {
   return (
-    <CircleX
+    <CircleXDuotone
       size={16}
       strokeWidth="var(--icon-stroke-width)"
       className={className}

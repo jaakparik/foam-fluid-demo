@@ -5,7 +5,7 @@ import { CloseIconSmall } from "./icons/CloseIconSmall";
 import Filters from "../../imports/Filters";
 import ChevronDown from "../../imports/ChevronDown";
 import svgPaths from "../../imports/svg-cv6j95wo49";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useLayoutEffect } from "react";
 import {
   SortDropdown,
   SortState,
@@ -13,6 +13,7 @@ import {
 } from "./SortDropdown";
 import { ViewSelector, ViewMode } from "./ViewSelector";
 import { SortIcon } from "./icons/SortIcon";
+import { FilterPopover, FilterState } from "./FilterPopover";
 
 type ColumnKey =
   | "name"
@@ -47,6 +48,12 @@ interface QuickFiltersProps {
   onPreciseFiltersToggle?: () => void;
   viewMode?: ViewMode;
   onViewModeChange?: (viewMode: ViewMode) => void;
+  filterState?: FilterState;
+  onFilterStateChange?: (filterState: FilterState) => void;
+  onFilterPopoverOpen?: () => void;
+  filterPopoverInitialTab?: { topLevel?: string; creator?: string; audience?: string };
+  savedFilters?: Array<{ name: string; filterState: any }>;
+  onSavedFilterClick?: (filterState: any) => void;
 }
 
 // Column Visibility Dropdown
@@ -174,6 +181,12 @@ export function QuickFilters({
   onPreciseFiltersToggle = () => {},
   viewMode = "list",
   onViewModeChange = () => {},
+  filterState,
+  onFilterStateChange = () => {},
+  onFilterPopoverOpen = () => {},
+  filterPopoverInitialTab,
+  savedFilters = [],
+  onSavedFilterClick = () => {},
 }: QuickFiltersProps) {
   const [showSortDropdown, setShowSortDropdown] =
     useState(false);
@@ -183,6 +196,20 @@ export function QuickFilters({
   const [selectedTalent, setSelectedTalent] =
     useState("My Talent");
   const sortDropdownRef = useRef<HTMLDivElement>(null);
+  const [showFilterPopover, setShowFilterPopover] = useState(false);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const filterPopoverRef = useRef<HTMLDivElement>(null);
+  const [filterPopoverPosition, setFilterPopoverPosition] = useState({ top: 0, right: 0 });
+
+  // Watch for external triggers to open the popover
+  useEffect(() => {
+    if (filterPopoverInitialTab && 
+        (filterPopoverInitialTab.topLevel || 
+         filterPopoverInitialTab.creator || 
+         filterPopoverInitialTab.audience)) {
+      setShowFilterPopover(true);
+    }
+  }, [filterPopoverInitialTab]);
 
   const handleSortChange = (newState: SortState) => {
     onSortChange(newState);
@@ -218,6 +245,48 @@ export function QuickFilters({
       );
     };
   }, [showSortDropdown]);
+
+  // Position filter popover
+  useLayoutEffect(() => {
+    if (showFilterPopover && filterButtonRef.current && filterPopoverRef.current) {
+      const buttonRect = filterButtonRef.current.getBoundingClientRect();
+      const popoverWidth = 360; // Width of the FilterPopover
+      
+      // Position the popover so its right side aligns with the button's right side
+      setFilterPopoverPosition({
+        top: buttonRect.bottom + window.scrollY + 8,
+        right: window.innerWidth - buttonRect.right + window.scrollX,
+      });
+    }
+  }, [showFilterPopover]);
+
+  // Close filter popover when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        filterPopoverRef.current &&
+        !filterPopoverRef.current.contains(event.target as Node) &&
+        filterButtonRef.current &&
+        !filterButtonRef.current.contains(event.target as Node)
+      ) {
+        setShowFilterPopover(false);
+      }
+    };
+
+    if (showFilterPopover) {
+      document.addEventListener(
+        "mousedown",
+        handleClickOutside,
+      );
+    }
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside,
+      );
+    };
+  }, [showFilterPopover]);
 
   return (
     <div
@@ -271,6 +340,13 @@ export function QuickFilters({
         </button>
 
         {/* Quick Filter Buttons */}
+        {savedFilters.map((savedFilter, index) => (
+          <QuickButton
+            key={index}
+            label={savedFilter.name}
+            onClick={() => onSavedFilterClick(savedFilter.filterState)}
+          />
+        ))}
         <QuickButton
           icon={<InstagramIcon />}
           label="Eng rate"
@@ -278,7 +354,6 @@ export function QuickFilters({
         <QuickButton label="Millenials" />
         <QuickButton label="Female" />
         <QuickButton label="Total Audience" />
-        <QuickButton icon={<PlusIcon />} />
       </div>
 
       {/* Right side - Quick Filter, View Selector, Filters, Sort, and Options */}
@@ -348,19 +423,34 @@ export function QuickFilters({
 
         {/* Filters Button */}
         <button
+          ref={filterButtonRef}
           className="content-stretch flex items-center justify-center p-[6px] rounded-[8px] shrink-0 transition-colors cursor-pointer w-[32px] h-[32px]"
           style={{
-            background: "var(--filter-button-bg)",
+            background: showFilterPopover
+              ? "rgba(58, 73, 95, 0.2)"
+              : "var(--filter-button-bg)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background =
-              "var(--filter-button-bg-hover)";
+            if (!showFilterPopover) {
+              e.currentTarget.style.background =
+                "var(--filter-button-bg-hover)";
+            }
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background =
-              "var(--filter-button-bg)";
+            if (!showFilterPopover) {
+              e.currentTarget.style.background =
+                "var(--filter-button-bg)";
+            } else {
+              e.currentTarget.style.background =
+                "rgba(58, 73, 95, 0.2)";
+            }
           }}
-          onClick={onPreciseFiltersToggle}
+          onClick={() => {
+            setShowFilterPopover(!showFilterPopover);
+            if (!showFilterPopover) {
+              onFilterPopoverOpen();
+            }
+          }}
         >
           <div
             className="size-[20px]"
@@ -393,7 +483,11 @@ export function QuickFilters({
               className="size-[16px]"
               style={{ color: "var(--filter-button-icon)" }}
             >
-              <SortIcon color="currentColor" />
+              <SortIcon 
+                color="currentColor"
+                field={sortState.field}
+                direction={sortState.direction}
+              />
             </div>
           </button>
 
@@ -441,6 +535,26 @@ export function QuickFilters({
           onToggleColumn={onToggleColumn}
           onClose={onCloseDropdown}
         />
+      )}
+
+      {/* Filter Popover */}
+      {showFilterPopover && (
+        <div 
+          className="fixed z-50" 
+          style={{ 
+            top: `${filterPopoverPosition.top}px`, 
+            right: `${filterPopoverPosition.right}px`
+          }}
+          ref={filterPopoverRef}
+        >
+          <FilterPopover 
+            filterState={filterState}
+            onFilterChange={onFilterStateChange}
+            initialTopLevelTab={filterPopoverInitialTab?.topLevel as any}
+            initialCreatorTab={filterPopoverInitialTab?.creator as any}
+            initialAudienceTab={filterPopoverInitialTab?.audience as any}
+          />
+        </div>
       )}
     </div>
   );
@@ -538,9 +652,11 @@ function PlusIcon() {
 function QuickButton({
   icon,
   label,
+  onClick,
 }: {
   icon?: React.ReactNode;
   label?: string;
+  onClick?: () => void;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -554,6 +670,7 @@ function QuickButton({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
     >
       {icon}
       {label && (

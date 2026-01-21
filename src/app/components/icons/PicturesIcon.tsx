@@ -1,4 +1,4 @@
-import { Image } from 'foamicons';
+import { ImageDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function PicturesIcon({ isDark, isActive }: IconProps) {
   return (
-    <Image
+    <ImageDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

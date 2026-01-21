@@ -1,4 +1,4 @@
-import { Eye } from 'foamicons';
+import { EyeDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function EyeIcon({ isDark, isActive }: IconProps) {
   return (
-    <Eye
+    <EyeDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

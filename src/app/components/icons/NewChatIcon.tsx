@@ -1,4 +1,4 @@
-import { Plus } from 'foamicons';
+import { PlusDuotone } from 'foamicons';
 
 interface NewChatIconProps {
   className?: string;
@@ -6,7 +6,7 @@ interface NewChatIconProps {
 
 export function NewChatIcon({ className }: NewChatIconProps) {
   return (
-    <Plus
+    <PlusDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       className={className}

@@ -7,9 +7,11 @@ import { ChartCard } from "../components/ChartCard";
 import { PieChartCard } from "../components/PieChartCard";
 import { CalendarIcon } from "../components/icons/CalendarIcon";
 import { QuickFilters } from "../components/QuickFilters";
-import { useState } from "react";
+import { AppliedFiltersBar, FilterValue } from "../components/AppliedFiltersBar";
+import { useState, useMemo } from "react";
 import { SortState } from "../components/SortDropdown";
 import { ViewMode } from "../components/ViewSelector";
+import { FilterState } from "../components/FilterPopover";
 
 interface TalentDirectoryProps {
   isDark?: boolean;
@@ -24,6 +26,8 @@ export function TalentDirectory({
   });
   const [showPreciseFilters, setShowPreciseFilters] =
     useState(false);
+  const [showEngagementRate, setShowEngagementRate] =
+    useState(false); // Separate state for engagement rate column - can be toggled elsewhere when needed
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [quickFilter, setQuickFilter] = useState("");
   const [showColumnDropdown, setShowColumnDropdown] =
@@ -42,6 +46,26 @@ export function TalentDirectory({
     links: false,
     status: true,
   });
+  
+  const [filterState, setFilterState] = useState<FilterState>({
+    creatorGenderSelection: [],
+    creatorAgeSelection: { min: 12, max: 80 },
+    creatorLocationSelection: [],
+    creatorVerticalsSelection: [],
+    audienceGenderSelection: { gender: null, percentage: 0 },
+    audienceAgeSelection: { ages: [], range: { min: 10, max: 65 } },
+    audienceLocationSelection: null,
+    selectedPlatforms: [],
+    platformConfigurations: {},
+  });
+
+  const [filterPopoverInitialTab, setFilterPopoverInitialTab] = useState<{
+    topLevel?: string;
+    creator?: string;
+    audience?: string;
+  }>({});
+
+  const [savedFilters, setSavedFilters] = useState<Array<{ name: string; filterState: FilterState }>>([]);
 
   const handleToggleColumn = (column: string) => {
     setColumnVisibility((prev) => ({
@@ -52,6 +76,166 @@ export function TalentDirectory({
 
   const handlePreciseFiltersToggle = () => {
     setShowPreciseFilters(!showPreciseFilters);
+  };
+
+  // Generate applied filters for the bar
+  const appliedFilters = useMemo((): FilterValue[] => {
+    const filters: FilterValue[] = [];
+
+    // Creator Gender
+    if (filterState.creatorGenderSelection.length > 0) {
+      filters.push({
+        label: "Gender",
+        operator: "is",
+        values: filterState.creatorGenderSelection.map(g => 
+          g.charAt(0).toUpperCase() + g.slice(1)
+        ),
+        conjunction: "or",
+        filterType: "creator-gender",
+      });
+    }
+
+    // Creator Age
+    if (filterState.creatorAgeSelection.min !== 12 || filterState.creatorAgeSelection.max !== 80) {
+      const ageDesc = filterState.creatorAgeSelection.min === filterState.creatorAgeSelection.max 
+        ? `${filterState.creatorAgeSelection.min}`
+        : `${filterState.creatorAgeSelection.min}-${filterState.creatorAgeSelection.max}`;
+      filters.push({
+        label: "Age",
+        operator: "is",
+        values: [ageDesc],
+        filterType: "creator-age",
+      });
+    }
+
+    // Creator Location
+    if (filterState.creatorLocationSelection.length > 0) {
+      const locationLabels: { [key: string]: string } = {
+        chicago: "Chicago",
+        houston: "Houston",
+        losAngeles: "Los Angeles",
+        newYork: "New York",
+      };
+      filters.push({
+        label: "Location",
+        operator: "is",
+        values: filterState.creatorLocationSelection.map(l => locationLabels[l] || l),
+        conjunction: "or",
+        filterType: "creator-location",
+      });
+    }
+
+    // Creator Verticals
+    if (filterState.creatorVerticalsSelection.length > 0) {
+      filters.push({
+        label: "Verticals",
+        operator: "is",
+        values: filterState.creatorVerticalsSelection.map(v => 
+          v.charAt(0).toUpperCase() + v.slice(1)
+        ),
+        conjunction: "and",
+        filterType: "creator-verticals",
+      });
+    }
+
+    // Audience Gender
+    if (filterState.audienceGenderSelection.gender) {
+      const genderLabel = filterState.audienceGenderSelection.gender.charAt(0).toUpperCase() + 
+        filterState.audienceGenderSelection.gender.slice(1);
+      filters.push({
+        label: "Audience Gender",
+        operator: "is",
+        values: [`${genderLabel} (min. ${filterState.audienceGenderSelection.percentage}%)`],
+        filterType: "audience-gender",
+      });
+    }
+
+    // Audience Age
+    if (filterState.audienceAgeSelection.ages.length > 0) {
+      filters.push({
+        label: "Audience Age",
+        operator: "is",
+        values: filterState.audienceAgeSelection.ages,
+        conjunction: "or",
+        filterType: "audience-age",
+      });
+    }
+
+    // Audience Location
+    if (filterState.audienceLocationSelection) {
+      filters.push({
+        label: "Audience Location",
+        operator: "is",
+        values: [filterState.audienceLocationSelection],
+        filterType: "audience-location",
+      });
+    }
+
+    // Platforms
+    if (filterState.selectedPlatforms.length > 0) {
+      filters.push({
+        label: "Platforms",
+        operator: "includes",
+        values: filterState.selectedPlatforms,
+        conjunction: "or",
+        filterType: "platforms",
+      });
+    }
+
+    return filters;
+  }, [filterState]);
+
+  const handleClearFilters = () => {
+    setFilterState({
+      creatorGenderSelection: [],
+      creatorAgeSelection: { min: 12, max: 80 },
+      creatorLocationSelection: [],
+      creatorVerticalsSelection: [],
+      audienceGenderSelection: { gender: null, percentage: 0 },
+      audienceAgeSelection: { ages: [], range: { min: 10, max: 65 } },
+      audienceLocationSelection: null,
+      selectedPlatforms: [],
+      platformConfigurations: {},
+    });
+  };
+
+  const handleFilterClick = (filterType: string) => {
+    // Parse the filter type and set the appropriate tab
+    const [category, subcategory] = filterType.split('-');
+    
+    const tabConfig: { topLevel?: string; creator?: string; audience?: string } = {};
+    
+    if (category === 'creator') {
+      tabConfig.topLevel = 'Creator';
+      if (subcategory === 'gender') tabConfig.creator = 'Gender';
+      else if (subcategory === 'age') tabConfig.creator = 'Age';
+      else if (subcategory === 'location') tabConfig.creator = 'Location';
+      else if (subcategory === 'verticals') tabConfig.creator = 'Verticals';
+    } else if (category === 'audience') {
+      tabConfig.topLevel = 'Audience';
+      if (subcategory === 'gender') tabConfig.audience = 'Gender';
+      else if (subcategory === 'age') tabConfig.audience = 'Age';
+      else if (subcategory === 'location') tabConfig.audience = 'Location';
+    } else if (category === 'platforms') {
+      tabConfig.topLevel = 'Platforms';
+    }
+    
+    setFilterPopoverInitialTab(tabConfig);
+    // Trigger the filter button to open the popover
+    setShowPreciseFilters(true);
+  };
+
+  const handleFilterPopoverOpen = () => {
+    // Reset tab config when manually opening
+    setFilterPopoverInitialTab({});
+  };
+
+  const handleSaveFilter = (name: string) => {
+    setSavedFilters([...savedFilters, { name, filterState: { ...filterState } }]);
+  };
+
+  const handleDeleteSavedFilters = () => {
+    setSavedFilters([]);
   };
 
   return (
@@ -154,12 +338,30 @@ export function TalentDirectory({
                 }
                 viewMode={viewMode}
                 onViewModeChange={setViewMode}
+                filterState={filterState}
+                onFilterStateChange={setFilterState}
+                onFilterPopoverOpen={handleFilterPopoverOpen}
+                filterPopoverInitialTab={filterPopoverInitialTab}
+                savedFilters={savedFilters}
+                onSavedFilterClick={setFilterState}
               />
+              {appliedFilters.length > 0 && (
+                <AppliedFiltersBar
+                  resultCount={934}
+                  resultType="creators"
+                  filters={appliedFilters}
+                  onClear={handleClearFilters}
+                  onFilterClick={handleFilterClick}
+                  onSaveFilter={handleSaveFilter}
+                  hasSavedFilters={savedFilters.length > 0}
+                  onDeleteSavedFilters={handleDeleteSavedFilters}
+                />
+              )}
               <TalentTable
                 isDark={isDark}
                 sortState={sortState}
                 onSortChange={setSortState}
-                showEngagementRate={showPreciseFilters}
+                showEngagementRate={showEngagementRate}
                 quickFilter={quickFilter}
                 columnVisibility={columnVisibility}
               />
@@ -188,7 +390,27 @@ export function TalentDirectory({
               }
               viewMode={viewMode}
               onViewModeChange={setViewMode}
+              filterState={filterState}
+              onFilterStateChange={setFilterState}
+              onFilterPopoverOpen={handleFilterPopoverOpen}
+              filterPopoverInitialTab={filterPopoverInitialTab}
+              savedFilters={savedFilters}
+              onSavedFilterClick={setFilterState}
             />
+            {appliedFilters.length > 0 && (
+              <div className="mt-[16px]">
+                <AppliedFiltersBar
+                  resultCount={934}
+                  resultType="creators"
+                  filters={appliedFilters}
+                  onClear={handleClearFilters}
+                  onFilterClick={handleFilterClick}
+                  onSaveFilter={handleSaveFilter}
+                  hasSavedFilters={savedFilters.length > 0}
+                  onDeleteSavedFilters={handleDeleteSavedFilters}
+                />
+              </div>
+            )}
             <div className="mt-[16px]">
               <TalentGrid
                 isDark={isDark}

@@ -1,4 +1,4 @@
-import { Sparkles } from 'foamicons';
+import { SparklesDuotone } from 'foamicons';
 
 interface MagicIconProps {
   className?: string;
@@ -6,7 +6,7 @@ interface MagicIconProps {
 
 export function MagicIcon({ className }: MagicIconProps) {
   return (
-    <Sparkles
+    <SparklesDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       className={className}

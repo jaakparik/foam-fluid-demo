@@ -1,4 +1,4 @@
-import { History } from 'foamicons';
+import { HistoryDuotone } from 'foamicons';
 
 interface RecentChatsIconProps {
   className?: string;
@@ -6,7 +6,7 @@ interface RecentChatsIconProps {
 
 export function RecentChatsIcon({ className }: RecentChatsIconProps) {
   return (
-    <History
+    <HistoryDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       className={className}

@@ -1,4 +1,4 @@
-import { Volume2 } from 'foamicons';
+import { Volume2Duotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function AudioIcon({ isDark, isActive }: IconProps) {
   return (
-    <Volume2
+    <Volume2Duotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

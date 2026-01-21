@@ -7,7 +7,10 @@ import { ChartCard } from "../components/ChartCard";
 import { BarChartCard } from "../components/BarChartCard";
 import { CalendarIcon } from "../components/icons/CalendarIcon";
 import { MediaKitsQuickFilters } from "../components/MediaKitsQuickFilters";
+import { TalentSelectionModal } from "../components/TalentSelectionModal";
+import { Talent } from "../data/talents";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SortState } from "../components/SortDropdown";
 import { ViewMode } from "../components/ViewSelector";
 
@@ -18,6 +21,8 @@ interface MediaKitsProps {
 export function MediaKits({
   isDark = false,
 }: MediaKitsProps) {
+  const navigate = useNavigate();
+  const [showTalentModal, setShowTalentModal] = useState(false);
   const [sortState, setSortState] = useState<SortState>({
     field: "name",
     direction: "asc",
@@ -40,6 +45,10 @@ export function MediaKits({
     links: false,
     status: false,
   });
+
+  const handleSelectTalent = (talent: Talent) => {
+    navigate(`/media-kits/new?talent=${talent.id}`);
+  };
 
   const handleToggleColumn = (column: string) => {
     setColumnVisibility((prev) => ({
@@ -111,7 +120,12 @@ export function MediaKits({
         className="sticky top-0 z-20 px-[32px] pb-[16px]"
         style={{ background: "var(--page-background)" }}
       >
-        <TalentFilterBar isDark={isDark} title="Media Kits" count="1,832" />
+        <TalentFilterBar 
+          isDark={isDark} 
+          title="Media Kits" 
+          count="1,832"
+          onAddClick={() => setShowTalentModal(true)}
+        />
       </div>
 
       {/* Content Area - Table or Grid */}
@@ -168,6 +182,14 @@ export function MediaKits({
           </div>
         ) : null}
       </div>
+
+      {/* Talent Selection Modal */}
+      <TalentSelectionModal
+        isOpen={showTalentModal}
+        onClose={() => setShowTalentModal(false)}
+        onSelectTalent={handleSelectTalent}
+        isDark={isDark}
+      />
     </div>
   );
 }

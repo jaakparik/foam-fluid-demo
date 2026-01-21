@@ -1,4 +1,4 @@
-import { Pin } from 'foamicons';
+import { PinDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function PinFilledIcon({ isDark, isActive }: IconProps) {
   return (
-    <Pin
+    <PinDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       fill="currentColor"

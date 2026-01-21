@@ -1,4 +1,4 @@
-import { Cog } from 'foamicons';
+import { CogDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function CogwheelIcon({ isDark, isActive }: IconProps) {
   return (
-    <Cog
+    <CogDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

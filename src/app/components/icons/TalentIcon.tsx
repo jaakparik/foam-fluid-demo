@@ -1,4 +1,4 @@
-import { User } from 'foamicons';
+import { UserDuotone } from 'foamicons';
 
 interface TalentIconProps {
   className?: string;
@@ -6,7 +6,7 @@ interface TalentIconProps {
 
 export function TalentIcon({ className }: TalentIconProps) {
   return (
-    <User
+    <UserDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       className={className}

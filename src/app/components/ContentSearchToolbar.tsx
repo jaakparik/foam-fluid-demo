@@ -366,7 +366,11 @@ export function ContentSearchToolbar({
                 className="size-[16px]"
                 style={{ color: "var(--filter-button-icon)" }}
               >
-                <SortIcon color="currentColor" />
+                <SortIcon 
+                  color="currentColor"
+                  field={sortState.field}
+                  direction={sortState.direction}
+                />
               </div>
             </button>
 

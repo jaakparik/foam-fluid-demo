@@ -1,4 +1,4 @@
-import { LogOut } from 'foamicons';
+import { LogOutDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function SignoutIcon({ isDark, isActive }: IconProps) {
   return (
-    <LogOut
+    <LogOutDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

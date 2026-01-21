@@ -1,4 +1,4 @@
-import { Bell } from 'foamicons';
+import { BellDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function BellIcon({ isDark, isActive }: IconProps) {
   return (
-    <Bell
+    <BellDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

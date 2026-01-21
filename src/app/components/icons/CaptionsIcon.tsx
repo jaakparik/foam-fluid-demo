@@ -1,4 +1,4 @@
-import { MessageSquare } from 'foamicons';
+import { MessageSquareDuotone } from 'foamicons';
 
 interface IconProps {
   isDark: boolean;
@@ -7,7 +7,7 @@ interface IconProps {
 
 export function CaptionsIcon({ isDark, isActive }: IconProps) {
   return (
-    <MessageSquare
+    <MessageSquareDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{

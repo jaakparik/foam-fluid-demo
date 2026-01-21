@@ -1,8 +1,8 @@
-import { Link } from 'foamicons';
+import { LinkDuotone } from 'foamicons';
 
 export function LinkIcon() {
   return (
-    <Link
+    <LinkDuotone
       size={16}
       strokeWidth="var(--icon-stroke-width)"
       style={{ color: '#8B94A2' }}

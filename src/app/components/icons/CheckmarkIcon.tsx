@@ -1,8 +1,8 @@
-import { Checkmark } from 'foamicons';
+import { CheckmarkDuotone } from 'foamicons';
 
 export function CheckmarkIcon() {
   return (
-    <Checkmark
+    <CheckmarkDuotone
       size={20}
       strokeWidth="var(--icon-stroke-width)"
       style={{ color: '#54657D' }}

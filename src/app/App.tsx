@@ -1,8 +1,10 @@
 import LeftNavigation from "./components/LeftNavigationDark";
 import { TopBar } from "./components/TopBar";
 import { AssistPanel } from "./components/AssistPanel";
+import { StickyTopMenu } from "./components/StickyTopMenu";
 import { TalentDirectory } from "./pages/TalentDirectory";
 import { MediaKits } from "./pages/MediaKits";
+import { MediaKitEditor } from "./pages/MediaKitEditor";
 import { TalentRecord } from "./pages/TalentRecord";
 import { ContentSearchResults } from "./pages/ContentSearchResults";
 import { useState } from "react";
@@ -34,12 +36,16 @@ export default function App() {
             <div
               className="flex-1 overflow-y-auto rounded-tl-[8px] rounded-tr-[8px]"
               style={{ background: "var(--page-background)" }}
+              data-scroll-container="main"
             >
+              <StickyTopMenu isDark={isDark} />
               <Routes>
                 <Route path="/" element={<TalentRecord isDark={isDark} />} />
                 <Route path="/directory" element={<TalentDirectory isDark={isDark} />} />
                 <Route path="/talent/:id" element={<TalentRecord isDark={isDark} />} />
                 <Route path="/media-kits" element={<MediaKits isDark={isDark} />} />
+                <Route path="/media-kits/new" element={<MediaKitEditor isDark={isDark} />} />
+                <Route path="/media-kits/edit/:id" element={<MediaKitEditor isDark={isDark} />} />
                 <Route path="/content/nike" element={<ContentSearchResults isDark={isDark} />} />
               </Routes>
             </div>
