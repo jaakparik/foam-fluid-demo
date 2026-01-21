@@ -1,4 +1,4 @@
-import { SlidersHorizontalDuotone, ShareDuotone } from "foamicons";
+import { SlidersHorizontalDuotone, ShareDuotone } from "./icons/DuotoneIcons";
 
 interface MediaKitTitleBarProps {
   talentName: string;

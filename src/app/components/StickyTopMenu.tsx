@@ -8,7 +8,7 @@ import { MediaPacksIcon } from "./icons/MediaPacksIcon";
 import { EyeIcon } from "./icons/EyeIcon";
 import { BellIcon } from "./icons/BellIcon";
 import { CogwheelIcon } from "./icons/CogwheelIcon";
-import { SearchDuotone } from "foamicons";
+import { SearchDuotone } from "./icons/SearchDuotone";
 
 interface StickyTopMenuProps {
   isDark?: boolean;

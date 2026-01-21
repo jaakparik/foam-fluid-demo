@@ -1,6 +1,6 @@
 import { useState, useEffect, RefObject } from "react";
 import Frame5603 from "./Frame5603";
-import { ChartColumnSquareDuotone, ImageDuotone, ReelDuotone, StarDuotone, UsersDuotone } from "foamicons";
+import { ChartColumnSquareDuotone, ImageDuotone, ReelDuotone, StarDuotone, UsersDuotone } from "./icons/DuotoneIcons";
 
 interface MediaKitSelectionBarProps {
   scrollContainerRef?: RefObject<HTMLDivElement>;

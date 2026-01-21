@@ -1,4 +1,4 @@
-import { ChartColumnSquareDuotone, ImageDuotone, ReelDuotone, StarDuotone } from "foamicons";
+import { ChartColumnSquareDuotone, ImageDuotone, ReelDuotone, StarDuotone } from "./icons/DuotoneIcons";
 
 interface Frame5603Props {
   onPlatformAnalyticsClick?: () => void;
