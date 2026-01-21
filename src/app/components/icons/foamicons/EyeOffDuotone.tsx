@@ -1,0 +1,51 @@
+import { createFoamicon } from './createFoamicon';
+import type { IconNode } from './types';
+
+const __iconNode: IconNode = [
+  [
+    'path',
+    {
+      d: 'M6.08844 7.41004C6.06943 7.47169 6.05333 7.53461 6.04028 7.59865L6.08844 7.41004ZM6.08844 7.41004C6.29471 6.74093 6.84265 6.22165 7.52854 6.05591M9.50083 6.67805C9.81151 7.0305 10 7.49325 10 8.00002C10 9.10459 9.10457 10 8 10C7.49772 10 7.03868 9.81486 6.68742 9.50908',
+      stroke: 'currentColor',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      key: 'ltrg2i'
+    }
+  ],
+  [
+    'path',
+    {
+      d: 'M13.6667 2.5L11.9859 4.18124M2.5 13.67L4.23127 11.9382M4.23127 11.9382L4.24047 11.9483M4.23127 11.9382L11.9859 4.18124M10.0596 3.31191C9.40844 3.11459 8.7168 3 8 3C4.13401 3 1 6.33333 1 8C1 8.7316 1.60388 9.78435 2.60847 10.7353M4.24047 11.9483C4.27747 11.9696 4.31469 11.9906 4.35216 12.0114M4.24047 11.9483L4.35216 12.0114M4.35216 12.0114C5.41446 12.6016 6.66349 13 8 13C11.866 13 15 9.66667 15 8C15 6.97666 13.8185 5.325 12.0115 4.20239L11.9859 4.18124',
+      stroke: 'currentColor',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      key: 'ejf52n'
+    }
+  ],
+  [
+    'path',
+    {
+      d: 'M12.0117 4.20215C13.8187 5.32476 15 6.97668 15 8C15 9.66667 11.866 13 8 13C6.66366 13 5.41475 12.6018 4.35254 12.0117C4.31508 11.9909 4.27723 11.9695 4.24023 11.9482L4.23145 11.9385L6.67383 9.49414C7.02698 9.80782 7.4905 10 8 10C9.10457 10 10 9.10457 10 8C10 7.4905 9.80782 7.02698 9.49414 6.67383L11.9863 4.18164L12.0117 4.20215Z',
+      fill: 'var(--foamicon-secondary-color, currentColor)',
+      style: {
+        fillOpacity: 'var(--foamicon-secondary-opacity, 0.25)'
+      },
+      key: 'pdg9v7'
+    }
+  ]
+];
+
+/**
+ * @component @name EyeOffDuotone
+ * @description Foamicon SVG icon component, renders a `<svg>` element
+ * @preview ![img](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYuMDg4NDQgNy40MTAwNEM2LjA2OTQzIDcuNDcxNjkgNi4wNTMzMyA3LjUzNDYxIDYuMDQwMjggNy41OTg2NUw2LjA4ODQ0IDcuNDEwMDRaTTYuMDg4NDQgNy40MTAwNEM2LjI5NDcxIDYuNzQwOTMgNi44NDI2NSA2LjIyMTY1IDcuNTI4NTQgNi4wNTU5MU05LjUwMDgzIDYuNjc4MDVDOS44MTE1MSA3LjAzMDUgMTAgNy40OTMyNSAxMCA4LjAwMDAyQzEwIDkuMTA0NTkgOS4xMDQ1NyAxMCA4IDEwQzcuNDk3NzIgMTAgNy4wMzg2OCA5LjgxNDg2IDYuNjg3NDIgOS41MDkwOCIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTMuNjY2NyAyLjVMMTEuOTg1OSA0LjE4MTI0TTIuNSAxMy42N0w0LjIzMTI3IDExLjkzODJNNC4yMzEyNyAxMS45MzgyTDQuMjQwNDcgMTEuOTQ4M000LjIzMTI3IDExLjkzODJMMTEuOTg1OSA0LjE4MTI0TTEwLjA1OTYgMy4zMTE5MUM5LjQwODQ0IDMuMTE0NTkgOC43MTY4IDMgOCAzQzQuMTM0MDEgMyAxIDYuMzMzMzMgMSA4QzEgOC43MzE2IDEuNjAzODggOS43ODQzNSAyLjYwODQ3IDEwLjczNTNNNC4yNDA0NyAxMS45NDgzQzQuMjc3NDcgMTEuOTY5NiA0LjMxNDY5IDExLjk5MDYgNC4zNTIxNiAxMi4wMTE0TTQuMjQwNDcgMTEuOTQ4M0w0LjM1MjE2IDEyLjAxMTRNNC4zNTIxNiAxMi4wMTE0QzUuNDE0NDYgMTIuNjAxNiA2LjY2MzQ5IDEzIDggMTNDMTEuODY2IDEzIDE1IDkuNjY2NjcgMTUgOEMxNSA2Ljk3NjY2IDEzLjgxODUgNS4zMjUgMTIuMDExNSA0LjIwMjM5TDExLjk4NTkgNC4xODEyNCIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIuMDExNyA0LjIwMjE1QzEzLjgxODcgNS4zMjQ3NiAxNSA2Ljk3NjY4IDE1IDhDMTUgOS42NjY2NyAxMS44NjYgMTMgOCAxM0M2LjY2MzY2IDEzIDUuNDE0NzUgMTIuNjAxOCA0LjM1MjU0IDEyLjAxMTdDNC4zMTUwOCAxMS45OTA5IDQuMjc3MjMgMTEuOTY5NSA0LjI0MDIzIDExLjk0ODJMNC4yMzE0NSAxMS45Mzg1TDYuNjczODMgOS40OTQxNEM3LjAyNjk4IDkuODA3ODIgNy40OTA1IDEwIDggMTBDOS4xMDQ1NyAxMCAxMCA5LjEwNDU3IDEwIDhDMTAgNy40OTA1IDkuODA3ODIgNy4wMjY5OCA5LjQ5NDE0IDYuNjczODNMMTEuOTg2MyA0LjE4MTY0TDEyLjAxMTcgNC4yMDIxNVoiIGZpbGw9ImN1cnJlbnRDb2xvciIgZmlsbC1vcGFjaXR5PSIwLjI1Ii8+Cjwvc3ZnPgo=)
+ * @see https://foamicons.com/icons/eye-off-duotone
+ *
+ * @param {object} props - Icon props extending SVGProps<SVGSVGElement>
+ * @param {number | string} [props.size=16] - Icon size (width and height)
+ * @param {number | string} [props.strokeWidth=1] - Stroke width
+ * @param {boolean} [props.absoluteStrokeWidth=false] - Keep stroke width constant regardless of size
+ * @param {string} [props.color='currentColor'] - Icon color (stroke color)
+ * @returns {React.ReactElement} SVG icon element
+ */
+export const EyeOffDuotone = createFoamicon('EyeOffDuotone', __iconNode);

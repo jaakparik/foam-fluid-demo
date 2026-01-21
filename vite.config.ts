@@ -14,6 +14,8 @@ export default defineConfig({
     alias: {
       // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
+      // Alias foamicons to local copy to avoid external dependency
+      'foamicons': path.resolve(__dirname, './src/foamicons.ts'),
     },
   },
 })

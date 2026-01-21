@@ -1,0 +1,40 @@
+import { createFoamicon } from './createFoamicon';
+import type { IconNode } from './types';
+
+const __iconNode: IconNode = [
+  [
+    'path',
+    {
+      d: 'M12.7422 6.40626L12.7054 6.40626L10.0572 6.40626C9.89175 6.40626 9.78143 6.27747 9.78143 6.13046L9.78143 3.64775C9.78143 2.52596 8.60447 2.47079 8.03441 2.5076C7.86893 2.52594 7.75861 2.65473 7.77696 2.82021C7.94244 6.03846 6.32408 7.0683 5.47821 7.38093C5.18394 7.49138 5 7.76719 5 8.07979L5 12.1072C5 13.5784 6.47123 13.5784 6.47123 13.5784L11.6204 13.5784C12.356 13.5784 13.0917 13.0267 12.9629 12.5118C12.9261 12.3647 12.9629 12.2175 13.018 12.0889L13.2387 11.6843C13.3306 11.5003 13.349 11.298 13.2387 11.1142C13.1467 10.9303 13.1467 10.7097 13.257 10.5257L13.5513 10.0476C13.6433 9.91879 13.6616 9.75331 13.6248 9.60619L13.5145 9.10963C13.4593 8.90733 13.5328 8.70505 13.6616 8.55789L13.8456 8.37394C13.9375 8.28197 13.9927 8.1533 14.011 8.0245C14.2135 6.6637 12.9261 6.44307 12.7422 6.40626Z',
+      stroke: 'currentColor',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      key: 'cqsug1'
+    }
+  ],
+  [
+    'path',
+    {
+      d: 'M4.37048 7.5L3.12952 7.5C2.76986 7.5 2.5 7.77869 2.5 8.10963L2.5 12.9687C2.5 13.317 2.78778 13.5784 3.12952 13.5784L4.37048 13.5784C4.73014 13.5784 5 13.2997 5 12.9687L5 8.10963C5 7.77882 4.71222 7.5 4.37048 7.5Z',
+      stroke: 'currentColor',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      key: 'wlox6g'
+    }
+  ]
+];
+
+/**
+ * @component @name ThumbsUp
+ * @description Foamicon SVG icon component, renders a `<svg>` element
+ * @preview ![img](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjc0MjIgNi40MDYyNkwxMi43MDU0IDYuNDA2MjZMMTAuMDU3MiA2LjQwNjI2QzkuODkxNzUgNi40MDYyNiA5Ljc4MTQzIDYuMjc3NDcgOS43ODE0MyA2LjEzMDQ2TDkuNzgxNDMgMy42NDc3NUM5Ljc4MTQzIDIuNTI1OTYgOC42MDQ0NyAyLjQ3MDc5IDguMDM0NDEgMi41MDc2QzcuODY4OTMgMi41MjU5NCA3Ljc1ODYxIDIuNjU0NzMgNy43NzY5NiAyLjgyMDIxQzcuOTQyNDQgNi4wMzg0NiA2LjMyNDA4IDcuMDY4MyA1LjQ3ODIxIDcuMzgwOTNDNS4xODM5NCA3LjQ5MTM4IDUgNy43NjcxOSA1IDguMDc5NzlMNSAxMi4xMDcyQzUgMTMuNTc4NCA2LjQ3MTIzIDEzLjU3ODQgNi40NzEyMyAxMy41Nzg0TDExLjYyMDQgMTMuNTc4NEMxMi4zNTYgMTMuNTc4NCAxMy4wOTE3IDEzLjAyNjcgMTIuOTYyOSAxMi41MTE4QzEyLjkyNjEgMTIuMzY0NyAxMi45NjI5IDEyLjIxNzUgMTMuMDE4IDEyLjA4ODlMMTMuMjM4NyAxMS42ODQzQzEzLjMzMDYgMTEuNTAwMyAxMy4zNDkgMTEuMjk4IDEzLjIzODcgMTEuMTE0MkMxMy4xNDY3IDEwLjkzMDMgMTMuMTQ2NyAxMC43MDk3IDEzLjI1NyAxMC41MjU3TDEzLjU1MTMgMTAuMDQ3NkMxMy42NDMzIDkuOTE4NzkgMTMuNjYxNiA5Ljc1MzMxIDEzLjYyNDggOS42MDYxOUwxMy41MTQ1IDkuMTA5NjNDMTMuNDU5MyA4LjkwNzMzIDEzLjUzMjggOC43MDUwNSAxMy42NjE2IDguNTU3ODlMMTMuODQ1NiA4LjM3Mzk0QzEzLjkzNzUgOC4yODE5NyAxMy45OTI3IDguMTUzMyAxNC4wMTEgOC4wMjQ1QzE0LjIxMzUgNi42NjM3IDEyLjkyNjEgNi40NDMwNyAxMi43NDIyIDYuNDA2MjZaIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik00LjM3MDQ4IDcuNUwzLjEyOTUyIDcuNUMyLjc2OTg2IDcuNSAyLjUgNy43Nzg2OSAyLjUgOC4xMDk2M0wyLjUgMTIuOTY4N0MyLjUgMTMuMzE3IDIuNzg3NzggMTMuNTc4NCAzLjEyOTUyIDEzLjU3ODRMNC4zNzA0OCAxMy41Nzg0QzQuNzMwMTQgMTMuNTc4NCA1IDEzLjI5OTcgNSAxMi45Njg3TDUgOC4xMDk2M0M1IDcuNzc4ODIgNC43MTIyMiA3LjUgNC4zNzA0OCA3LjVaIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=)
+ * @see https://foamicons.com/icons/thumbs-up
+ *
+ * @param {object} props - Icon props extending SVGProps<SVGSVGElement>
+ * @param {number | string} [props.size=16] - Icon size (width and height)
+ * @param {number | string} [props.strokeWidth=1] - Stroke width
+ * @param {boolean} [props.absoluteStrokeWidth=false] - Keep stroke width constant regardless of size
+ * @param {string} [props.color='currentColor'] - Icon color (stroke color)
+ * @returns {React.ReactElement} SVG icon element
+ */
+export const ThumbsUp = createFoamicon('ThumbsUp', __iconNode);
