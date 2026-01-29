@@ -11,10 +11,10 @@ function Sort() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -51,10 +51,10 @@ function Sort1() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -75,10 +75,10 @@ function Sort2() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -99,10 +99,10 @@ function Sort3() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -148,10 +148,10 @@ function Sort4() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -206,10 +206,10 @@ function Sort5() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -259,10 +259,10 @@ function Sort6() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -297,10 +297,10 @@ function Sort7() {
     <div className="relative shrink-0 size-[20px]" data-name="Sort">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sort">
-          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82743f0} id="Vector 644" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.45844 4.58336V13.75" id="Vector 646" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1419a000} id="Vector 647" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3e4b3c00} id="Vector 648" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

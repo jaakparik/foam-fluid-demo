@@ -13,7 +13,7 @@ export const Icon = forwardRef<SVGSVGElement, IconComponentProps>(
     {
       color = 'currentColor',
       size = DEFAULT_SIZE,
-      strokeWidth = 1,
+      strokeWidth = 'var(--icon-stroke-width, 1)',
       absoluteStrokeWidth,
       className = '',
       iconNode,
@@ -22,8 +22,8 @@ export const Icon = forwardRef<SVGSVGElement, IconComponentProps>(
       ...rest
     },
     ref
-  ) =>
-    createElement(
+  ) => {
+    return createElement(
       'svg',
       {
         ref,
@@ -33,9 +33,7 @@ export const Icon = forwardRef<SVGSVGElement, IconComponentProps>(
         viewBox: '0 0 16 16',
         fill: 'none',
         stroke: color,
-        strokeWidth: absoluteStrokeWidth
-          ? (Number(strokeWidth) * DEFAULT_SIZE) / Number(size)
-          : strokeWidth,
+        style: rest.style || {},
         className: ['foamicon', `foamicon-${iconName}`, className]
           .filter(Boolean)
           .join(' '),
@@ -46,7 +44,8 @@ export const Icon = forwardRef<SVGSVGElement, IconComponentProps>(
         ...iconNode.map(([tag, attrs]) => createElement(tag, attrs)),
         ...(Array.isArray(children) ? children : children ? [children] : []),
       ]
-    )
+    );
+  }
 );
 
 Icon.displayName = 'Icon';

@@ -1,4 +1,4 @@
-import { UserDuotone } from 'foamicons';
+import { User } from './foamicons/User';
 
 interface TalentIconProps {
   className?: string;
@@ -6,9 +6,9 @@ interface TalentIconProps {
 
 export function TalentIcon({ className }: TalentIconProps) {
   return (
-    <UserDuotone
+    <User
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       className={className}
       style={{ color: 'currentColor' }}
     />

@@ -1,11 +1,11 @@
-import { CalendarDuotone } from 'foamicons';
+import { Calendar } from './foamicons/Calendar';
 
 export function CalendarIcon() {
   return (
-    <CalendarDuotone
+    <Calendar
       className="filter-card-icon"
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'var(--filter-card-icon)' }}
     />
   );

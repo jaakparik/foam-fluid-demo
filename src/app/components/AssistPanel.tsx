@@ -285,7 +285,7 @@ export function AssistPanel({
                     <path
                       d="M15 5L5 15M5 5L15 15"
                       stroke="currentColor"
-                      strokeWidth="1.2"
+                      strokeWidth="var(--icon-stroke-width)"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />

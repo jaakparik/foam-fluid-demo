@@ -44,7 +44,7 @@ export function SortIcon({
       <div style={{ opacity }}>
         <ArrowDownUpDuotone
           size={16}
-          strokeWidth="var(--icon-stroke-width)"
+
           style={{ color }}
         />
       </div>
@@ -83,7 +83,7 @@ export function SortIcon({
     <div style={{ opacity }}>
       <IconComponent
         size={16}
-        strokeWidth="var(--icon-stroke-width)"
+
         style={{ color }}
       />
     </div>

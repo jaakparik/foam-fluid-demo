@@ -1,4 +1,5 @@
-import { SlidersHorizontalDuotone, ShareDuotone } from "./icons/DuotoneIcons";
+import { SlidersHorizontal } from "./icons/foamicons/SlidersHorizontal";
+import { Share } from "./icons/foamicons/Share";
 
 interface MediaKitTitleBarProps {
   talentName: string;
@@ -11,7 +12,7 @@ function ButtonSecondary() {
       data-name="button-secondary"
     >
       <div className="size-[16px]" style={{ color: "#54657D" }}>
-        <SlidersHorizontalDuotone size={16} strokeWidth="var(--icon-stroke-width)" />
+        <SlidersHorizontal size={16} strokeWidth="var(--icon-stroke-width)" />
       </div>
     </button>
   );
@@ -24,7 +25,7 @@ function ButtonPrimary() {
       data-name="button-primary"
     >
       <div className="size-[20px]" style={{ color: "white" }}>
-        <ShareDuotone size={20} strokeWidth="var(--icon-stroke-width)" />
+        <Share size={20} strokeWidth="var(--icon-stroke-width)" />
       </div>
     </button>
   );

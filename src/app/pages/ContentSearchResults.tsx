@@ -139,6 +139,7 @@ export function ContentSearchResults({
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleModalConfirm}
         selectedContentCount={selectedContent.size}
+        selectedContentIds={Array.from(selectedContent)}
       />
     </div>
   );

@@ -27,8 +27,8 @@ function Sad() {
     <div className="relative shrink-0 size-[20px]" data-name="Sad">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Sad">
-          <circle cx="10" cy="10" id="Ellipse 107" r="6.875" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3902f100} id="Ellipse 108" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <circle cx="10" cy="10" id="Ellipse 107" r="6.875" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3902f100} id="Ellipse 108" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           <circle cx="7.8125" cy="8.4375" fill="var(--fill-0, #54657D)" id="Ellipse 109" r="0.9375" />
           <circle cx="12.1875" cy="8.4375" fill="var(--fill-0, #54657D)" id="Ellipse 110" r="0.9375" />
         </g>
@@ -96,8 +96,8 @@ function Link() {
     <div className="relative shrink-0 size-[20px]" data-name="Link">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Link">
-          <path d={svgPaths.p347cde20} id="Rectangle 521" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p38d1e400} id="Vector 627" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeWidth="1.2" />
+          <path d={svgPaths.p347cde20} id="Rectangle 521" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p38d1e400} id="Vector 627" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

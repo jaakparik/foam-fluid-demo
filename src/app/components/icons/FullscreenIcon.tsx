@@ -1,4 +1,4 @@
-import { MaximizeDuotone } from 'foamicons';
+import { Maximize } from './foamicons/Maximize';
 
 interface FullscreenIconProps {
   className?: string;
@@ -6,9 +6,9 @@ interface FullscreenIconProps {
 
 export function FullscreenIcon({ className }: FullscreenIconProps) {
   return (
-    <MaximizeDuotone
+    <Maximize
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       className={className}
       style={{ color: 'currentColor' }}
     />

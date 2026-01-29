@@ -5,7 +5,7 @@ function ChevronDown() {
     <div className="relative size-[20px]" data-name="ChevronDown">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="ChevronDown">
-          <path d={svgPaths.p10cfbff0} id="Vector 644" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p10cfbff0} id="Vector 644" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -89,8 +89,8 @@ function Plus() {
     <div className="relative shrink-0 size-[16px]" data-name="Plus">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
         <g id="Plus">
-          <path d="M8 3.5V12.5" id="Vector 631" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M12.5 8L3.5 8" id="Vector 632" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d="M8 3.5V12.5" id="Vector 631" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M12.5 8L3.5 8" id="Vector 632" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

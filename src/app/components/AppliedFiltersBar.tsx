@@ -51,14 +51,14 @@ function CloseIcon() {
           stroke="#54657D"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="1.2"
+          strokeWidth="var(--icon-stroke-width)"
         />
         <path
           d={svgPaths.p22a90d60}
           stroke="#54657D"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="1.2"
+          strokeWidth="var(--icon-stroke-width)"
         />
       </svg>
     </div>

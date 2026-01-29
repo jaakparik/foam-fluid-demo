@@ -15,7 +15,7 @@ interface MentionPillProps {
 function ListIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="var(--icon-stroke-width)" strokeLinecap="round" />
     </svg>
   );
 }
@@ -23,8 +23,8 @@ function ListIcon() {
 function ContentIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M5 7h6M5 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="var(--icon-stroke-width)" />
+      <path d="M5 7h6M5 10h4" stroke="currentColor" strokeWidth="var(--icon-stroke-width)" strokeLinecap="round" />
     </svg>
   );
 }

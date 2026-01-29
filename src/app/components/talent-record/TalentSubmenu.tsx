@@ -1,5 +1,8 @@
 import { TabButton } from "./TabButton";
-import { HouseDuotone, ImageDuotone, MediaKitsDuotone, SparklesDuotone } from 'foamicons';
+import { House } from "../icons/foamicons/House";
+import { Image } from "../icons/foamicons/Image";
+import { MediaKits } from "../icons/foamicons/MediaKits";
+import { Sparkles } from "../icons/foamicons/Sparkles";
 
 interface TalentSubmenuProps {
   activeTab?: string;
@@ -11,7 +14,7 @@ interface TalentSubmenuProps {
 function OverviewIcon({ isActive }: { isActive: boolean }) {
   const color = isActive ? "#15191E" : "#8B94A2";
   return (
-    <HouseDuotone 
+    <House 
       size={16} 
       strokeWidth="var(--icon-stroke-width)" 
       style={{ color }} 
@@ -22,7 +25,7 @@ function OverviewIcon({ isActive }: { isActive: boolean }) {
 function ContentIcon({ isActive }: { isActive: boolean }) {
   const color = isActive ? "#15191E" : "#8B94A2";
   return (
-    <ImageDuotone 
+    <Image 
       size={16} 
       strokeWidth="var(--icon-stroke-width)" 
       style={{ color }} 
@@ -33,7 +36,7 @@ function ContentIcon({ isActive }: { isActive: boolean }) {
 function MediaKitsIcon({ isActive }: { isActive: boolean }) {
   const color = isActive ? "#15191E" : "#8B94A2";
   return (
-    <MediaKitsDuotone 
+    <MediaKits 
       size={16} 
       strokeWidth="var(--icon-stroke-width)" 
       style={{ color }} 
@@ -44,7 +47,7 @@ function MediaKitsIcon({ isActive }: { isActive: boolean }) {
 function AssistIcon({ isActive }: { isActive: boolean }) {
   const color = isActive ? "#15191E" : "#8B94A2";
   return (
-    <SparklesDuotone 
+    <Sparkles 
       size={20} 
       strokeWidth="var(--icon-stroke-width)" 
       style={{ color }} 

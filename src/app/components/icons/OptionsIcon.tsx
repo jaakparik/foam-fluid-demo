@@ -1,10 +1,10 @@
-import { SlidersHorizontalDuotone } from 'foamicons';
+import { SlidersHorizontal } from './foamicons/SlidersHorizontal';
 
 export function OptionsIcon() {
   return (
-    <SlidersHorizontalDuotone
+    <SlidersHorizontal
       size={16}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'currentColor' }}
     />
   );

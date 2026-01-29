@@ -5,10 +5,10 @@ function Calendar() {
     <div className="relative shrink-0 size-[20px]" data-name="Calendar">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Calendar">
-          <path d="M6.25 3.75V5" id="Vector 165" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M13.75 3.75V5" id="Vector 166" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1f592400} id="Rectangle 519" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3decd200} id="Rectangle 520" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d="M6.25 3.75V5" id="Vector 165" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M13.75 3.75V5" id="Vector 166" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1f592400} id="Rectangle 519" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3decd200} id="Rectangle 520" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

@@ -1,4 +1,4 @@
-import { ListDuotone } from 'foamicons';
+import { List } from './foamicons/List';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function ListIcon({ isDark, isActive }: IconProps) {
   return (
-    <ListDuotone
+    <List
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{
         color: isActive ? 'var(--nav-item-icon-active)' : 'var(--nav-item-icon-default)',
       }}

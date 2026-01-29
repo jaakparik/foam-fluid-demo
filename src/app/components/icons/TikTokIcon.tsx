@@ -6,7 +6,7 @@ export function TikTokIcon({ isDark = false }: { isDark?: boolean }) {
   }
 
   return (
-    <div className="relative shrink-0 size-[20px]">
+    <div className="relative shrink-0 size-[16px]">
       <svg className="block size-full" fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_tiktok)">
           <path d="M6.67253 6.55723V6.02719C6.49063 6.00233 6.30601 5.987 6.11763 5.987C3.84728 5.987 2 7.83428 2 10.105C2 11.4982 2.69592 12.731 3.75803 13.4763C3.07267 12.7405 2.65232 11.755 2.65232 10.6725C2.65232 8.43448 4.44714 6.60934 6.67287 6.55723H6.67253Z" fill="#25F4EE"/>

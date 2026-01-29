@@ -5,9 +5,9 @@ function Magic() {
     <div className="relative shrink-0 size-[20px]" data-name="Magic">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Magic">
-          <path d={svgPaths.p3a24e900} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p228bdf00} id="Vector_2" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p94a3500} id="Vector_3" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p3a24e900} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p228bdf00} id="Vector_2" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p94a3500} id="Vector_3" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

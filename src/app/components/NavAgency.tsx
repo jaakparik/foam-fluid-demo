@@ -19,10 +19,10 @@ export function NavAgency({ isDark }: NavAgencyProps) {
         )}
       </div>
       <p
-        className="font-['Hanken_Grotesk:Bold',sans-serif] font-bold leading-[24px] relative shrink-0 text-[16px] text-nowrap"
+        className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium leading-[24px] relative shrink-0 text-[16px] text-nowrap"
         style={{ color: 'var(--nav-logo-text)' }}
       >
-        Underscore Talent
+        Creative Artists Agency
       </p>
     </div>
   );

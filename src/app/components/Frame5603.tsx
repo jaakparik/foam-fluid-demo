@@ -1,4 +1,7 @@
-import { ChartColumnSquareDuotone, ImageDuotone, ReelDuotone, StarDuotone } from "./icons/DuotoneIcons";
+import { ChartColumnSquare } from "./icons/foamicons/ChartColumnSquare";
+import { Image } from "./icons/foamicons/Image";
+import { Reel } from "./icons/foamicons/Reel";
+import { Star } from "./icons/foamicons/Star";
 
 interface Frame5603Props {
   onPlatformAnalyticsClick?: () => void;
@@ -32,7 +35,7 @@ function Card({ onPlatformAnalyticsClick }: Frame5603Props) {
       data-name="card"
       onClick={onPlatformAnalyticsClick}
     >
-      <ChartColumnSquareDuotone size={20} strokeWidth="1.2" color="#54657D" />
+      <ChartColumnSquare size={20} strokeWidth="var(--icon-stroke-width)" color="#54657D" />
       <p className="text-sm font-medium text-[#54657d] whitespace-nowrap">Platform analytics</p>
     </div>
   );
@@ -45,7 +48,7 @@ function Card1({ onPlatformContentClick }: Frame5603Props) {
       data-name="card"
       onClick={onPlatformContentClick}
     >
-      <ImageDuotone size={20} strokeWidth="1.2" color="#54657D" />
+      <Image size={20} strokeWidth="var(--icon-stroke-width)" color="#54657D" />
       <p className="text-sm font-medium text-[#54657d] whitespace-nowrap">Platform content</p>
     </div>
   );
@@ -69,7 +72,7 @@ function Card3({ onVideoClick }: Frame5603Props) {
       data-name="card"
       onClick={onVideoClick}
     >
-      <ReelDuotone size={20} strokeWidth="1.2" color="#54657D" />
+      <Reel size={20} strokeWidth="var(--icon-stroke-width)" color="#54657D" />
       <p className="text-sm font-medium text-[#54657d] whitespace-nowrap">Video</p>
     </div>
   );
@@ -82,7 +85,7 @@ function Card4({ onBrandExperienceClick }: Frame5603Props) {
       data-name="card"
       onClick={onBrandExperienceClick}
     >
-      <StarDuotone size={20} strokeWidth="1.2" color="#54657D" />
+      <Star size={20} strokeWidth="var(--icon-stroke-width)" color="#54657D" />
       <p className="text-sm font-medium text-[#54657d] whitespace-nowrap">Brand experience</p>
     </div>
   );

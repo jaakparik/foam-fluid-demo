@@ -1,10 +1,10 @@
-import { StarDuotone } from 'foamicons';
+import { Star } from './foamicons/Star';
 
 export function BrandStarIcon() {
   return (
-    <StarDuotone
+    <Star
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'currentColor' }}
     />
   );

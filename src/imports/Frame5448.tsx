@@ -6,8 +6,8 @@ function Close() {
     <div className="relative shrink-0 size-[16px]" data-name="Close">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
         <g id="Close">
-          <path d={svgPaths.p1678a280} id="Vector 631" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p1560fc00} id="Vector 632" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p1678a280} id="Vector 631" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p1560fc00} id="Vector 632" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

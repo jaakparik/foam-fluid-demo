@@ -55,7 +55,7 @@ function Home() {
     <div className="relative shrink-0 size-[20px]" data-name="Home">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Home">
-          <path d={svgPaths.p1811ef00} id="Rectangle 519" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p1811ef00} id="Rectangle 519" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -89,12 +89,12 @@ function Persons() {
     <div className="relative shrink-0 size-[20px]" data-name="Persons">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Persons">
-          <circle cx="7.09595" cy="5.6543" id="Ellipse 98" r="2.1582" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <circle cx="14.043" cy="6.15906" id="Ellipse 99" r="1.65344" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p3376ba00} id="Rectangle 520" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <circle cx="7.09595" cy="5.6543" id="Ellipse 98" r="2.1582" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <circle cx="14.043" cy="6.15906" id="Ellipse 99" r="1.65344" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p3376ba00} id="Rectangle 520" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           <g id="Mask group">
             <mask height="7" id="mask0_1_2470" maskUnits="userSpaceOnUse" style={{ maskType: "alpha" }} width="9" x="10" y="9">
-              <path d={svgPaths.p20cc8d00} id="Rectangle 521" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+              <path d={svgPaths.p20cc8d00} id="Rectangle 521" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
             </mask>
             <g mask="url(#mask0_1_2470)">
               <path d={svgPaths.p34a575c0} fill="var(--fill-0, #54657D)" id="Rectangle 561" />
@@ -132,10 +132,10 @@ function Pictures() {
     <div className="relative shrink-0 size-[20px]" data-name="Pictures">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Pictures">
-          <path d={svgPaths.p330caa00} id="Rectangle 519" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p2d219ae0} id="Vector 624" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p330caa00} id="Rectangle 519" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p2d219ae0} id="Vector 624" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           <circle cx="13.9062" cy="7.125" fill="var(--fill-0, #54657D)" id="Ellipse 45" r="0.9375" />
-          <path d={svgPaths.p1c72f400} id="Vector 684" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeWidth="1.2" />
+          <path d={svgPaths.p1c72f400} id="Vector 684" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -168,9 +168,9 @@ function List() {
     <div className="relative shrink-0 size-[20px]" data-name="List">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="List">
-          <path d="M6.875 5H16.25" id="Vector 662" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.875 10H16.25" id="Vector 664" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M6.875 15H16.25" id="Vector 663" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d="M6.875 5H16.25" id="Vector 662" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.875 10H16.25" id="Vector 664" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M6.875 15H16.25" id="Vector 663" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           <circle cx="3.4375" cy="5" fill="var(--fill-0, #54657D)" id="Ellipse 70" r="0.9375" />
           <circle cx="3.4375" cy="10" fill="var(--fill-0, #54657D)" id="Ellipse 71" r="0.9375" />
           <circle cx="3.4375" cy="15" fill="var(--fill-0, #54657D)" id="Ellipse 72" r="0.9375" />
@@ -207,11 +207,11 @@ function MediaPacks() {
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Media packs">
           <g id="Group 10">
-            <circle cx="12.3863" cy="6.24462" id="Ellipse 99" r="1.16616" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-            <path d={svgPaths.p3cf4d3c0} id="Rectangle 521" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+            <circle cx="12.3863" cy="6.24462" id="Ellipse 99" r="1.16616" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+            <path d={svgPaths.p3cf4d3c0} id="Rectangle 521" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           </g>
           <path d={svgPaths.p1daa3500} fill="var(--stroke-0, #54657D)" id="Rectangle 559" />
-          <path d={svgPaths.p1693900} id="Rectangle 560" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p1693900} id="Rectangle 560" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -244,8 +244,8 @@ function Eye() {
     <div className="relative shrink-0 size-[20px]" data-name="Eye">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Eye">
-          <path d={svgPaths.p490a880} id="Ellipse 38" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <circle cx="10" cy="10" id="Ellipse 30" r="2.5" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p490a880} id="Ellipse 38" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <circle cx="10" cy="10" id="Ellipse 30" r="2.5" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -652,7 +652,7 @@ function Bell() {
     <div className="relative shrink-0 size-[20px]" data-name="Bell">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Bell">
-          <path d={svgPaths.p34917f40} id="Vector" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p34917f40} id="Vector" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -693,8 +693,8 @@ function Cogwheel() {
     <div className="relative shrink-0 size-[20px]" data-name="Cogwheel">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Cogwheel">
-          <path clipRule="evenodd" d={svgPaths.p1e1e1900} fillRule="evenodd" id="Union" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <circle cx="10.0334" cy="9.94791" id="Ellipse 31" r="2.5" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path clipRule="evenodd" d={svgPaths.p1e1e1900} fillRule="evenodd" id="Union" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <circle cx="10.0334" cy="9.94791" id="Ellipse 31" r="2.5" stroke="var(--stroke-0, #54657D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

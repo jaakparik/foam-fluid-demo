@@ -1,10 +1,10 @@
-import { Grid2x2Duotone } from 'foamicons';
+import { Grid2x2 } from './foamicons/Grid2x2';
 
 export function CardsIcon() {
   return (
-    <Grid2x2Duotone
+    <Grid2x2
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: '#8b94a2' }}
     />
   );

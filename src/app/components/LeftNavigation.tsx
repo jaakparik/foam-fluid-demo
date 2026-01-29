@@ -10,6 +10,9 @@ import { PicturesIcon } from "./icons/PicturesIcon";
 import { ListIcon } from "./icons/ListIcon";
 import { MediaPacksIcon } from "./icons/MediaPacksIcon";
 import { EyeIcon } from "./icons/EyeIcon";
+import { Share } from "./icons/foamicons/Share";
+import { ChevronDown } from "./icons/foamicons/ChevronDown";
+import { ChevronUp } from "./icons/foamicons/ChevronUp";
 import imgAvatar from "../../assets/ee58b14a9045d0e024e00d41f0adefe967cdb999.png";
 import imgAvatar1 from "../../assets/ddc25c8c5e86bf6e74b0a0b2c4b59dafbe137784.png";
 import imgAvatar2 from "../../assets/60668e2e2279b5f5a3e31741327e568f55f28a7b.png";
@@ -57,6 +60,7 @@ interface NavItemProps {
   count?: string;
   isActive?: boolean;
   onClick?: () => void;
+  indent?: boolean;
 }
 
 function NavItemWithIcon({
@@ -65,6 +69,7 @@ function NavItemWithIcon({
   count,
   isActive = false,
   onClick,
+  indent = false,
 }: NavItemProps) {
   return (
     <button
@@ -83,7 +88,7 @@ function NavItemWithIcon({
         />
       )}
       <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center px-[8px] py-[4px] relative w-full">
+        <div className={`content-stretch flex gap-[8px] items-center ${indent ? 'pl-[28px]' : 'px-[8px]'} pr-[8px] py-[4px] relative w-full`}>
           <div className="flex items-center justify-center shrink-0 w-[20px]">
             {icon}
           </div>
@@ -98,6 +103,48 @@ function NavItemWithIcon({
                 {count}
               </p>
             )}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+interface CollapsibleNavSectionProps {
+  icon: React.ReactNode;
+  label: string;
+  isExpanded: boolean;
+  onToggle: () => void;
+}
+
+function CollapsibleNavSection({
+  icon,
+  label,
+  isExpanded,
+  onToggle,
+}: CollapsibleNavSectionProps) {
+  return (
+    <button
+      onClick={onToggle}
+      className="relative rounded-[8px] shrink-0 w-full transition-colors text-left hover:bg-[rgba(58,73,95,0.05)]"
+      data-name="nav/item/collapsible"
+    >
+      <div className="flex flex-row items-center size-full">
+        <div className="content-stretch flex gap-[8px] items-center px-[8px] py-[4px] relative w-full">
+          <div className="flex items-center justify-center shrink-0 w-[20px]">
+            {icon}
+          </div>
+          <div className="basis-0 content-stretch flex font-['Hanken_Grotesk:Medium',sans-serif] font-medium grow items-center justify-between min-h-px min-w-px relative shrink-0">
+            <p className="basis-0 grow leading-[20px] min-h-px min-w-px relative shrink-0 text-[14px] text-left text-[#54657d]">
+              {label}
+            </p>
+            <div className="flex items-center justify-center shrink-0 w-[16px]">
+              {isExpanded ? (
+                <ChevronUp size={16} strokeWidth="var(--icon-stroke-width)" color="#54657d" />
+              ) : (
+                <ChevronDown size={16} strokeWidth="var(--icon-stroke-width)" color="#54657d" />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -617,8 +664,8 @@ function ThemeLightIcon() {
     <div className="relative shrink-0 size-[16px]">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
         <g clipPath="url(#clip0_theme_light)" id="ThemeLight">
-          <path d={svgPathsTheme.p2c994080} id="Vector 709" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="1.2" />
-          <circle cx="8" cy="8" id="Ellipse 111" r="2.5" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="1.2" />
+          <path d={svgPathsTheme.p2c994080} id="Vector 709" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="var(--icon-stroke-width)" />
+          <circle cx="8" cy="8" id="Ellipse 111" r="2.5" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="var(--icon-stroke-width)" />
         </g>
         <defs>
           <clipPath id="clip0_theme_light">
@@ -659,6 +706,7 @@ function ThemePicker() {
 export default function LeftNavigation() {
   const [activeNav, setActiveNav] = useState("Talent Directory");
   const [isDark, setIsDark] = useState(false);
+  const [isSharedExpanded, setIsSharedExpanded] = useState(true);
 
   const mainNavItems = [
     { icon: <div className="size-[20px]"><Home /></div>, label: "Dashboard", id: "Dashboard" },
@@ -673,20 +721,28 @@ export default function LeftNavigation() {
       label: "Content Feed",
       id: "Content Feed",
     },
+    {
+      icon: <EyeIcon isDark={isDark} isActive={activeNav === "Scouting Watchlists"} />,
+      label: "Scouting Watchlists",
+      id: "Scouting Watchlists",
+    },
+  ];
+
+  const sharedNavItems = [
+    { 
+      icon: <MediaPacksIcon isDark={isDark} isActive={activeNav === "Media Kits"} />, 
+      label: "Media Kits", 
+      id: "Media Kits" 
+    },
     { 
       icon: <ListIcon isDark={isDark} isActive={activeNav === "Lists"} />, 
       label: "Lists", 
       id: "Lists" 
     },
-    {
-      icon: <MediaPacksIcon isDark={isDark} isActive={activeNav === "Media Kits"} />,
-      label: "Media Kits",
-      id: "Media Kits",
-    },
-    {
-      icon: <EyeIcon isDark={isDark} isActive={activeNav === "Scouting Watchlists"} />,
-      label: "Scouting Watchlists",
-      id: "Scouting Watchlists",
+    { 
+      icon: <ListIcon isDark={isDark} isActive={activeNav === "Roster"} />, 
+      label: "Roster", 
+      id: "Roster" 
     },
   ];
 
@@ -706,6 +762,26 @@ export default function LeftNavigation() {
                   count={item.count}
                   isActive={activeNav === item.id}
                   onClick={() => setActiveNav(item.id)}
+                />
+              ))}
+              
+              {/* Collapsible Shared Section */}
+              <CollapsibleNavSection
+                icon={<Share size={20} strokeWidth="var(--icon-stroke-width)" color="#54657d" />}
+                label="Shared"
+                isExpanded={isSharedExpanded}
+                onToggle={() => setIsSharedExpanded(!isSharedExpanded)}
+              />
+              
+              {/* Shared Nav Items - only show when expanded */}
+              {isSharedExpanded && sharedNavItems.map((item) => (
+                <NavItemWithIcon
+                  key={item.id}
+                  icon={item.icon}
+                  label={item.label}
+                  isActive={activeNav === item.id}
+                  onClick={() => setActiveNav(item.id)}
+                  indent={true}
                 />
               ))}
             </div>

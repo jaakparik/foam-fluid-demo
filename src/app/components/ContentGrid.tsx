@@ -75,17 +75,22 @@ export const getAllContentIds = (): number[] => contentItems.map((item) => item.
 // Export function to get content items by IDs (for thumbnail display)
 // Optionally includes source positions for fly-in animation
 export const getContentItemsByIds = (
-  ids: Set<number>, 
+  ids: Set<number>,
   positions?: Map<number, { x: number; y: number }>
-): { id: number; videoUrl: string; title: string; sourceX?: number; sourceY?: number }[] => {
+): { id: number; videoUrl: string; title: string; creator: string; views: string; reach: string; clicks: string; platform: "instagram" | "tiktok" | "youtube"; sourceX?: number; sourceY?: number }[] => {
   return contentItems
     .filter((item) => ids.has(item.id))
     .map((item) => {
       const pos = positions?.get(item.id);
-      return { 
-        id: item.id, 
-        videoUrl: item.videoUrl, 
+      return {
+        id: item.id,
+        videoUrl: item.videoUrl,
         title: item.title,
+        creator: item.creator,
+        views: item.views,
+        reach: item.reach,
+        clicks: item.clicks,
+        platform: item.platform,
         sourceX: pos?.x,
         sourceY: pos?.y,
       };

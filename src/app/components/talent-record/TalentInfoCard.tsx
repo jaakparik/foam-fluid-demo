@@ -189,7 +189,7 @@ export function TalentInfoCard({
                     stroke="#54657D"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="1.2"
+                    strokeWidth="var(--icon-stroke-width)"
                   />
                 </svg>
               </div>

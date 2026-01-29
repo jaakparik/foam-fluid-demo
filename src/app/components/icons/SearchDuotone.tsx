@@ -1,13 +1,13 @@
 interface SearchDuotoneProps {
   size?: number;
-  strokeWidth?: number;
+  strokeWidth?: number | string;
   color?: string;
   className?: string;
 }
 
 export function SearchDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "currentColor",
   className = "" 
 }: SearchDuotoneProps) {

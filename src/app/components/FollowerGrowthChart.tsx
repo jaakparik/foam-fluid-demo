@@ -246,7 +246,7 @@ export function FollowerGrowthChart() {
                 type="monotone"
                 dataKey="followers2"
                 stroke="#155fef"
-                strokeWidth={1.5}
+                strokeWidth={1}
                 fill="#155fef"
                 fillOpacity={0.5}
               />

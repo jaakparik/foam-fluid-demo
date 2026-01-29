@@ -42,37 +42,37 @@ export function TestNewIcons() {
       
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowDownUpDuotone (current)</div>
-        <ArrowDownUpDuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowDownUpDuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
 
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowUpAZDuotone</div>
-        <ArrowUpAZDuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowUpAZDuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
 
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowUpZADuotone</div>
-        <ArrowUpZADuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowUpZADuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
 
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowDownNarrowWideDuotone</div>
-        <ArrowDownNarrowWideDuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowDownNarrowWideDuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
 
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowDownWideNarrowDuotone</div>
-        <ArrowDownWideNarrowDuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowDownWideNarrowDuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
 
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowUpNarrowWideDuotone</div>
-        <ArrowUpNarrowWideDuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowUpNarrowWideDuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
 
       <div style={rowStyle}>
         <div style={labelStyle}>ArrowUpWideNarrowDuotone</div>
-        <ArrowUpWideNarrowDuotone size={20} strokeWidth="1.5" style={iconStyle} />
+        <ArrowUpWideNarrowDuotone size={20} strokeWidth="var(--icon-stroke-width)" style={iconStyle} />
       </div>
     </div>
   );

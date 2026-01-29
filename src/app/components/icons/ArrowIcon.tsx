@@ -1,10 +1,10 @@
-import { ArrowUpDuotone } from 'foamicons';
+import { ArrowUp } from './foamicons/ArrowUp';
 
 export function ArrowIcon() {
   return (
-    <ArrowUpDuotone
+    <ArrowUp
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: '#54657D' }}
     />
   );

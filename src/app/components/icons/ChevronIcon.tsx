@@ -1,4 +1,4 @@
-import { ChevronDownDuotone } from 'foamicons';
+import { ChevronDown } from './foamicons/ChevronDown';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function ChevronIcon({ isDark, size = 20 }: IconProps) {
   return (
-    <ChevronDownDuotone
+    <ChevronDown
       size={size}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'var(--fill-0, #8B94A2)' }}
     />
   );

@@ -12,14 +12,14 @@ export default function Plus() {
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="1.2"
+          strokeWidth="1"
         />
         <path
           d="M15.625 10L4.375 10"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="1.2"
+          strokeWidth="1"
         />
       </svg>
     </div>

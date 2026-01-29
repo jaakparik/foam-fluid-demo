@@ -28,7 +28,7 @@ function ListIcon({ isActive }: { isActive: boolean }) {
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
           <path
             d="M5.5 8H13"
@@ -36,7 +36,7 @@ function ListIcon({ isActive }: { isActive: boolean }) {
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
           <path
             d="M5.5 12H13"
@@ -44,7 +44,7 @@ function ListIcon({ isActive }: { isActive: boolean }) {
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
           <circle
             cx="2.75"

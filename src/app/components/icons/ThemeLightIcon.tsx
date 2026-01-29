@@ -1,10 +1,10 @@
-import { SunDuotone } from 'foamicons';
+import { Sun } from './foamicons/Sun';
 
 export function ThemeLightIcon() {
   return (
-    <SunDuotone
+    <Sun
       size={16}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'var(--stroke-0, #8B94A2)' }}
     />
   );

@@ -1,5 +1,5 @@
 import { TabButton } from "./TabButton";
-import { RefreshCwDuotone } from 'foamicons';
+import { RefreshCw } from "../icons/foamicons/RefreshCw";
 import { InstagramIcon } from "../icons/InstagramIcon";
 import { TikTokIcon } from "../icons/TikTokIcon";
 import { YouTubeIcon } from "../icons/YouTubeIcon";
@@ -20,7 +20,7 @@ function ReloadButton() {
         console.log("Reload clicked");
       }}
     >
-      <RefreshCwDuotone 
+      <RefreshCw 
         size={16} 
         strokeWidth="var(--icon-stroke-width)" 
         style={{ color: '#54657D' }} 

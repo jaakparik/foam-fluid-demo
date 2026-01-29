@@ -1,4 +1,4 @@
-import { ShareDuotone } from 'foamicons';
+import { Share } from './foamicons/Share';
 
 interface ShareIconProps {
   isDark?: boolean;
@@ -7,9 +7,9 @@ interface ShareIconProps {
 
 export function ShareIcon({ isDark = false, isActive = false }: ShareIconProps) {
   return (
-    <ShareDuotone
+    <Share
       size={16}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'currentColor' }}
     />
   );

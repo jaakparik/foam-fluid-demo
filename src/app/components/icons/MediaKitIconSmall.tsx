@@ -1,10 +1,10 @@
-import { MediaKitsDuotone } from 'foamicons';
+import { MediaKits } from './foamicons/MediaKits';
 
 export function MediaKitIconSmall() {
   return (
-    <MediaKitsDuotone
+    <MediaKits
       size={12}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'currentColor' }}
     />
   );

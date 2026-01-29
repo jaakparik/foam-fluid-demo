@@ -1,4 +1,4 @@
-import { UsersDuotone } from 'foamicons';
+import { Users } from './foamicons/Users';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function PersonsIcon({ isDark, isActive }: IconProps) {
   return (
-    <UsersDuotone
+    <Users
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{
         color: isActive ? 'var(--nav-item-icon-active)' : 'var(--nav-item-icon-default)',
       }}

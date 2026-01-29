@@ -331,7 +331,7 @@ export function TopBar({
 
   return (
     <div
-      className="h-[55px] w-full flex items-center pr-[32px] px-[12px]"
+      className="h-[55px] w-full flex items-center pr-[16px] px-[12px]"
       style={{
         background: "var(--nav-sidepanel-bg)",
       }}

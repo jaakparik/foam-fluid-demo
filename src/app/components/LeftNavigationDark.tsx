@@ -25,10 +25,15 @@ import { ThemeLightIcon } from "./icons/ThemeLightIcon";
 import { ThemeDarkIcon } from "./icons/ThemeDarkIcon";
 import { PinIcon } from "./icons/PinIcon";
 import { PinFilledIcon } from "./icons/PinFilledIcon";
+import { RosterIcon } from "./icons/RosterIcon";
+import { Share } from "./icons/foamicons/Share";
+import { ChevronDown } from "./icons/foamicons/ChevronDown";
+import { ChevronUp } from "./icons/foamicons/ChevronUp";
 import { NavAgency } from "./NavAgency";
 import { ChromeExtensionBanner } from "./ChromeExtensionBanner";
 import { SignoutIcon } from "./icons/SignoutIcon";
 import { ChevronIcon } from "./icons/ChevronIcon";
+import { useMediaKit } from "../contexts/MediaKitContext";
 
 interface ThemeProps {
   isDark: boolean;
@@ -55,6 +60,7 @@ interface NavItemProps extends ThemeProps {
   count?: string;
   isActive?: boolean;
   onClick?: () => void;
+  indent?: boolean;
 }
 
 function NavItemWithIcon({
@@ -64,6 +70,7 @@ function NavItemWithIcon({
   isActive = false,
   onClick,
   isDark,
+  indent = false,
 }: NavItemProps) {
   return (
     <button
@@ -88,7 +95,7 @@ function NavItemWithIcon({
       data-name="nav/item/with_icon"
     >
       <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center px-[8px] py-[4px] relative w-full">
+        <div className={`content-stretch flex gap-[8px] items-center ${indent ? 'pl-[28px]' : 'px-[8px]'} pr-[8px] py-[4px] relative w-full`}>
           <div className="flex items-center justify-center shrink-0 w-[20px]">
             {icon}
           </div>
@@ -111,6 +118,56 @@ function NavItemWithIcon({
                 {count}
               </p>
             )}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+interface CollapsibleNavSectionProps extends ThemeProps {
+  icon: React.ReactNode;
+  label: string;
+  isExpanded: boolean;
+  onToggle: () => void;
+}
+
+function CollapsibleNavSection({
+  icon,
+  label,
+  isExpanded,
+  onToggle,
+  isDark,
+}: CollapsibleNavSectionProps) {
+  return (
+    <button
+      onClick={onToggle}
+      className="relative rounded-[8px] shrink-0 w-full transition-colors text-left cursor-pointer"
+      style={{ background: "transparent" }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "var(--nav-item-bg-hover)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "transparent";
+      }}
+      data-name="nav/item/collapsible"
+    >
+      <div className="flex flex-row items-center size-full">
+        <div className="content-stretch flex gap-[8px] items-center px-[8px] py-[4px] relative w-full">
+          <div className="flex items-center justify-center shrink-0 w-[20px]">
+            {icon}
+          </div>
+          <div className="basis-0 content-stretch flex grow items-center justify-between min-h-px min-w-px relative shrink-0">
+            <p className="nav-text-primary basis-0 grow min-h-px min-w-px relative shrink-0 text-left" style={{ color: "var(--nav-item-text-default)" }}>
+              {label}
+            </p>
+            <div className="flex items-center justify-center shrink-0 w-[16px]">
+              {isExpanded ? (
+                <ChevronUp size={16} strokeWidth="var(--icon-stroke-width)" style={{ color: "var(--nav-item-text-default)" }} />
+              ) : (
+                <ChevronDown size={16} strokeWidth="var(--icon-stroke-width)" style={{ color: "var(--nav-item-text-default)" }} />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -985,8 +1042,10 @@ export default function LeftNavigation({
     new Set(),
   );
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isSharedExpanded, setIsSharedExpanded] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+  const { mediaKits, currentMediaKitId } = useMediaKit();
 
   // Detect if we're on a talent record page or the home page (which is now a talent record)
   const talentMatch = location.pathname.match(/^\/talent\/(\d+)$/);
@@ -1024,8 +1083,35 @@ export default function LeftNavigation({
   const handleRecentItemClick = (item: any) => {
     if (item.talentId) {
       navigate(`/talent/${item.talentId}`);
+    } else if (item.route) {
+      navigate(item.route);
     }
   };
+
+  // Convert media kits to recent items format
+  const mediaKitItems = mediaKits.map((kit) => ({
+    id: kit.id,
+    avatar: kit.thumbnail ? (
+      <div
+        className="overflow-clip relative rounded-[2px] shrink-0 size-[20px]"
+        data-name="Avatar"
+      >
+        <video
+          src={kit.thumbnail}
+          className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full"
+          muted
+          playsInline
+          preload="metadata"
+        />
+      </div>
+    ) : (
+      <Avatar src={imgAvatar5} />
+    ),
+    label: kit.title,
+    sublabel: "Media Kit",
+    route: kit.route,
+    isMediaKit: true,
+  }));
 
   const recentItems = [
     {
@@ -1063,10 +1149,13 @@ export default function LeftNavigation({
     },
   ];
 
-  const favoriteItems = recentItems.filter((item) =>
+  // Combine media kits with other recent items
+  const allRecentItems = [...mediaKitItems, ...recentItems];
+
+  const favoriteItems = allRecentItems.filter((item) =>
     favorites.has(item.id),
   );
-  const nonFavoriteItems = recentItems.filter(
+  const nonFavoriteItems = allRecentItems.filter(
     (item) => !favorites.has(item.id),
   );
 
@@ -1106,14 +1195,17 @@ export default function LeftNavigation({
     },
     {
       icon: (
-        <ListIcon
+        <EyeIcon
           isDark={isDark}
-          isActive={activeNav === "Lists"}
+          isActive={activeNav === "Scouting Watchlists"}
         />
       ),
-      label: "Lists",
-      id: "Lists",
+      label: "Scouting Watchlists",
+      id: "Scouting Watchlists",
     },
+  ];
+
+  const sharedNavItems = [
     {
       icon: (
         <MediaPacksIcon
@@ -1127,13 +1219,23 @@ export default function LeftNavigation({
     },
     {
       icon: (
-        <EyeIcon
+        <ListIcon
           isDark={isDark}
-          isActive={activeNav === "Scouting Watchlists"}
+          isActive={activeNav === "Lists"}
         />
       ),
-      label: "Scouting Watchlists",
-      id: "Scouting Watchlists",
+      label: "Lists",
+      id: "Lists",
+    },
+    {
+      icon: (
+        <RosterIcon
+          isDark={isDark}
+          isActive={activeNav === "Roster"}
+        />
+      ),
+      label: "Roster",
+      id: "Roster",
     },
   ];
 
@@ -1160,6 +1262,29 @@ export default function LeftNavigation({
                     isDark={isDark}
                   />
                 ))}
+                
+          {/* Collapsible Shared Section */}
+          <CollapsibleNavSection
+            icon={<Share size={20} strokeWidth="var(--icon-stroke-width)" style={{ color: "var(--nav-item-text-default)" }} />}
+            label="Shared"
+                  isExpanded={isSharedExpanded}
+                  onToggle={() => setIsSharedExpanded(!isSharedExpanded)}
+                  isDark={isDark}
+                />
+                
+                {/* Shared Nav Items - only show when expanded */}
+                {isSharedExpanded && sharedNavItems.map((item) => (
+                  <NavItemWithIcon
+                    key={item.id}
+                    icon={item.icon}
+                    label={item.label}
+                    count={item.count}
+                    isActive={activeNav === item.id && !isOnTalentRecord}
+                    onClick={() => handleNavClick(item.id)}
+                    isDark={isDark}
+                    indent={true}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -1178,7 +1303,7 @@ export default function LeftNavigation({
                   <div className="content-stretch flex flex-col gap-[4px] items-start px-[12px] py-0 relative w-full">
                     <NavFavorites isDark={isDark} />
                     <AnimatePresence mode="popLayout">
-                      {favoriteItems.map((item) => (
+                      {favoriteItems.map((item: any) => (
                         <RecentItem
                           key={item.id}
                           id={item.id}
@@ -1186,7 +1311,10 @@ export default function LeftNavigation({
                           label={item.label}
                           sublabel={item.sublabel}
                           isFavorite={true}
-                          isActive={item.talentId === currentTalentId}
+                          isActive={
+                            item.talentId === currentTalentId ||
+                            (item.isMediaKit && item.id === currentMediaKitId)
+                          }
                           onPinClick={handlePinClick}
                           isDark={isDark}
                           onClick={() => handleRecentItemClick(item)}
@@ -1208,7 +1336,7 @@ export default function LeftNavigation({
               <div className="content-stretch flex flex-col gap-[4px] items-start px-[12px] py-0 relative w-full">
                 <Nav1 isDark={isDark} />
                 <AnimatePresence mode="popLayout">
-                  {nonFavoriteItems.map((item) => (
+                  {nonFavoriteItems.map((item: any) => (
                     <RecentItem
                       key={item.id}
                       id={item.id}
@@ -1216,7 +1344,10 @@ export default function LeftNavigation({
                       label={item.label}
                       sublabel={item.sublabel}
                       isFavorite={false}
-                      isActive={item.talentId === currentTalentId}
+                      isActive={
+                        item.talentId === currentTalentId ||
+                        (item.isMediaKit && item.id === currentMediaKitId)
+                      }
                       onPinClick={handlePinClick}
                       isDark={isDark}
                       onClick={() => handleRecentItemClick(item)}

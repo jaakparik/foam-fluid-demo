@@ -5,7 +5,7 @@ export default function Filters() {
         <path 
           d="M4.16669 5.83333H15.8334M6.66669 9.99999H13.3334M8.33335 14.1667H11.6667" 
           stroke="currentColor" 
-          strokeWidth="1.2" 
+          strokeWidth="1" 
           strokeLinecap="round" 
           strokeLinejoin="round"
         />

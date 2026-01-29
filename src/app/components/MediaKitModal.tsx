@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate } from "react-router-dom";
 import svgPaths from "../../imports/svg-modal";
 import { mediaKitsData, MediaKitData } from "../data/mediaKits";
 
@@ -8,6 +9,7 @@ interface MediaKitModalProps {
   onClose: () => void;
   onConfirm?: (selectedKits: string[]) => void;
   selectedContentCount?: number;
+  selectedContentIds?: number[];
 }
 
 function Title() {
@@ -139,7 +141,7 @@ function SearchIcon() {
           stroke="#B7BDC7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="1.2"
+          strokeWidth="var(--icon-stroke-width)"
         />
       </svg>
     </div>
@@ -194,9 +196,10 @@ function PlusIcon() {
   );
 }
 
-function AddButton() {
+function AddButton({ onClick }: { onClick: () => void }) {
   return (
     <button
+      onClick={onClick}
       className="bg-[#1c2128] content-stretch flex gap-[4px] items-center justify-center p-[8px] relative rounded-[8px] shrink-0 hover:bg-[#2a3039] transition-colors cursor-pointer"
       data-name="Button primary"
     >
@@ -208,16 +211,18 @@ function AddButton() {
 function Toolbar({
   searchValue,
   onSearchChange,
+  onAddClick,
 }: {
   searchValue: string;
   onSearchChange: (value: string) => void;
+  onAddClick: () => void;
 }) {
   return (
     <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
       <AgencyKitsButton />
       <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
         <FilterInput value={searchValue} onChange={onSearchChange} />
-        <AddButton />
+        <AddButton onClick={onAddClick} />
       </div>
     </div>
   );
@@ -365,7 +370,9 @@ export function MediaKitModal({
   onClose,
   onConfirm,
   selectedContentCount = 0,
+  selectedContentIds = [],
 }: MediaKitModalProps) {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [selectedKits, setSelectedKits] = useState<Set<string>>(new Set());
 
@@ -388,6 +395,14 @@ export function MediaKitModal({
       }
       return newSet;
     });
+  };
+
+  const handleAddNew = () => {
+    // Navigate to new media kit page with selected content
+    navigate("/media-kits/create", {
+      state: { selectedContentIds },
+    });
+    onClose();
   };
 
   const handleConfirm = () => {
@@ -439,6 +454,7 @@ export function MediaKitModal({
             <Toolbar
               searchValue={searchValue}
               onSearchChange={setSearchValue}
+              onAddClick={handleAddNew}
             />
             <MediaKitList
               mediaKits={filteredKits}

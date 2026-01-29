@@ -633,14 +633,14 @@ function PlusIcon() {
             stroke="#54657D"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
           <path
             d="M12.5 8L3.5 8"
             stroke="#54657D"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
         </g>
       </svg>

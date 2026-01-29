@@ -5,7 +5,7 @@ function Search() {
     <div className="relative shrink-0 size-[20px]" data-name="Search">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Search">
-          <path d={svgPaths.p2594b100} id="Vector" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p2594b100} id="Vector" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>

@@ -2,7 +2,7 @@
 
 interface DuotoneIconProps {
   size?: number;
-  strokeWidth?: number;
+  strokeWidth?: number | string;
   color?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -10,7 +10,7 @@ interface DuotoneIconProps {
 
 export function ChartColumnSquareDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style
@@ -35,7 +35,7 @@ export function ChartColumnSquareDuotone({
 
 export function ImageDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style
@@ -60,7 +60,7 @@ export function ImageDuotone({
 
 export function ReelDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style
@@ -92,7 +92,7 @@ export function ReelDuotone({
 
 export function StarDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style
@@ -114,7 +114,7 @@ export function StarDuotone({
 
 export function SlidersHorizontalDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style
@@ -139,7 +139,7 @@ export function SlidersHorizontalDuotone({
 
 export function ShareDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style
@@ -163,7 +163,7 @@ export function ShareDuotone({
 
 export function UsersDuotone({ 
   size = 16, 
-  strokeWidth = 1, 
+  strokeWidth = "var(--icon-stroke-width)", 
   color = "#003784",
   className = "",
   style

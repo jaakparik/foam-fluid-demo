@@ -1,4 +1,4 @@
-import { BellDuotone } from 'foamicons';
+import { Bell } from './foamicons/Bell';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function BellIcon({ isDark, isActive }: IconProps) {
   return (
-    <BellDuotone
+    <Bell
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{
         color: isActive ? 'var(--nav-item-icon-active)' : 'var(--nav-item-icon-default)',
       }}

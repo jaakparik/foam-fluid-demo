@@ -1,4 +1,4 @@
-import { HouseDuotone } from 'foamicons';
+import { House } from './foamicons/House';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function HomeIcon({ isDark, isActive }: IconProps) {
   return (
-    <HouseDuotone
+    <House
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{
         color: isActive ? 'var(--nav-item-icon-active)' : 'var(--nav-item-icon-default)',
       }}

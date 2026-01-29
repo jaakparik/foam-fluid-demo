@@ -99,8 +99,8 @@ function Icon() {
     <div className="relative size-[20px]" data-name="Icon">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Icon">
-          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -311,8 +311,8 @@ function Icon1() {
     <div className="relative size-[20px]" data-name="Icon">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Icon">
-          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -949,8 +949,8 @@ function Icon2() {
     <div className="relative size-[20px]" data-name="Icon">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Icon">
-          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -1058,8 +1058,8 @@ function Link() {
     <div className="relative shrink-0 size-[16px]" data-name="Link">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
         <g id="Link">
-          <path d={svgPaths.p82e6b40} id="Rectangle 521" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p359a6180} id="Vector 627" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82e6b40} id="Rectangle 521" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p359a6180} id="Vector 627" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -1143,8 +1143,8 @@ function Icon3() {
     <div className="relative size-[20px]" data-name="Icon">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Icon">
-          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p7880600} id="Vector 644" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M10.0002 5.83333V16.25" id="Vector 646" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -1198,8 +1198,8 @@ function Link1() {
     <div className="relative shrink-0 size-[16px]" data-name="Link">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
         <g id="Link">
-          <path d={svgPaths.p82e6b40} id="Rectangle 521" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p359a6180} id="Vector 627" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="1.2" />
+          <path d={svgPaths.p82e6b40} id="Rectangle 521" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p359a6180} id="Vector 627" stroke="var(--stroke-0, #8B94A2)" strokeLinecap="round" strokeWidth="1" />
         </g>
       </svg>
     </div>
@@ -1266,9 +1266,9 @@ function Ask() {
     <div className="relative shrink-0 size-[20px]" data-name="ask">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="ask">
-          <path d={svgPaths.p14a3b460} id="Ellipse 123" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.p34a8ea80} fill="var(--fill-0, #B7BDC7)" id="Vector" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d={svgPaths.pff27e00} fill="var(--fill-0, #B7BDC7)" id="Vector_2" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d={svgPaths.p14a3b460} id="Ellipse 123" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.p34a8ea80} fill="var(--fill-0, #B7BDC7)" id="Vector" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d={svgPaths.pff27e00} fill="var(--fill-0, #B7BDC7)" id="Vector_2" stroke="var(--stroke-0, #B7BDC7)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           <circle cx="6.99365" cy="10.141" fill="var(--fill-0, #B7BDC7)" id="Ellipse 124" r="1" />
           <circle cx="10.157" cy="10.141" fill="var(--fill-0, #B7BDC7)" id="Ellipse 125" r="1" />
         </g>

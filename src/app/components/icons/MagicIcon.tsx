@@ -1,4 +1,4 @@
-import { SparklesDuotone } from 'foamicons';
+import { Sparkles } from './foamicons/Sparkles';
 
 interface MagicIconProps {
   className?: string;
@@ -6,9 +6,9 @@ interface MagicIconProps {
 
 export function MagicIcon({ className }: MagicIconProps) {
   return (
-    <SparklesDuotone
+    <Sparkles
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       className={className}
       style={{ color: 'currentColor' }}
     />

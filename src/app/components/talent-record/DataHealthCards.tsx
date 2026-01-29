@@ -16,7 +16,7 @@ function QuestionIcon() {
               stroke="#8B94A2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="1.2"
+              strokeWidth="var(--icon-stroke-width)"
             />
           </svg>
         </div>
@@ -41,7 +41,7 @@ function ConnectedPill() {
             stroke="#54657D"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
         </svg>
       </div>

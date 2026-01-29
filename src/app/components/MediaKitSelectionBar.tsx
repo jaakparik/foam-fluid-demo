@@ -1,6 +1,10 @@
 import { useState, useEffect, RefObject } from "react";
 import Frame5603 from "./Frame5603";
-import { ChartColumnSquareDuotone, ImageDuotone, ReelDuotone, StarDuotone, UsersDuotone } from "./icons/DuotoneIcons";
+import { ChartColumnSquare } from "./icons/foamicons/ChartColumnSquare";
+import { Image } from "./icons/foamicons/Image";
+import { Reel } from "./icons/foamicons/Reel";
+import { Star } from "./icons/foamicons/Star";
+import { Users } from "./icons/foamicons/Users";
 
 interface MediaKitSelectionBarProps {
   scrollContainerRef?: RefObject<HTMLDivElement>;
@@ -96,7 +100,7 @@ function CompactSelectionBar({
         aria-label="Platform Analytics"
       >
         <div className="size-[16px]" style={{ color: "#54657D" }}>
-          <ChartColumnSquareDuotone size={16} strokeWidth="var(--icon-stroke-width)" />
+          <ChartColumnSquare size={16} strokeWidth="var(--icon-stroke-width)" />
         </div>
       </button>
 
@@ -107,7 +111,7 @@ function CompactSelectionBar({
         aria-label="Platform Content"
       >
         <div className="size-[16px]" style={{ color: "#54657D" }}>
-          <ImageDuotone size={16} strokeWidth="var(--icon-stroke-width)" />
+          <Image size={16} strokeWidth="var(--icon-stroke-width)" />
         </div>
       </button>
 
@@ -118,7 +122,7 @@ function CompactSelectionBar({
         aria-label="Video"
       >
         <div className="size-[16px]" style={{ color: "#54657D" }}>
-          <ReelDuotone size={16} strokeWidth="var(--icon-stroke-width)" />
+          <Reel size={16} strokeWidth="var(--icon-stroke-width)" />
         </div>
       </button>
 
@@ -129,7 +133,7 @@ function CompactSelectionBar({
         aria-label="Brand Experience"
       >
         <div className="size-[16px]" style={{ color: "#54657D" }}>
-          <StarDuotone size={16} strokeWidth="var(--icon-stroke-width)" />
+          <Star size={16} strokeWidth="var(--icon-stroke-width)" />
         </div>
       </button>
 
@@ -140,7 +144,7 @@ function CompactSelectionBar({
         aria-label="Audience Demographics"
       >
         <div className="size-[16px]" style={{ color: "#54657D" }}>
-          <UsersDuotone size={16} strokeWidth="var(--icon-stroke-width)" />
+          <Users size={16} strokeWidth="var(--icon-stroke-width)" />
         </div>
       </button>
     </div>
@@ -162,7 +166,7 @@ function ExpandedSelectionBar({
         className="bg-[rgba(58,73,95,0.05)] flex flex-col gap-[8px] items-center justify-center p-[24px] rounded-[12px] flex-1 cursor-pointer transition-colors hover:bg-[rgba(58,73,95,0.10)]"
       >
         <div className="size-[32px]" style={{ color: "#54657D" }}>
-          <ChartColumnSquareDuotone size={32} strokeWidth="var(--icon-stroke-width)" />
+          <ChartColumnSquare size={32} strokeWidth="var(--icon-stroke-width)" />
         </div>
         <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[14px] leading-[20px] text-[#303d4f]">
           Platform Analytics
@@ -175,7 +179,7 @@ function ExpandedSelectionBar({
         className="bg-[rgba(58,73,95,0.05)] flex flex-col gap-[8px] items-center justify-center p-[24px] rounded-[12px] flex-1 cursor-pointer transition-colors hover:bg-[rgba(58,73,95,0.10)]"
       >
         <div className="size-[32px]" style={{ color: "#54657D" }}>
-          <ImageDuotone size={32} strokeWidth="var(--icon-stroke-width)" />
+          <Image size={32} strokeWidth="var(--icon-stroke-width)" />
         </div>
         <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[14px] leading-[20px] text-[#303d4f]">
           Platform Content
@@ -188,7 +192,7 @@ function ExpandedSelectionBar({
         className="bg-[rgba(58,73,95,0.05)] flex flex-col gap-[8px] items-center justify-center p-[24px] rounded-[12px] flex-1 cursor-pointer transition-colors hover:bg-[rgba(58,73,95,0.10)]"
       >
         <div className="size-[32px]" style={{ color: "#54657D" }}>
-          <ReelDuotone size={32} strokeWidth="var(--icon-stroke-width)" />
+          <Reel size={32} strokeWidth="var(--icon-stroke-width)" />
         </div>
         <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[14px] leading-[20px] text-[#303d4f]">
           Video
@@ -201,7 +205,7 @@ function ExpandedSelectionBar({
         className="bg-[rgba(58,73,95,0.05)] flex flex-col gap-[8px] items-center justify-center p-[24px] rounded-[12px] flex-1 cursor-pointer transition-colors hover:bg-[rgba(58,73,95,0.10)]"
       >
         <div className="size-[32px]" style={{ color: "#54657D" }}>
-          <StarDuotone size={32} strokeWidth="var(--icon-stroke-width)" />
+          <Star size={32} strokeWidth="var(--icon-stroke-width)" />
         </div>
         <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[14px] leading-[20px] text-[#303d4f]">
           Brand Experience
@@ -214,7 +218,7 @@ function ExpandedSelectionBar({
         className="bg-[rgba(58,73,95,0.05)] flex flex-col gap-[8px] items-center justify-center p-[24px] rounded-[12px] flex-1 cursor-pointer transition-colors hover:bg-[rgba(58,73,95,0.10)]"
       >
         <div className="size-[32px]" style={{ color: "#54657D" }}>
-          <UsersDuotone size={32} strokeWidth="var(--icon-stroke-width)" />
+          <Users size={32} strokeWidth="var(--icon-stroke-width)" />
         </div>
         <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[14px] leading-[20px] text-[#303d4f]">
           Audience Demographics

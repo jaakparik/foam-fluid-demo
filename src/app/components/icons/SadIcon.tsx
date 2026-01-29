@@ -1,10 +1,10 @@
-import { FrownDuotone } from 'foamicons';
+import { Frown } from './foamicons/Frown';
 
 export function SadIcon() {
   return (
-    <FrownDuotone
+    <Frown
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: '#54657D' }}
     />
   );

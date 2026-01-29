@@ -182,7 +182,7 @@ export function SortIconShowcase() {
                 }}>
                   <Icon 
                     size={24} 
-                    strokeWidth="1.5" 
+                    strokeWidth="var(--icon-stroke-width)" 
                     style={{ color: '#374151' }} 
                   />
                 </div>
@@ -265,7 +265,7 @@ export function SortIconShowcase() {
               }}>
                 <Icon 
                   size={64} 
-                  strokeWidth="1.5" 
+                  strokeWidth="var(--icon-stroke-width)" 
                   style={{ color: '#374151' }} 
                 />
               </div>

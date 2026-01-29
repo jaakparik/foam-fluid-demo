@@ -1,10 +1,10 @@
-import { ListDuotone } from 'foamicons';
+import { List } from './foamicons/List';
 
 export function ListViewIcon() {
   return (
-    <ListDuotone
+    <List
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: 'var(--stroke-0, #15191E)' }}
     />
   );

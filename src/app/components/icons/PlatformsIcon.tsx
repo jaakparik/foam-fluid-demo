@@ -1,10 +1,10 @@
-import { MaximizeDuotone } from 'foamicons';
+import { Maximize } from './foamicons/Maximize';
 
 export function PlatformsIcon() {
   return (
-    <MaximizeDuotone
+    <Maximize
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{ color: '#54657D' }}
     />
   );

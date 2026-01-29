@@ -1,4 +1,4 @@
-import { PinDuotone } from 'foamicons';
+import { Pin } from './foamicons/Pin';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function PinIcon({ isDark, isActive }: IconProps) {
   return (
-    <PinDuotone
+    <Pin
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{
         color: isActive ? 'var(--nav-item-icon-active)' : 'var(--nav-item-icon-default)',
       }}

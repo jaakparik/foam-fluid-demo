@@ -3,9 +3,9 @@ function List() {
     <div className="relative shrink-0 size-[16px]" data-name="List">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
         <g id="List">
-          <path d="M5.5 4H13" id="Vector 662" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M5.5 8H13" id="Vector 664" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-          <path d="M5.5 12H13" id="Vector 663" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          <path d="M5.5 4H13" id="Vector 662" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M5.5 8H13" id="Vector 664" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+          <path d="M5.5 12H13" id="Vector 663" stroke="var(--stroke-0, #15191E)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
           <circle cx="2.75" cy="4" fill="var(--fill-0, #15191E)" id="Ellipse 70" r="0.75" />
           <circle cx="2.75" cy="8" fill="var(--fill-0, #15191E)" id="Ellipse 71" r="0.75" />
           <circle cx="2.75" cy="12" fill="var(--fill-0, #15191E)" id="Ellipse 72" r="0.75" />

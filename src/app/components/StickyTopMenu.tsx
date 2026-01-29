@@ -8,7 +8,7 @@ import { MediaPacksIcon } from "./icons/MediaPacksIcon";
 import { EyeIcon } from "./icons/EyeIcon";
 import { BellIcon } from "./icons/BellIcon";
 import { CogwheelIcon } from "./icons/CogwheelIcon";
-import { SearchDuotone } from "./icons/SearchDuotone";
+import { Search } from "./icons/foamicons/Search";
 
 interface StickyTopMenuProps {
   isDark?: boolean;
@@ -199,7 +199,7 @@ export function StickyTopMenu({ isDark = false }: StickyTopMenuProps) {
               className="flex items-center justify-center p-2 rounded-lg transition-colors"
               style={{ background: "var(--nav-item-bg-hover)" }}
             >
-              <SearchDuotone size={18} strokeWidth={1.5} color="var(--nav-item-text-default)" />
+              <Search size={18} strokeWidth="var(--icon-stroke-width)" color="var(--nav-item-text-default)" />
             </button>
 
             {/* Notifications */}

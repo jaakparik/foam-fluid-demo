@@ -38,14 +38,14 @@ function ArrowDown() {
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
           <path
             d="M10.0001 4.83331V15.25"
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="var(--icon-stroke-width)"
           />
         </g>
       </svg>

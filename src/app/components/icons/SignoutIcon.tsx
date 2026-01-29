@@ -1,4 +1,4 @@
-import { LogOutDuotone } from 'foamicons';
+import { LogOut } from './foamicons/LogOut';
 
 interface IconProps {
   isDark: boolean;
@@ -7,9 +7,9 @@ interface IconProps {
 
 export function SignoutIcon({ isDark, isActive }: IconProps) {
   return (
-    <LogOutDuotone
+    <LogOut
       size={20}
-      strokeWidth="var(--icon-stroke-width)"
+
       style={{
         color: isActive ? 'var(--nav-item-icon-active)' : 'var(--nav-item-icon-default)',
       }}

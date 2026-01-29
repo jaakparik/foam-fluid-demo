@@ -17,7 +17,7 @@ function Plus() {
             stroke="var(--stroke-0, #F9FAFA)"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="1"
           />
           <path
             d="M15.625 10L4.375 10"
@@ -25,7 +25,7 @@ function Plus() {
             stroke="var(--stroke-0, #F9FAFA)"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.2"
+            strokeWidth="1"
           />
         </g>
       </svg>
