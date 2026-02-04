@@ -20,6 +20,7 @@ interface SearchActivityProps {
   isActive: boolean; // When search is active
   mentionType?: "none" | "talent" | "zoe"; // Type of mention used
   skipAnimation?: boolean; // Skip animation and show final state immediately
+  showLineOnly?: boolean; // Only show the progress line, hide all text content
 }
 
 // Base data for regular search
@@ -188,6 +189,7 @@ export function SearchActivity({
   isActive,
   mentionType = "none",
   skipAnimation = false,
+  showLineOnly = false,
 }: SearchActivityProps) {
   // Select the appropriate search data based on mention type
   const searchTypes = mentionType === "zoe"
@@ -264,6 +266,28 @@ export function SearchActivity({
 
   const currentType = searchTypes[currentTypeIndex];
   const CurrentIcon = currentType.icon;
+
+  // If showLineOnly, just render the progress bar without any content
+  if (showLineOnly) {
+    return (
+      <div className="relative h-[4px]">
+        {/* Progress bar */}
+        {!showHealthStatus && (
+          <div className="absolute bottom-0 left-0 right-0 h-[4px] overflow-hidden">
+            <motion.div
+              className="h-full"
+              style={{
+                width: progressWidthPercent,
+                background: isDark
+                  ? "rgba(255, 255, 255, 0.2)"
+                  : "rgba(0, 0, 0, 0.2)",
+              }}
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="relative">

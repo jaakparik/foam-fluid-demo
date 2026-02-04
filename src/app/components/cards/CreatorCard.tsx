@@ -21,10 +21,9 @@ export function CreatorCard({
 }: CreatorCardProps) {
   return (
     <button
-      className="flex items-center gap-[12px] w-full rounded-[6px] transition-colors cursor-pointer text-left p-[4px] pr-[12px]"
+      className="flex gap-[12px] items-center p-[4px] rounded-[6px] transition-colors cursor-pointer text-left"
       onMouseEnter={(e) => {
-        e.currentTarget.style.background =
-          "var(--quickresults-item-bg)";
+        e.currentTarget.style.background = "var(--quickresults-item-bg)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.background = "transparent";
@@ -33,27 +32,37 @@ export function CreatorCard({
       <img
         src={avatarUrl}
         alt={name}
-        className="size-[40px] rounded-[4px] object-cover shrink-0"
+        className="size-[64px] rounded-[4px] object-cover shrink-0"
       />
-      <div className="flex items-start justify-between flex-1 min-w-0">
-        <p className="quickresults-info shrink-0">
+      <div className="flex flex-col items-start">
+        <p
+          className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[14px] leading-[20px]"
+          style={{ color: "var(--table-text-primary)" }}
+        >
           {name}
         </p>
-        <div className="flex gap-[8px] items-center">
-          <div className="flex gap-[4px] items-center">
-            <p className="quickresults-label">
-              {posts}
+        <div className="flex flex-col gap-[2px] items-start">
+          <div
+            className="flex gap-[2px] items-center text-[12px] leading-[20px]"
+            style={{ color: "var(--table-text-secondary)" }}
+          >
+            <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium">
+              "{keyword}"
             </p>
-            <p className="quickresults-label">
-              {keyword} posts
+            <p className="font-['Hanken_Grotesk:Light',sans-serif] font-light">
+              in {posts} posts
             </p>
-            <SearchDot />
-            <p className="quickresults-label">
+          </div>
+          <div
+            className="flex gap-[2px] items-center text-[12px] leading-[20px]"
+            style={{ color: "var(--table-text-secondary)" }}
+          >
+            <p className="font-['Hanken_Grotesk:Light',sans-serif] font-light">
               {views} views
             </p>
             <SearchDot />
-            <p className="quickresults-label">
-              {engagement} engagement
+            <p className="font-['Hanken_Grotesk:Light',sans-serif] font-light">
+              {engagement} ENG
             </p>
           </div>
         </div>

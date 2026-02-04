@@ -13,6 +13,11 @@ import { EyeIcon } from "./icons/EyeIcon";
 import { Share } from "./icons/foamicons/Share";
 import { ChevronDown } from "./icons/foamicons/ChevronDown";
 import { ChevronUp } from "./icons/foamicons/ChevronUp";
+import { Bookmark } from "./icons/foamicons/Bookmark";
+import { ContentPlus } from "./icons/foamicons/ContentPlus";
+import { ChartColumnSquare } from "./icons/foamicons/ChartColumnSquare";
+import { SearchIcon } from "./icons/SearchIcon";
+import { useRecentItems, RecentItem as RecentItemType } from "../contexts/RecentItemsContext";
 import imgAvatar from "../../assets/ee58b14a9045d0e024e00d41f0adefe967cdb999.png";
 import imgAvatar1 from "../../assets/ddc25c8c5e86bf6e74b0a0b2c4b59dafbe137784.png";
 import imgAvatar2 from "../../assets/60668e2e2279b5f5a3e31741327e568f55f28a7b.png";
@@ -230,6 +235,49 @@ function RecentItem({
         </div>
       </div>
     </button>
+  );
+}
+
+// Helper function to get avatar for recent item based on type
+function getAvatarForRecentItem(item: RecentItemType): React.ReactNode {
+  if (item.type === "search") {
+    return (
+      <div className="size-[20px] flex items-center justify-center" style={{ color: "#3a495f" }}>
+        <SearchIcon />
+      </div>
+    );
+  }
+  if (item.type === "profile" && item.avatarUrl) {
+    return <Avatar src={item.avatarUrl} />;
+  }
+  if (item.type === "media-kit" && item.avatarUrl) {
+    return <Avatar src={item.avatarUrl} />;
+  }
+  if (item.type === "list") {
+    return <AvatarTalentGrid />;
+  }
+  if (item.type === "watchlist") {
+    return <WatchlistIcon />;
+  }
+  return <AvatarTalentGrid />;
+}
+
+// Dynamic recent items from context
+function DynamicRecentItems() {
+  const { recentItems } = useRecentItems();
+  
+  return (
+    <>
+      {recentItems.map((item) => (
+        <RecentItem
+          key={item.id}
+          avatar={getAvatarForRecentItem(item)}
+          label={item.label}
+          sublabel={item.sublabel}
+          isActive={item.isActive}
+        />
+      ))}
+    </>
   );
 }
 
@@ -712,37 +760,47 @@ export default function LeftNavigation() {
     { icon: <div className="size-[20px]"><Home /></div>, label: "Dashboard", id: "Dashboard" },
     {
       icon: <PersonsIcon isDark={isDark} isActive={activeNav === "Talent Directory"} />,
-      label: "Talent Directory",
+      label: "Talent directory",
       count: "456",
       id: "Talent Directory",
     },
     {
       icon: <PicturesIcon isDark={isDark} isActive={activeNav === "Content Feed"} />,
-      label: "Content Feed",
+      label: "Content feed",
       id: "Content Feed",
     },
     {
       icon: <EyeIcon isDark={isDark} isActive={activeNav === "Scouting Watchlists"} />,
-      label: "Scouting Watchlists",
+      label: "Scouting watchlists",
       id: "Scouting Watchlists",
     },
   ];
 
   const sharedNavItems = [
-    { 
-      icon: <MediaPacksIcon isDark={isDark} isActive={activeNav === "Media Kits"} />, 
-      label: "Media Kits", 
-      id: "Media Kits" 
+    {
+      icon: <MediaPacksIcon isDark={isDark} isActive={activeNav === "Media Kits"} />,
+      label: "Media kits",
+      id: "Media Kits"
     },
-    { 
-      icon: <ListIcon isDark={isDark} isActive={activeNav === "Lists"} />, 
-      label: "Lists", 
-      id: "Lists" 
+    {
+      icon: <ContentPlus size={20} strokeWidth="var(--icon-stroke-width)" style={{ color: activeNav === "Foam Kits" ? "var(--nav-item-icon-active)" : "var(--nav-item-icon-default)" }} />,
+      label: "Foam kits",
+      id: "Foam Kits"
     },
-    { 
-      icon: <ListIcon isDark={isDark} isActive={activeNav === "Roster"} />, 
-      label: "Roster", 
-      id: "Roster" 
+    {
+      icon: <ChartColumnSquare size={20} strokeWidth="var(--icon-stroke-width)" style={{ color: activeNav === "Campaign Reports" ? "var(--nav-item-icon-active)" : "var(--nav-item-icon-default)" }} />,
+      label: "Campaign reports",
+      id: "Campaign Reports"
+    },
+    {
+      icon: <ListIcon isDark={isDark} isActive={activeNav === "Lists"} />,
+      label: "Lists",
+      id: "Lists"
+    },
+    {
+      icon: <ListIcon isDark={isDark} isActive={activeNav === "Roster"} />,
+      label: "Roster",
+      id: "Roster"
     },
   ];
 
@@ -784,6 +842,14 @@ export default function LeftNavigation() {
                   indent={true}
                 />
               ))}
+
+              {/* Save for later - below Shared group */}
+              <NavItemWithIcon
+                icon={<Bookmark size={20} strokeWidth="var(--icon-stroke-width)" style={{ color: activeNav === "Save for Later" ? "var(--nav-item-icon-active)" : "var(--nav-item-icon-default)" }} />}
+                label="Save for Later"
+                isActive={activeNav === "Save for Later"}
+                onClick={() => setActiveNav("Save for Later")}
+              />
             </div>
           </div>
         </div>
@@ -792,29 +858,7 @@ export default function LeftNavigation() {
           <div className="size-full">
             <div className="content-stretch flex flex-col gap-[4px] items-start px-[12px] py-0 relative w-full">
               <Nav1 />
-              <RecentItem
-                avatar={<Avatar src={imgAvatar} />}
-                label="Alejandra Tapia's"
-                sublabel="Profile"
-              />
-              <RecentItem
-                avatar={<AvatarTalentGrid />}
-                label="Sixteenth Roster"
-              />
-              <RecentItem
-                avatar={<Avatar src={imgAvatar5} />}
-                label="Marcello Bukate's"
-                sublabel="Media Kit"
-              />
-              <RecentItem
-                avatar={<WatchlistIcon />}
-                label="Project Hail Mary Watchlist"
-              />
-              <RecentItem
-                avatar={<AvatarTalentGrid2 />}
-                label="Google Note 26"
-                sublabel="List"
-              />
+              <DynamicRecentItems />
             </div>
           </div>
         </div>

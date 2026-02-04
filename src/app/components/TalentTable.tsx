@@ -1,4 +1,4 @@
-import { talents } from "../data/talents";
+import { talents, Talent } from "../data/talents";
 import { InstagramIcon } from "./icons/InstagramIcon";
 import { TikTokIcon } from "./icons/TikTokIcon";
 import { YouTubeIcon } from "./icons/YouTubeIcon";
@@ -19,6 +19,11 @@ interface TalentTableProps {
   showEngagementRate?: boolean;
   quickFilter?: string;
   columnVisibility?: ColumnVisibility;
+  refreshKey?: number;
+  talentData?: Talent[];
+  onRowHover?: (talentName: string | null) => void;
+  selectedTalents?: Set<string>;
+  onSelectionChange?: (selected: Set<string>) => void;
 }
 
 type ColumnKey =
@@ -46,7 +51,6 @@ function TableHeaderCell() {
       className="content-stretch flex h-[32px] items-center justify-center px-[8px] py-[6px] shrink-0 w-[80px]"
       style={{
         background: "var(--table-header-bg)",
-        borderLeft: "1px solid var(--table-border-header)",
       }}
     ></div>
   );
@@ -273,26 +277,13 @@ function HeaderContent({
     currentSort?.field === "totalAudience";
 
   return (
-    <div className="sticky top-0 z-10 content-stretch flex h-[32px] items-center relative shrink-0 w-full">
+    <div className="sticky top-0 z-[5] content-stretch flex h-[32px] items-center relative shrink-0 w-full">
       <TableHeaderCell />
       {columnVisibility.name && (
         <TableHeaderCellWithSort
           label="Talent name"
           width="140px"
           field="name"
-          currentSort={currentSort}
-          onSort={onSort}
-        />
-      )}
-      {columnVisibility.status && (
-        <TableHeaderCellNoSort label="Status" width="100px" />
-      )}
-      {showTotalAudience && (
-        <TableHeaderCellWithSort
-          label="Total aud."
-          width="100px"
-          centered
-          field="totalAudience"
           currentSort={currentSort}
           onSort={onSort}
         />
@@ -314,6 +305,19 @@ function HeaderContent({
             ENG rate
           </p>
         </div>
+      )}
+      {columnVisibility.status && (
+        <TableHeaderCellNoSort label="Status" width="100px" />
+      )}
+      {showTotalAudience && (
+        <TableHeaderCellWithSort
+          label="Total aud."
+          width="100px"
+          centered
+          field="totalAudience"
+          currentSort={currentSort}
+          onSort={onSort}
+        />
       )}
       {columnVisibility.biography && (
         <TableHeaderCellNoSort
@@ -394,7 +398,6 @@ function HeaderContent({
         className="basis-0 grow h-[32px] min-h-px min-w-px relative shrink-0"
         style={{
           background: "var(--table-header-bg)",
-          borderRight: "1px solid var(--table-border-header)",
         }}
       ></div>
     </div>
@@ -431,6 +434,7 @@ function TableRow({
   showTotalAudience,
   showEngagementRate,
   isDark,
+  onHover,
 }: {
   talent: (typeof talents)[0];
   isSelected: boolean;
@@ -439,6 +443,7 @@ function TableRow({
   showTotalAudience?: boolean;
   showEngagementRate?: boolean;
   isDark?: boolean;
+  onHover?: (talentName: string | null) => void;
 }) {
   const nameParts = talent.name.split(" ");
   const firstName = nameParts[0];
@@ -450,6 +455,14 @@ function TableRow({
     navigate(`/talent/${talent.id}`);
   };
 
+  const handleMouseEnter = () => {
+    onHover?.(talent.name);
+  };
+
+  const handleMouseLeave = () => {
+    onHover?.(null);
+  };
+
   return (
     <div
       className="content-stretch flex items-center relative shrink-0 w-full h-[52px]"
@@ -457,9 +470,9 @@ function TableRow({
         background: isSelected
           ? "var(--table-row-bg-selected)"
           : "var(--table-row-bg)",
-        borderLeft: "1px solid var(--table-border-header)",
-        borderRight: "1px solid var(--table-border-header)",
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         aria-hidden="true"
@@ -507,6 +520,23 @@ function TableRow({
         </div>
       )}
 
+      {/* Instagram Engagement Rate - only show when precise filters active */}
+      {showEngagementRate && (
+        <div
+          className="content-stretch flex h-full items-center justify-center p-[4px] relative shrink-0 w-[100px]"
+          style={{ background: "var(--table-cell-bg-alt)" }}
+        >
+          <p
+            className="mono font-thin text-[12px] leading-[16px] text-center"
+            style={{
+              color: "var(--table-text-primary)",
+            }}
+          >
+            {talent.instagramEngagementRate}
+          </p>
+        </div>
+      )}
+
       {/* Status - Shows connected platforms */}
       {columnVisibility.status && (
         <div className="content-stretch flex items-center justify-start relative shrink-0 w-[100px]">
@@ -535,23 +565,6 @@ function TableRow({
             }}
           >
             {talent.followers.total}
-          </p>
-        </div>
-      )}
-
-      {/* Instagram Engagement Rate - only show when precise filters active */}
-      {showEngagementRate && (
-        <div
-          className="content-stretch flex h-full items-center justify-center p-[4px] relative shrink-0 w-[100px]"
-          style={{ background: "var(--table-cell-bg-alt)" }}
-        >
-          <p
-            className="mono font-thin text-[12px] leading-[16px] text-center"
-            style={{
-              color: "var(--table-text-primary)",
-            }}
-          >
-            {talent.instagramEngagementRate}
           </p>
         </div>
       )}
@@ -751,22 +764,33 @@ export function TalentTable({
     links: false,
     status: false,
   },
-  onToggleColumn = () => {},
+  refreshKey = 0,
+  talentData,
+  onRowHover,
+  selectedTalents,
+  onSelectionChange,
 }: TalentTableProps) {
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(
+  // Use provided talentData or default to imported talents
+  const baseTalents = talentData || talents;
+  // Use external selection state if provided, otherwise use local state
+  const [localSelectedRows, setLocalSelectedRows] = useState<Set<string>>(
     new Set(),
   );
+  const selectedRows = selectedTalents ?? localSelectedRows;
 
   const handleRowToggle = (talentId: string) => {
-    setSelectedRows((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(talentId)) {
-        newSet.delete(talentId);
-      } else {
-        newSet.add(talentId);
-      }
-      return newSet;
-    });
+    const newSet = new Set(selectedRows);
+    if (newSet.has(talentId)) {
+      newSet.delete(talentId);
+    } else {
+      newSet.add(talentId);
+    }
+
+    if (onSelectionChange) {
+      onSelectionChange(newSet);
+    } else {
+      setLocalSelectedRows(newSet);
+    }
   };
 
   const handleSort = (field: string) => {
@@ -796,12 +820,24 @@ export function TalentTable({
     return num;
   };
 
+  // Shuffle talents based on refreshKey
+  const shuffledTalents = useMemo(() => {
+    if (refreshKey === 0) return baseTalents;
+    // Create a seeded shuffle based on refreshKey
+    const shuffled = [...baseTalents];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor((Math.sin(refreshKey * (i + 1)) * 0.5 + 0.5) * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }, [refreshKey, baseTalents]);
+
   const sortedTalents = useMemo(() => {
-    if (!sortState) return talents;
+    if (!sortState) return shuffledTalents;
 
     const { field, direction } = sortState;
 
-    return [...talents].sort((a, b) => {
+    return [...shuffledTalents].sort((a, b) => {
       let aValue: string | number;
       let bValue: string | number;
 
@@ -845,7 +881,7 @@ export function TalentTable({
       if (aValue > bValue) return direction === "asc" ? 1 : -1;
       return 0;
     });
-  }, [sortState]);
+  }, [sortState, shuffledTalents]);
 
   // Apply quick filter
   const filteredTalents = useMemo(() => {
@@ -881,6 +917,7 @@ export function TalentTable({
           }
           showEngagementRate={showEngagementRate}
           isDark={isDark}
+          onHover={onRowHover}
         />
       ))}
     </div>

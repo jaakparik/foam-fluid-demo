@@ -54,6 +54,7 @@ interface QuickFiltersProps {
   filterPopoverInitialTab?: { topLevel?: string; creator?: string; audience?: string };
   savedFilters?: Array<{ name: string; filterState: any }>;
   onSavedFilterClick?: (filterState: any) => void;
+  hideQuickButtons?: boolean;
 }
 
 // Column Visibility Dropdown
@@ -187,6 +188,7 @@ export function QuickFilters({
   filterPopoverInitialTab,
   savedFilters = [],
   onSavedFilterClick = () => {},
+  hideQuickButtons = false,
 }: QuickFiltersProps) {
   const [showSortDropdown, setShowSortDropdown] =
     useState(false);
@@ -304,57 +306,59 @@ export function QuickFilters({
       }}
     >
       {/* Left side - My Talent */}
-      <div className="flex items-center gap-[8px]">
-        {/* My Talent Dropdown */}
-        <button
-          className="content-stretch flex gap-[4px] items-center justify-center pl-[16px] pr-[8px] rounded-[8px] shrink-0 transition-colors cursor-pointer h-[32px]"
-          style={{
-            background: "var(--filter-button-bg)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background =
-              "var(--filter-button-bg-hover)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background =
-              "var(--filter-button-bg)";
-          }}
-          onClick={() => {
-            // Dropdown logic will be added later
-          }}
-        >
-          <p
-            className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[12px] text-nowrap"
+      {!hideQuickButtons && (
+        <div className="flex items-center gap-[8px]">
+          {/* My Talent Dropdown */}
+          <button
+            className="content-stretch flex gap-[4px] items-center justify-center pl-[16px] pr-[8px] rounded-[8px] shrink-0 transition-colors cursor-pointer h-[32px]"
             style={{
-              color: "var(--filter-button-text-primary)",
+              background: "var(--filter-button-bg)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background =
+                "var(--filter-button-bg-hover)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background =
+                "var(--filter-button-bg)";
+            }}
+            onClick={() => {
+              // Dropdown logic will be added later
             }}
           >
-            {selectedTalent}
-          </p>
-          <div
-            className="size-[20px] rotate-[180deg]"
-            style={{ color: "var(--filter-button-icon)" }}
-          >
-            <ChevronDown />
-          </div>
-        </button>
+            <p
+              className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[12px] text-nowrap"
+              style={{
+                color: "var(--filter-button-text-primary)",
+              }}
+            >
+              {selectedTalent}
+            </p>
+            <div
+              className="size-[20px] rotate-[180deg]"
+              style={{ color: "var(--filter-button-icon)" }}
+            >
+              <ChevronDown />
+            </div>
+          </button>
 
-        {/* Quick Filter Buttons */}
-        {savedFilters.map((savedFilter, index) => (
+          {/* Quick Filter Buttons */}
+          {savedFilters.map((savedFilter, index) => (
+            <QuickButton
+              key={index}
+              label={savedFilter.name}
+              onClick={() => onSavedFilterClick(savedFilter.filterState)}
+            />
+          ))}
           <QuickButton
-            key={index}
-            label={savedFilter.name}
-            onClick={() => onSavedFilterClick(savedFilter.filterState)}
+            icon={<InstagramIcon />}
+            label="Eng rate"
           />
-        ))}
-        <QuickButton
-          icon={<InstagramIcon />}
-          label="Eng rate"
-        />
-        <QuickButton label="Millenials" />
-        <QuickButton label="Female" />
-        <QuickButton label="Total Audience" />
-      </div>
+          <QuickButton label="Millenials" />
+          <QuickButton label="Female" />
+          <QuickButton label="Total Audience" />
+        </div>
+      )}
 
       {/* Right side - Quick Filter, View Selector, Filters, Sort, and Options */}
       <div className="flex items-center gap-[8px]">

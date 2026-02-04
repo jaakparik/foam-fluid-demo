@@ -1,6 +1,9 @@
 import { useState, forwardRef, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useRecentItems } from "../contexts/RecentItemsContext";
+import { useFlyingAnimation } from "../contexts/FlyingAnimationContext";
+import { SearchIcon } from "./icons/SearchIcon";
 import svgPaths from "../../imports/svg-tr14iyuvv7";
 import imgAvatar from "../../assets/ee58b14a9045d0e024e00d41f0adefe967cdb999.png";
 import imgAvatar1 from "../../assets/ddc25c8c5e86bf6e74b0a0b2c4b59dafbe137784.png";
@@ -29,11 +32,15 @@ import { RosterIcon } from "./icons/RosterIcon";
 import { Share } from "./icons/foamicons/Share";
 import { ChevronDown } from "./icons/foamicons/ChevronDown";
 import { ChevronUp } from "./icons/foamicons/ChevronUp";
+import { Bookmark } from "./icons/foamicons/Bookmark";
+import { ContentPlus } from "./icons/foamicons/ContentPlus";
+import { ChartColumnSquare } from "./icons/foamicons/ChartColumnSquare";
 import { NavAgency } from "./NavAgency";
 import { ChromeExtensionBanner } from "./ChromeExtensionBanner";
 import { SignoutIcon } from "./icons/SignoutIcon";
 import { ChevronIcon } from "./icons/ChevronIcon";
 import { useMediaKit } from "../contexts/MediaKitContext";
+import { useSavedItems } from "../contexts/SavedItemsContext";
 
 interface ThemeProps {
   isDark: boolean;
@@ -227,6 +234,7 @@ interface RecentItemProps extends ThemeProps {
   avatar: React.ReactNode;
   label: string;
   sublabel?: string;
+  count?: string;
   isActive?: boolean;
   isFavorite?: boolean;
   onClick?: () => void;
@@ -242,6 +250,7 @@ const RecentItem = forwardRef<
     avatar,
     label,
     sublabel,
+    count,
     isActive = false,
     isFavorite = false,
     onClick,
@@ -320,9 +329,9 @@ const RecentItem = forwardRef<
           <div className="flex items-center justify-center shrink-0">
             {avatar}
           </div>
-          <div className="basis-0 content-stretch flex grow items-center min-h-px min-w-px relative shrink-0 overflow-hidden">
+          <div className="basis-0 content-stretch flex grow items-center justify-between min-h-px min-w-px relative shrink-0 overflow-hidden">
             <p
-              className="nav-text-header relative shrink-0 text-left truncate"
+              className="nav-text-header relative text-left truncate min-w-0"
               style={{
                 color: isActive
                   ? "var(--nav-item-recent-text-active)"
@@ -341,6 +350,14 @@ const RecentItem = forwardRef<
                 </span>
               )}
             </p>
+            {count && (
+              <p
+                className="nav-text-header relative shrink-0 text-nowrap ml-[8px]"
+                style={{ color: "var(--nav-item-text-subtle)" }}
+              >
+                {count}
+              </p>
+            )}
           </div>
           {showPinIcon && (
             <motion.div
@@ -931,7 +948,7 @@ function User({
                         color: "var(--nav-item-text-default)",
                       }}
                     >
-                      Personal Settings
+                      Personal settings
                     </p>
                   </div>
                 </div>
@@ -1036,7 +1053,7 @@ interface LeftNavigationProps {
 export default function LeftNavigation({
   onThemeChange,
 }: LeftNavigationProps) {
-  const [activeNav, setActiveNav] = useState("Talent Directory");
+  const [activeNav, setActiveNav] = useState("Talent directory");
   const [isDark, setIsDark] = useState(false);
   const [favorites, setFavorites] = useState<Set<string>>(
     new Set(),
@@ -1046,11 +1063,34 @@ export default function LeftNavigation({
   const navigate = useNavigate();
   const location = useLocation();
   const { mediaKits, currentMediaKitId } = useMediaKit();
+  const { recentItems: contextRecentItems } = useRecentItems();
+  const { savedTalents, savedPosts } = useSavedItems();
+  const savedItemsCount = savedTalents.length + savedPosts.length;
+  const { saveForLaterRef } = useFlyingAnimation();
+  const [isHighlighted, setIsHighlighted] = useState(false);
+  const prevSavedCountRef = useRef(savedItemsCount);
+
+  // Flash blue highlight when new items are added
+  useEffect(() => {
+    if (savedItemsCount > prevSavedCountRef.current) {
+      setIsHighlighted(true);
+      const timer = setTimeout(() => {
+        setIsHighlighted(false);
+      }, 1500); // Highlight for 1.5 seconds
+      return () => clearTimeout(timer);
+    }
+    prevSavedCountRef.current = savedItemsCount;
+  }, [savedItemsCount]);
 
   // Detect if we're on a talent record page or the home page (which is now a talent record)
   const talentMatch = location.pathname.match(/^\/talent\/(\d+)$/);
   const currentTalentId = talentMatch ? talentMatch[1] : null;
   const isOnTalentRecord = talentMatch || location.pathname === "/";
+  
+  // Detect if we're on the talent search results page and get the search term
+  const isOnTalentSearch = location.pathname === "/talent/search";
+  const searchParams = new URLSearchParams(location.search);
+  const currentSearchTerm = isOnTalentSearch ? searchParams.get("q") : null;
 
   const handleThemeToggle = () => {
     const newTheme = !isDark;
@@ -1073,10 +1113,12 @@ export default function LeftNavigation({
 
   const handleNavClick = (id: string) => {
     setActiveNav(id);
-    if (id === "Talent Directory") {
+    if (id === "Talent directory") {
       navigate("/directory");
-    } else if (id === "Media Kits") {
+    } else if (id === "Media kits") {
       navigate("/media-kits");
+    } else if (id === "Save for later") {
+      navigate("/save-for-later");
     }
   };
 
@@ -1113,41 +1155,38 @@ export default function LeftNavigation({
     isMediaKit: true,
   }));
 
-  const recentItems = [
-    {
-      id: "1",
-      avatar: <Avatar src={imgAvatar} />,
-      label: "Sophia Martinez's",
-      sublabel: "Profile",
-      talentId: "1",
-    },
-    {
-      id: "2",
-      avatar: <AvatarTalentGrid />,
-      label: "Sixteenth Roster",
-    },
-    {
-      id: "3",
-      avatar: <Avatar src={imgAvatar5} />,
-      label: "Marcello Bukate's",
-      sublabel: "Media Kit",
-    },
-    {
-      id: "4",
-      avatar: (
+  // Convert context recent items to the format expected by this component
+  const recentItems = contextRecentItems.map((item) => {
+    // Extract search term from label (format: "searchterm")
+    const searchTermFromLabel = item.type === "search" && item.label 
+      ? item.label.replace(/^"|"$/g, '') 
+      : undefined;
+    
+    return {
+      id: item.id,
+      avatar: item.type === "search" ? (
+        <div className="size-[20px] flex items-center justify-center" style={{ color: isDark ? "#b7bdc7" : "#3a495f" }}>
+          <SearchIcon />
+        </div>
+      ) : item.type === "watchlist" ? (
         <div className="size-[20px]">
           <EyeIcon isDark={isDark} isActive={false} />
         </div>
+      ) : item.type === "list" ? (
+        <AvatarTalentGrid />
+      ) : item.avatarUrl ? (
+        <Avatar src={item.avatarUrl} />
+      ) : (
+        <AvatarTalentGrid />
       ),
-      label: "Project Hail Mary Watchlist",
-    },
-    {
-      id: "5",
-      avatar: <AvatarTalentGrid2 />,
-      label: "Google Note 26",
-      sublabel: "List",
-    },
-  ];
+      label: item.label,
+      sublabel: item.sublabel,
+      count: item.count ? item.count.toLocaleString() : undefined,
+      talentId: item.type === "profile" ? item.id : undefined,
+      isSearch: item.type === "search",
+      searchTerm: searchTermFromLabel,
+    };
+  });
 
   // Combine media kits with other recent items
   const allRecentItems = [...mediaKitItems, ...recentItems];
@@ -1176,32 +1215,32 @@ export default function LeftNavigation({
       icon: (
         <PersonsIcon
           isDark={isDark}
-          isActive={activeNav === "Talent Directory"}
+          isActive={activeNav === "Talent directory"}
         />
       ),
-      label: "Talent Directory",
+      label: "Talent directory",
       count: "456",
-      id: "Talent Directory",
+      id: "Talent directory",
     },
     {
       icon: (
         <PicturesIcon
           isDark={isDark}
-          isActive={activeNav === "Content Feed"}
+          isActive={activeNav === "Content feed"}
         />
       ),
-      label: "Content Feed",
-      id: "Content Feed",
+      label: "Content feed",
+      id: "Content feed",
     },
     {
       icon: (
         <EyeIcon
           isDark={isDark}
-          isActive={activeNav === "Scouting Watchlists"}
+          isActive={activeNav === "Scouting watchlists"}
         />
       ),
-      label: "Scouting Watchlists",
-      id: "Scouting Watchlists",
+      label: "Scouting watchlists",
+      id: "Scouting watchlists",
     },
   ];
 
@@ -1210,12 +1249,34 @@ export default function LeftNavigation({
       icon: (
         <MediaPacksIcon
           isDark={isDark}
-          isActive={activeNav === "Media Kits"}
+          isActive={activeNav === "Media kits"}
         />
       ),
-      label: "Media Kits",
+      label: "Media kits",
       count: "1,832",
-      id: "Media Kits",
+      id: "Media kits",
+    },
+    {
+      icon: (
+        <ContentPlus
+          size={20}
+          strokeWidth="var(--icon-stroke-width)"
+          style={{ color: activeNav === "Foam kits" ? "var(--nav-item-icon-active)" : "var(--nav-item-icon-default)" }}
+        />
+      ),
+      label: "Foam kits",
+      id: "Foam kits",
+    },
+    {
+      icon: (
+        <ChartColumnSquare
+          size={20}
+          strokeWidth="var(--icon-stroke-width)"
+          style={{ color: activeNav === "Campaign reports" ? "var(--nav-item-icon-active)" : "var(--nav-item-icon-default)" }}
+        />
+      ),
+      label: "Campaign reports",
+      id: "Campaign reports",
     },
     {
       icon: (
@@ -1285,6 +1346,31 @@ export default function LeftNavigation({
                     indent={true}
                   />
                 ))}
+
+                {/* Save for later - below Shared group */}
+                <motion.div
+                  ref={saveForLaterRef}
+                  className="w-full rounded-[8px]"
+                  animate={{
+                    backgroundColor: isHighlighted ? "rgba(21, 95, 239, 0.3)" : "rgba(21, 95, 239, 0)",
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <NavItemWithIcon
+                    icon={
+                      <Bookmark
+                        size={20}
+                        strokeWidth="var(--icon-stroke-width)"
+                        style={{ color: activeNav === "Save for later" ? "var(--nav-item-icon-active)" : "var(--nav-item-icon-default)" }}
+                      />
+                    }
+                    label="Save for later"
+                    count={savedItemsCount > 0 ? String(savedItemsCount) : undefined}
+                    isActive={activeNav === "Save for later" && !isOnTalentRecord}
+                    onClick={() => handleNavClick("Save for later")}
+                    isDark={isDark}
+                  />
+                </motion.div>
               </div>
             </div>
           </div>
@@ -1310,10 +1396,12 @@ export default function LeftNavigation({
                           avatar={item.avatar}
                           label={item.label}
                           sublabel={item.sublabel}
+                          count={item.count}
                           isFavorite={true}
                           isActive={
                             item.talentId === currentTalentId ||
-                            (item.isMediaKit && item.id === currentMediaKitId)
+                            (item.isMediaKit && item.id === currentMediaKitId) ||
+                            (item.isSearch && item.searchTerm === currentSearchTerm)
                           }
                           onPinClick={handlePinClick}
                           isDark={isDark}
@@ -1343,10 +1431,12 @@ export default function LeftNavigation({
                       avatar={item.avatar}
                       label={item.label}
                       sublabel={item.sublabel}
+                      count={item.count}
                       isFavorite={false}
                       isActive={
                         item.talentId === currentTalentId ||
-                        (item.isMediaKit && item.id === currentMediaKitId)
+                        (item.isMediaKit && item.id === currentMediaKitId) ||
+                        (item.isSearch && item.searchTerm === currentSearchTerm)
                       }
                       onPinClick={handlePinClick}
                       isDark={isDark}
@@ -1381,7 +1471,7 @@ export default function LeftNavigation({
                       />
                     </div>
                   }
-                  label="Agency Settings"
+                  label="Agency settings"
                   isDark={isDark}
                 />
               </div>

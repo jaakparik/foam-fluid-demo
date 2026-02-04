@@ -2,11 +2,12 @@ import { createContext, useContext, useState, ReactNode, useCallback } from "rea
 
 export interface RecentItem {
   id: string;
-  type: "profile" | "list" | "media-kit" | "watchlist";
+  type: "profile" | "list" | "media-kit" | "watchlist" | "search";
   label: string;
   sublabel?: string;
   avatarUrl?: string;
   isActive?: boolean;
+  count?: number;
 }
 
 interface RecentItemsContextType {

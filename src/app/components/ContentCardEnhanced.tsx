@@ -13,11 +13,12 @@ interface ContentCardEnhancedProps {
   onCheckedChange: (checked: boolean, sourcePosition?: { x: number; y: number }) => void;
   platform?: "instagram" | "tiktok" | "youtube" | "snapchat";
   isDark?: boolean;
+  creator?: string;
 }
 
 function InstagramIcon() {
   return (
-    <div className="relative shrink-0 size-[20px]" data-name="Instagram">
+    <div className="relative shrink-0 size-[16px]" data-name="Instagram">
       <svg
         className="block size-full"
         fill="none"
@@ -66,7 +67,7 @@ function InstagramIcon() {
 
 function TikTokIcon() {
   return (
-    <div className="relative shrink-0 size-[20px]" data-name="TikTok">
+    <div className="relative shrink-0 size-[16px]" data-name="TikTok">
       <svg className="block size-full" fill="none" viewBox="0 0 20 20">
         <path
           d="M14.5 0H11.25V13.6C11.25 15.08 10.05 16.28 8.58 16.28C7.11 16.28 5.91 15.08 5.91 13.6C5.91 12.15 7.09 10.98 8.51 10.92V7.64C5.32 7.71 2.75 10.32 2.75 13.6C2.75 16.9 5.42 19.6 8.57 19.6C11.72 19.6 14.39 16.9 14.39 13.6V6.68C15.66 7.62 17.21 8.16 18.88 8.2V4.92C16.39 4.8 14.5 2.84 14.5 0Z"
@@ -79,7 +80,7 @@ function TikTokIcon() {
 
 function YouTubeIcon() {
   return (
-    <div className="relative shrink-0 size-[20px]" data-name="YouTube">
+    <div className="relative shrink-0 size-[16px]" data-name="YouTube">
       <svg className="block size-full" fill="none" viewBox="0 0 20 20">
         <path
           d="M19.58 4.73C19.35 3.82 18.64 3.11 17.73 2.88C16.14 2.5 10 2.5 10 2.5C10 2.5 3.86 2.5 2.27 2.88C1.36 3.11 0.65 3.82 0.42 4.73C0 6.32 0 9.5 0 9.5C0 9.5 0 12.68 0.42 14.27C0.65 15.18 1.36 15.89 2.27 16.12C3.86 16.5 10 16.5 10 16.5C10 16.5 16.14 16.5 17.73 16.12C18.64 15.89 19.35 15.18 19.58 14.27C20 12.68 20 9.5 20 9.5C20 9.5 20 6.32 19.58 4.73ZM8 12.5V6.5L13 9.5L8 12.5Z"
@@ -92,7 +93,7 @@ function YouTubeIcon() {
 
 function SnapchatIcon() {
   return (
-    <div className="relative shrink-0 size-[20px]" data-name="Snapchat">
+    <div className="relative shrink-0 size-[16px]" data-name="Snapchat">
       <img
         src="https://proto.dev.foam.io/assets/icons/color/Snap.svg"
         alt="Snapchat"
@@ -210,6 +211,7 @@ export function ContentCardEnhanced({
   onCheckedChange,
   platform = "instagram",
   isDark = false,
+  creator,
 }: ContentCardEnhancedProps) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -223,7 +225,7 @@ export function ContentCardEnhanced({
       // Get center of the video thumbnail area (top portion of card)
       const sourcePosition = {
         x: rect.left + rect.width / 2,
-        y: rect.top + (rect.width * 0.75) / 2, // Center of 4:3 aspect ratio video area
+        y: rect.top + (rect.width * 1.25) / 2, // Center of 4:5 aspect ratio video area
       };
       onCheckedChange(newChecked, sourcePosition);
     } else {
@@ -284,7 +286,7 @@ export function ContentCardEnhanced({
         }}
       >
         {/* Video Container */}
-        <div className="relative shrink-0 w-full aspect-[4/3]" data-name="videoContainer">
+        <div className="relative shrink-0 w-full aspect-[4/5]" data-name="videoContainer">
           <video
             ref={videoRef}
             src={videoUrl}
@@ -326,16 +328,16 @@ export function ContentCardEnhanced({
           data-name="InfoLabel"
         >
           <div className="size-full">
-            <div className="box-border content-stretch flex flex-col gap-[12px] items-start p-[12px] relative w-full">
-              <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+            <div className="box-border content-stretch flex flex-col gap-[8px] items-start p-[10px] relative w-full">
+              <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full">
                 {/* Platform + Name */}
                 <div
-                  className="content-stretch flex gap-[5px] items-center relative shrink-0 w-full"
+                  className="content-stretch flex gap-[4px] items-center relative shrink-0 w-full"
                   data-name="Platform+Name"
                 >
                   <PlatformIcon platform={platform} />
                   <p
-                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[24px] overflow-ellipsis overflow-hidden relative shrink-0 text-[16px] text-nowrap whitespace-pre"
+                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[18px] overflow-ellipsis overflow-hidden relative shrink-0 text-[13px] text-nowrap whitespace-pre"
                     style={{ color: isDark ? "#f3f5f6" : "#15191e" }}
                   >
                     {title}
@@ -344,31 +346,31 @@ export function ContentCardEnhanced({
 
                 {/* Metrics */}
                 <div
-                  className="content-stretch flex gap-[8px] items-center relative shrink-0 flex-wrap"
+                  className="content-stretch flex gap-[6px] items-center relative shrink-0 flex-wrap"
                   data-name="Metrics"
                 >
-                  <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                  <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                     <EyeIcon />
                     <p
-                      className="font-['Hanken_Grotesk',sans-serif] leading-[20px] relative shrink-0 text-[14px] text-nowrap"
+                      className="font-['Hanken_Grotesk',sans-serif] leading-[16px] relative shrink-0 text-[11px] text-nowrap"
                       style={{ color: isDark ? "#b7bdc7" : "#303d4f" }}
                     >
                       {views}
                     </p>
                   </div>
-                  <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                  <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                     <ReachIcon />
                     <p
-                      className="font-['Hanken_Grotesk',sans-serif] leading-[20px] relative shrink-0 text-[14px] text-nowrap"
+                      className="font-['Hanken_Grotesk',sans-serif] leading-[16px] relative shrink-0 text-[11px] text-nowrap"
                       style={{ color: isDark ? "#b7bdc7" : "#303d4f" }}
                     >
                       {reach}
                     </p>
                   </div>
-                  <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                  <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
                     <ClickIcon />
                     <p
-                      className="font-['Hanken_Grotesk',sans-serif] leading-[20px] relative shrink-0 text-[14px] text-nowrap"
+                      className="font-['Hanken_Grotesk',sans-serif] leading-[16px] relative shrink-0 text-[11px] text-nowrap"
                       style={{ color: isDark ? "#b7bdc7" : "#303d4f" }}
                     >
                       {clicks}
@@ -377,25 +379,31 @@ export function ContentCardEnhanced({
                 </div>
               </div>
 
-              {/* View Details Button */}
+              {/* Talent Name + Chart Button */}
               <div
-                className="relative rounded-[9999px] shrink-0 w-full cursor-pointer transition-colors hover:opacity-80"
-                style={{
-                  background: isDark ? "rgba(255,255,255,0.1)" : "#f3f5f6",
-                }}
-                data-name="Button"
+                className="content-stretch flex items-center justify-between relative shrink-0 w-full"
+                data-name="TalentRow"
               >
-                <div className="flex flex-row items-center justify-center size-full">
-                  <div className="box-border content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[8px] relative w-full">
-                    <StatsIcon isDark={isDark} />
-                    <p
-                      className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[16px] relative shrink-0 text-[14px] text-nowrap whitespace-pre"
-                      style={{ color: isDark ? "#f3f5f6" : "#15191e" }}
-                    >
-                      View details
-                    </p>
-                  </div>
-                </div>
+                {creator && (
+                  <p
+                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[16px] text-[11px] truncate flex-1 mr-[6px]"
+                    style={{ color: isDark ? "#b7bdc7" : "#54657D" }}
+                  >
+                    {creator}
+                  </p>
+                )}
+                <button
+                  className="flex items-center justify-center size-[24px] rounded-full cursor-pointer transition-colors hover:opacity-80 shrink-0"
+                  style={{
+                    background: isDark ? "rgba(255,255,255,0.1)" : "#f3f5f6",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // Handle chart click
+                  }}
+                >
+                  <StatsIcon isDark={isDark} />
+                </button>
               </div>
             </div>
           </div>

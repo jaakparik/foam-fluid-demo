@@ -7,6 +7,7 @@ import { MentionPill } from "./MentionPill";
 import { QuickResults } from "./QuickResults";
 import { EntityPicker } from "./EntityPicker";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import {
   talents,
@@ -54,7 +55,43 @@ export function TopBar({
   onAskAssistClick,
   isAssistOpen,
 }: TopBarProps) {
-  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = searchParams.get("q") || "";
+
+  // Initialize search value from URL param
+  const [searchValue, setSearchValue] = useState(urlSearchQuery);
+
+  // Search history - stores completed searches
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+
+  // Active search term (shown as dropdown in search bar when on results page)
+  const [activeSearchTerm, setActiveSearchTerm] = useState<string>("");
+
+  // Track if user is editing a search term (to hide QuickResults/TalentPicker dropdowns)
+  const [isEditingSearchTerm, setIsEditingSearchTerm] = useState(false);
+
+  // Sync search value with URL when URL changes (e.g., navigating to search results)
+  useEffect(() => {
+    if (urlSearchQuery) {
+      // Set active search term for dropdown, but clear input value
+      setActiveSearchTerm(urlSearchQuery);
+      setSearchValue("");
+    } else {
+      setActiveSearchTerm("");
+    }
+  }, [urlSearchQuery]);
+  
+  // Show quick results in dropdown toggle - stored in localStorage
+  const [showQuickResultsInDropdown, setShowQuickResultsInDropdown] = useState(() => {
+    const stored = localStorage.getItem('showQuickResultsInDropdown');
+    return stored === null ? false : stored === 'true';
+  });
+  
+  const handleShowQuickResultsToggle = (value: boolean) => {
+    setShowQuickResultsInDropdown(value);
+    localStorage.setItem('showQuickResultsInDropdown', String(value));
+  };
   const [selectedMentions, setSelectedMentions] = useState<
     SelectedMention[]
   >([]);
@@ -93,6 +130,8 @@ export function TopBar({
 
   const handleClear = () => {
     setSearchValue("");
+    setActiveSearchTerm("");
+    setIsEditingSearchTerm(false);
     setSelectedMentions([]);
     setSelectedFilters([]);
     setShowTalentPicker(false);
@@ -259,6 +298,22 @@ export function TopBar({
     });
   };
 
+  // Handle filter type selection from recent dropdown (Talent, Posts, Lists, Media Kits)
+  const handleFilterTypeSelect = (filterType: string) => {
+    // Map filter type to special mention
+    const filterTypeMap: Record<string, SpecialMention> = {
+      'Talent': { id: 'special-talent', name: 'Talent', type: 'content' as any },
+      'Posts': { id: 'special-content', name: 'Content', type: 'content' },
+      'Lists': { id: 'special-list', name: 'List', type: 'list' },
+      'Media Kits': { id: 'special-mediapack', name: 'Media Kit', type: 'mediapack' },
+    };
+
+    const specialMention = filterTypeMap[filterType];
+    if (specialMention) {
+      handleSpecialMentionSelect(specialMention);
+    }
+  };
+
   const handleRemoveMention = (id: string) => {
     setSelectedMentions((prev) =>
       prev.filter((m) => m.id !== id),
@@ -304,6 +359,57 @@ export function TopBar({
           handleTalentSelect(filteredTalents[talentIndex]);
         }
       }
+    } else if (e.key === "Enter" && searchValue.trim() && !showQuickResultsInDropdown) {
+      // Navigate to search results when toggle is off
+      e.preventDefault();
+      setIsFocused(false);
+
+      // If editing a search term, REPLACE it (use only the new value)
+      // Otherwise, combine with active search term (add refinement)
+      const newTerm = searchValue.trim();
+      const query = isEditingSearchTerm
+        ? newTerm  // Replace: use only the new term
+        : activeSearchTerm
+          ? `${activeSearchTerm} ${newTerm}`.trim()  // Combine: append refinement
+          : newTerm;
+
+      setIsEditingSearchTerm(false);
+      const queryLower = query.toLowerCase();
+
+      // Add to search history if not already the most recent
+      if (searchHistory[0] !== query) {
+        setSearchHistory(prev => {
+          const filtered = prev.filter(s => s.toLowerCase() !== queryLower);
+          return [query, ...filtered].slice(0, 10); // Keep max 10 items
+        });
+      }
+
+      // Check for Canada-specific search query (female + canada + instagram eng rate 5%)
+      const isCanadaSearch =
+        queryLower.includes("female") &&
+        queryLower.includes("canada") &&
+        queryLower.includes("instagram") &&
+        queryLower.includes("eng") &&
+        queryLower.includes("5");
+
+      if (isCanadaSearch) {
+        // Navigate to Canada search with the actual search query
+        navigate(`/canada/search?q=${encodeURIComponent(query)}`);
+      } else {
+        // Check if "Talent" filter is selected - navigate to talent search
+        const hasTalentFilter = selectedMentions.some(
+          (m) => m.specialMention?.name === "Talent"
+        );
+
+        if (hasTalentFilter) {
+          navigate(`/talent/search?q=${encodeURIComponent(query)}`);
+        } else {
+          navigate(`/talent/search?q=${encodeURIComponent(query)}`);
+        }
+      }
+
+      // Clear the input field after navigation
+      setSearchValue("");
     }
   };
 
@@ -324,6 +430,40 @@ export function TopBar({
       );
   }, []);
 
+  // Listen for custom event to focus the global search input
+  useEffect(() => {
+    const handleFocusGlobalSearch = () => {
+      inputRef.current?.focus();
+      setIsFocused(true);
+    };
+
+    window.addEventListener("focusGlobalSearch", handleFocusGlobalSearch);
+    return () =>
+      window.removeEventListener("focusGlobalSearch", handleFocusGlobalSearch);
+  }, []);
+
+  // Listen for custom event to edit a search term
+  useEffect(() => {
+    const handleEditSearchTerm = (e: CustomEvent<{ term: string }>) => {
+      const term = e.detail?.term || '';
+      // Set the search value to the term for editing
+      setSearchValue(term);
+      // Clear the active search term dropdown while editing
+      setIsEditingSearchTerm(true);
+      // Focus the input
+      inputRef.current?.focus();
+      setIsFocused(true);
+      // Select all text for easy replacement
+      requestAnimationFrame(() => {
+        inputRef.current?.select();
+      });
+    };
+
+    window.addEventListener("editSearchTerm", handleEditSearchTerm as EventListener);
+    return () =>
+      window.removeEventListener("editSearchTerm", handleEditSearchTerm as EventListener);
+  }, []);
+
   const hasContent =
     selectedMentions.length > 0 ||
     selectedFilters.length > 0 ||
@@ -331,16 +471,16 @@ export function TopBar({
 
   return (
     <div
-      className="h-[55px] w-full flex items-center pr-[16px] px-[12px]"
+      className="h-[55px] w-full flex items-center pr-[16px] px-[12px] relative z-[200]"
       style={{
         background: "var(--nav-sidepanel-bg)",
       }}
     >
       <div className="flex items-center justify-center w-full gap-[12px]">
         {/* Centered Search */}
-        <div className="relative w-[502px]" ref={containerRef}>
+        <div className="relative w-[502px] z-50" ref={containerRef}>
           <div
-            className="min-h-[32px] rounded-[8px] flex items-center px-[12px] gap-[8px] transition-colors relative"
+            className={`min-h-[32px] rounded-[8px] flex items-center ${activeSearchTerm ? 'px-[8px]' : 'px-[12px]'} gap-[8px] transition-colors relative`}
             style={{
               background: isFocused
                 ? "var(--search-background-active)"
@@ -363,10 +503,29 @@ export function TopBar({
               }
             }}
           >
-            <SearchIcon className="size-[16px] shrink-0" />
+            {/* Search Icon or Plus Icon */}
+            {activeSearchTerm ? (
+              <svg
+                className="size-[16px] shrink-0"
+                viewBox="0 0 16 16"
+                fill="none"
+                style={{ color: "var(--search-text-default)" }}
+              >
+                <path
+                  d="M8 3.5V12.5M3.5 8H12.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ) : (
+              <SearchIcon className="size-[16px] shrink-0" />
+            )}
 
             {/* Pills and Input Container */}
             <div className="flex-1 flex items-center gap-[4px] flex-wrap py-[2px]">
+
               {/* Selected Mention Pills */}
               {selectedMentions.map((mention) => {
                 const name =
@@ -419,7 +578,9 @@ export function TopBar({
                   selectedMentions.length > 0 ||
                   selectedFilters.length > 0
                     ? ""
-                    : "Search talent profiles, content captions and lists"
+                    : activeSearchTerm
+                    ? "Add another term"
+                    : "e.g. fashion talent in LA or IG ENG rate over 5%"
                 }
                 className="flex-1 min-w-[120px] bg-transparent border-none outline-none search-input placeholder:transition-colors text-[13px]"
                 style={{
@@ -430,10 +591,31 @@ export function TopBar({
               />
             </div>
 
-            {!isFocused && !hasContent && (
+            {activeSearchTerm && !searchValue ? (
+              <button
+                onClick={() => {
+                  setSearchValue("");
+                  setSelectedMentions([]);
+                  setSelectedFilters([]);
+                  setActiveSearchTerm("");
+                }}
+                className="px-[8px] py-[4px] rounded-[4px] text-[12px] font-['Hanken_Grotesk',sans-serif] font-medium transition-colors shrink-0 my-[4px]"
+                style={{
+                  background: "var(--filter-button-bg)",
+                  color: "var(--table-text-primary)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "var(--filter-button-bg-hover)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "var(--filter-button-bg)";
+                }}
+              >
+                Reset search
+              </button>
+            ) : !isFocused && !hasContent ? (
               <KeyboardShortcut isDark={isDark} />
-            )}
-            {hasContent && (
+            ) : hasContent ? (
               <button
                 onMouseDown={(e) => {
                   e.preventDefault(); // Prevent input from losing focus
@@ -450,9 +632,9 @@ export function TopBar({
               >
                 <ClearIcon className="size-[16px]" />
               </button>
-            )}
+            ) : null}
           </div>
-          {showTalentPicker && (
+          {showTalentPicker && !isEditingSearchTerm && (
             <TalentPicker
               talents={filteredTalents}
               specialMentions={filteredSpecialMentions}
@@ -463,8 +645,8 @@ export function TopBar({
               highlightedIndex={highlightedIndex}
             />
           )}
-          {/* Show QuickResults when focused and not showing @ mentions */}
-          {isFocused && !showTalentPicker && (
+          {/* Show QuickResults when focused and not showing @ mentions and not editing */}
+          {isFocused && !showTalentPicker && !isEditingSearchTerm && (
             <QuickResults
               searchQuery={searchValue}
               isDark={isDark}
@@ -486,6 +668,9 @@ export function TopBar({
                   mentionIds: selectedMentions.map(m => m.id),
                 });
               }}
+              showQuickResultsInDropdown={showQuickResultsInDropdown}
+              onShowQuickResultsToggle={handleShowQuickResultsToggle}
+              onFilterTypeSelect={handleFilterTypeSelect}
             />
           )}
         </div>

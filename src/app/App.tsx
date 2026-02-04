@@ -7,9 +7,17 @@ import { MediaKits } from "./pages/MediaKits";
 import { MediaKitEditor } from "./pages/MediaKitEditor";
 import { TalentRecord } from "./pages/TalentRecord";
 import { ContentSearchResults } from "./pages/ContentSearchResults";
+import { TalentSearchResults } from "./pages/TalentSearchResults";
+import { CanadaSearchResults } from "./pages/CanadaSearchResults";
+import { FullSearchResults } from "./pages/FullSearchResults";
+import { CoffeeContentSearchResults } from "./pages/CoffeeContentSearchResults";
+import { SaveForLater } from "./pages/SaveForLater";
 import { NewMediaKit } from "./pages/NewMediaKit";
 import { PublicMediaKit } from "./pages/PublicMediaKit";
 import { MediaKitProvider } from "./contexts/MediaKitContext";
+import { SearchProvider } from "./contexts/SearchContext";
+import { SavedItemsProvider } from "./contexts/SavedItemsContext";
+import { FlyingAnimationProvider } from "./contexts/FlyingAnimationContext";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -19,6 +27,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <SavedItemsProvider>
+      <FlyingAnimationProvider>
+      <SearchProvider>
       <MediaKitProvider>
         <Routes>
           {/* Public route without layout */}
@@ -59,7 +70,12 @@ export default function App() {
                       <Route path="/media-kits/new" element={<MediaKitEditor isDark={isDark} />} />
                       <Route path="/media-kits/create" element={<NewMediaKit isDark={isDark} />} />
                       <Route path="/media-kits/edit/:id" element={<MediaKitEditor isDark={isDark} />} />
-                      <Route path="/content/nike" element={<ContentSearchResults isDark={isDark} />} />
+                      <Route path="/content/:searchTerm" element={<ContentSearchResults isDark={isDark} />} />
+                      <Route path="/talent/search" element={<TalentSearchResults isDark={isDark} />} />
+                      <Route path="/canada/search" element={<CanadaSearchResults isDark={isDark} />} />
+                      <Route path="/search" element={<FullSearchResults isDark={isDark} />} />
+                      <Route path="/coffee/posts" element={<CoffeeContentSearchResults isDark={isDark} />} />
+                      <Route path="/save-for-later" element={<SaveForLater isDark={isDark} />} />
                     </Routes>
                   </div>
                 </div>
@@ -76,6 +92,9 @@ export default function App() {
         />
       </Routes>
       </MediaKitProvider>
+      </SearchProvider>
+      </FlyingAnimationProvider>
+      </SavedItemsProvider>
     </BrowserRouter>
   );
 }

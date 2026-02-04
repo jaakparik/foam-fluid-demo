@@ -36,8 +36,12 @@ import { ManagerCard } from "./cards/ManagerCard";
 import { BrandCard } from "./cards/BrandCard";
 import { CollaborationCard } from "./cards/CollaborationCard";
 import { TalentProfileHeader } from "./cards/TalentProfileHeader";
-import { AskAssistFooter } from "./AskAssistFooter";
 import { SearchActivity } from "./SearchActivity";
+import { Users } from "./icons/foamicons/Users";
+import { Image } from "./icons/foamicons/Image";
+import { List } from "./icons/foamicons/List";
+import { MediaKits } from "./icons/foamicons/MediaKits";
+import { Star } from "./icons/foamicons/Star";
 
 // ============================================
 // CONFIGURABLE LOADING TIMINGS (in milliseconds)
@@ -93,6 +97,9 @@ interface QuickResultsProps {
   onRecentSearchClick?: (searchText: string, mention?: { name: string; avatarUrl: string }) => void;
   skipAnimation?: boolean;
   onAnimationComplete?: () => void;
+  showQuickResultsInDropdown?: boolean;
+  onShowQuickResultsToggle?: (value: boolean) => void;
+  onFilterTypeSelect?: (filterType: string) => void;
 }
 
 
@@ -106,6 +113,9 @@ export function QuickResults({
   onRecentSearchClick,
   skipAnimation = false,
   onAnimationComplete,
+  showQuickResultsInDropdown = true,
+  onShowQuickResultsToggle,
+  onFilterTypeSelect,
 }: QuickResultsProps) {
   const navigate = useNavigate();
   
@@ -136,12 +146,12 @@ export function QuickResults({
   const chrisAllen = getTalentByName('Chris Allen');
 
   // Nike-specific filter buttons (Brands first)
-  const nikeFilterButtons = [
-    { label: "Brands", count: 1 },
-    { label: "Lists", count: 1 },
-    { label: "Media Kits", count: 1 },
-    { label: "Content", count: 4 },
-    { label: "Talent", count: 1 },
+  const nikeFilterButtons: FilterButton[] = [
+    { label: "Brands", count: 1, icon: Star },
+    { label: "Lists", count: 1, icon: List },
+    { label: "Media Kits", count: 1, icon: MediaKits },
+    { label: "Content", count: 4, icon: Image },
+    { label: "Talent", count: 1, icon: Users },
   ];
 
   // Track which sections are loading vs loaded
@@ -270,30 +280,40 @@ export function QuickResults({
   interface FilterButton {
     label: string;
     count: number;
+    icon?: React.ComponentType<{ size?: number; style?: React.CSSProperties }>;
   }
 
   const filterButtons: FilterButton[] = [
-    { label: "Talent", count: 32 },
-    { label: "Posts", count: 245 },
-    { label: "Lists", count: 2 },
-    { label: "Media Kits", count: 8 },
+    { label: "Talent", count: 45, icon: Users },
+    { label: "Posts", count: 245, icon: Image },
+    { label: "Lists", count: 2, icon: List },
+    { label: "Media Kits", count: 8, icon: MediaKits },
   ];
 
   const talentFilterButtons: FilterButton[] = [
-    { label: "Lists", count: 1 },
-    { label: "Posts", count: 4 },
-    { label: "Media Kits", count: 1 },
-    { label: "Managers", count: 2 },
+    { label: "Talent", count: 1, icon: Users },
+    { label: "Lists", count: 1, icon: List },
+    { label: "Posts", count: 4, icon: Image },
+    { label: "Media Kits", count: 1, icon: MediaKits },
   ];
 
-  const recentSearches = [
-    { type: 'text', text: 'coffee' },
-    { type: 'mention', mentionName: 'Bella Rivera', mentionAvatar: 'https://proto.dev.foam.io/assets/avatars/female/female_young_adult_fitness_influencer.jpeg', searchText: 'London fashion week' },
-    { type: 'text', text: 'John' },
-    { type: 'text', text: '@Ava Scott nike' },
-    { type: 'text', text: 'having a child' },
-    { type: 'text', text: 'beauty pageant' },
-    { type: 'text', text: 'NYC 2026' },
+  const allRecentSearches = [
+    { type: 'text', text: 'female creators with male audience and at least 1M followers in IG' },
+    { type: 'text', text: 'coffee macchiato cappuccino' },
+    { type: 'text', text: 'audience in canada with at least 5% IG ENG rate' },
+    { type: 'text', text: 'Mary Poppins' },
+    { type: 'mention', mentionName: 'Mary Poppins', mentionAvatar: 'https://proto.dev.foam.io/assets/avatars/female/female_young_adult_fashion_influencer.jpeg', searchText: 'latest instagram posts' },
+  ];
+  
+  // Limit to 4 recent searches
+  const recentSearches = allRecentSearches.slice(0, 4);
+
+  // Default filter buttons for recent dropdown with icons
+  const defaultFilterButtons = [
+    { label: "Talent", icon: Users },
+    { label: "Posts", icon: Image },
+    { label: "Lists", icon: List },
+    { label: "Media Kits", icon: MediaKits },
   ];
 
   return (
@@ -306,8 +326,8 @@ export function QuickResults({
         overflowY: "auto",
       }}
     >
-      {/* Filter Buttons Bar - Only show when there's a search query */}
-      {searchQuery && (
+      {/* Filter Buttons Bar - Only show when there's a search query AND quick results are enabled */}
+      {searchQuery && showQuickResultsInDropdown && (
         <div className="flex gap-[8px] p-[12px]">
           {(isNikeSearch ? nikeFilterButtons : hasAtMention ? talentFilterButtons : filterButtons).map((button, index) => {
             const isSelected = selectedFilters.includes(
@@ -356,10 +376,11 @@ export function QuickResults({
               }
             }
 
+            const IconComponent = button.icon;
             return (
               <button
                 key={button.label}
-                className="px-[12px] py-[4px] rounded-[8px] transition-colors cursor-pointer flex items-center justify-center gap-[4px] relative overflow-hidden"
+                className="px-[8px] py-[4px] rounded-[8px] transition-colors cursor-pointer flex items-center justify-center gap-[4px] relative overflow-hidden"
                 style={{
                   background: isSelected
                     ? "var(--quickresults-button-active-bg)"
@@ -381,7 +402,11 @@ export function QuickResults({
                 }}
                 onMouseDown={(e) => {
                   e.preventDefault();
-                  onFilterSelect(button.label);
+                  if (button.label === "Talent") {
+                    navigate(`/talent/search?q=${encodeURIComponent(searchQuery)}`);
+                  } else {
+                    onFilterSelect(button.label);
+                  }
                 }}
               >
                 {/* Loading shimmer animation */}
@@ -403,6 +428,7 @@ export function QuickResults({
                   />
                 )}
 
+                {IconComponent && <IconComponent size={16} style={{ color: "currentColor" }} />}
                 <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[12px] leading-[20px]">
                   {button.label}
                 </p>
@@ -427,10 +453,10 @@ export function QuickResults({
         </div>
       )}
 
-      {/* Search Activity */}
+      {/* Search Activity - Only show when quick results are enabled */}
       <SearchActivity 
         isDark={isDark} 
-        isActive={hasSearchQuery || hasAtMention}
+        isActive={(hasSearchQuery || hasAtMention) && showQuickResultsInDropdown}
         mentionType={
           !hasAtMention 
             ? 'none' 
@@ -443,36 +469,94 @@ export function QuickResults({
 
       {/* Content based on search state */}
       <div className="pb-0">
-        {!hasSearchQuery && !hasAtMention ? (
-          // Default state - Recent searches
-          <div className="p-[12px]">
-            <p
-              className="font-['Hanken_Grotesk',sans-serif] text-[12px] leading-[16px] mb-[12px]"
-              style={{
-                color: "var(--nav-item-text-secondary)",
-                fontWeight: 300,
-              }}
+        {(!hasSearchQuery && !hasAtMention) || !showQuickResultsInDropdown ? (
+          // Default state - Recent searches (also shown when quick results toggle is OFF)
+          <div>
+            {/* @mention hint */}
+            <div className="px-[12px] pt-[12px] pb-[8px]">
+              <p
+                className="font-['Hanken_Grotesk',sans-serif] text-[12px] leading-[20px]"
+                style={{ color: "var(--nav-item-text-secondary)" }}
+              >
+                <span style={{ fontWeight: 300 }}>Use </span>
+                <span
+                  className="font-medium text-[14px]"
+                  style={{ color: "var(--nav-item-text-primary)" }}
+                >
+                  @ mention
+                </span>
+                <span style={{ fontWeight: 300 }}> to search specific talent related info</span>
+              </p>
+            </div>
+
+            {/* Filter buttons */}
+            <div
+              className="flex gap-[8px] px-[12px] pb-[8px] pt-[12px]"
+              style={{ borderTop: "1px solid var(--quickresults-section-border)" }}
             >
-              RECENT SEARCHES
-            </p>
-            <div className="flex flex-col gap-[4px]">
+              {defaultFilterButtons.map((button) => {
+                const IconComponent = button.icon;
+                return (
+                  <button
+                    key={button.label}
+                    className="flex items-center gap-[4px] px-[8px] py-[4px] rounded-[8px] transition-colors cursor-pointer"
+                    style={{
+                      background: "var(--quickresults-button-bg)",
+                      color: "var(--quickresults-button-text)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "var(--quickresults-button-hover-bg)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "var(--quickresults-button-bg)";
+                    }}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      onFilterTypeSelect?.(button.label);
+                    }}
+                  >
+                    <IconComponent size={16} style={{ color: "currentColor" }} />
+                    <p className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[12px] leading-[20px]">
+                      {button.label}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Recent Searches Header */}
+            <div
+              className="px-[12px] pt-[12px] pb-[8px]"
+              style={{ borderTop: "1px solid var(--quickresults-section-border)" }}
+            >
+              <p
+                className="font-['Hanken_Grotesk',sans-serif] text-[12px] leading-[20px]"
+                style={{
+                  color: "var(--nav-item-text-secondary)",
+                  fontWeight: 300,
+                }}
+              >
+                RECENT SEARCHES
+              </p>
+            </div>
+
+            {/* Recent Searches List */}
+            <div className="flex flex-col gap-[2px] px-[12px] pb-[12px]">
               {recentSearches.map((search, index) => (
                 <button
                   key={index}
-                  className="text-left px-[12px] py-[8px] rounded-[6px] transition-colors cursor-pointer flex items-center gap-[6px]"
+                  className="text-left px-[4px] py-[2px] rounded-[4px] transition-colors cursor-pointer flex items-center gap-[10px]"
                   style={{
                     color: "var(--quickresults-item-text)",
                     fontSize: "12px",
-                    fontFamily:
-                      "Hanken_Grotesk:Regular,sans-serif",
+                    fontFamily: "Hanken_Grotesk:Light,sans-serif",
+                    fontWeight: 300,
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background =
-                      "var(--quickresults-item-bg)";
+                    e.currentTarget.style.background = "var(--quickresults-item-bg)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background =
-                      "transparent";
+                    e.currentTarget.style.background = "transparent";
                   }}
                   onMouseDown={(e) => {
                     e.preventDefault();
@@ -485,34 +569,78 @@ export function QuickResults({
                   {search.type === 'mention' ? (
                     <>
                       <div
-                        className="flex items-center gap-[6px] px-[6px] py-[2px] rounded-[6px]"
+                        className="flex items-center gap-[4px] px-[4px] py-[2px] rounded-[4px]"
                         style={{
                           background: isDark
                             ? "rgba(255, 255, 255, 0.08)"
-                            : "rgba(58, 73, 95, 0.08)",
+                            : "rgba(139, 148, 162, 0.1)",
                         }}
                       >
                         <img
                           src={search.mentionAvatar}
                           alt={search.mentionName}
-                          className="size-[16px] rounded-full object-cover"
+                          className="size-[20px] rounded-full object-cover"
                         />
                         <span
-                          className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[12px]"
+                          className="font-['Hanken_Grotesk:Bold',sans-serif] font-bold text-[12px] leading-[20px]"
                           style={{
-                            color: "var(--quickresults-item-text)",
+                            color: "var(--nav-item-text-primary)",
                           }}
                         >
                           {search.mentionName}
                         </span>
                       </div>
-                      <span>{search.searchText}</span>
+                      <span
+                        className="font-['Hanken_Grotesk:Light',sans-serif] font-light text-[12px] leading-[20px]"
+                        style={{ color: "var(--quickresults-item-text)" }}
+                      >
+                        {search.searchText}
+                      </span>
                     </>
                   ) : (
                     <span>{search.text}</span>
                   )}
                 </button>
               ))}
+            </div>
+            
+            {/* Toggle for showing quick results in dropdown */}
+            <div
+              className="flex items-center justify-between px-[12px] pt-[12px] pb-[12px] cursor-pointer transition-colors rounded-[4px]"
+              style={{ borderTop: "1px solid var(--quickresults-section-border)" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--quickresults-item-bg)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+              }}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                onShowQuickResultsToggle?.(!showQuickResultsInDropdown);
+              }}
+            >
+              <span
+                className="font-['Hanken_Grotesk',sans-serif] text-[14px] leading-[20px]"
+                style={{ color: "var(--quickresults-item-text)" }}
+              >
+                Show quick results in dropdown
+              </span>
+              <div
+                className="relative w-[40px] h-[20px] rounded-full transition-colors shrink-0"
+                style={{
+                  background: showQuickResultsInDropdown
+                    ? "#155fef"
+                    : isDark ? "rgba(255, 255, 255, 0.3)" : "#dee2e8",
+                }}
+              >
+                <div
+                  className="absolute top-[2px] w-[16px] h-[16px] rounded-full transition-transform shadow-[0px_2px_8px_0px_rgba(28,33,40,0.2)]"
+                  style={{
+                    transform: showQuickResultsInDropdown ? "translateX(22px)" : "translateX(2px)",
+                    background: "#FFFFFF",
+                  }}
+                />
+              </div>
             </div>
           </div>
         ) : hasAtMention && atMentionData ? (
@@ -1150,6 +1278,12 @@ export function QuickResults({
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "transparent";
                     }}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      navigate(`/talent/search?q=${encodeURIComponent(searchQuery)}`);
+                      onClose();
+                    }}
                   >
                     <p
                       className="font-['Hanken_Grotesk:Medium',sans-serif] font-medium text-[12px] leading-[20px]"
@@ -1243,6 +1377,12 @@ export function QuickResults({
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background =
                     "transparent";
+                }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  navigate(`/talent/search?q=${encodeURIComponent(searchQuery)}`);
+                  onClose();
                 }}
               >
                 <p
@@ -1740,14 +1880,6 @@ export function QuickResults({
         )}
       </div>
 
-      {/* Footer - Ask Foam Assist */}
-      {(hasSearchQuery || hasAtMention) && (
-        <AskAssistFooter 
-          searchQuery={searchQuery}
-          hasAtMention={hasAtMention}
-          atMentionData={atMentionData}
-        />
-      )}
     </div>
   );
 }

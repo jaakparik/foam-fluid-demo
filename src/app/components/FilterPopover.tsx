@@ -10,6 +10,7 @@ import { AudienceGenderFilter } from './filters/AudienceGenderFilter';
 import { AudienceAgeFilter } from './filters/AudienceAgeFilter';
 import { AudienceLocationFilter } from './filters/AudienceLocationFilter';
 import { PlatformFilter } from './filters/PlatformFilter';
+import { MagicIcon } from './icons/MagicIcon';
 
 type TopLevelTab = 'Agency' | 'Creator' | 'Audience' | 'Platforms';
 type CreatorTab = 'Gender' | 'Age' | 'Location' | 'Verticals';
@@ -34,6 +35,7 @@ interface FilterPopoverProps {
   initialTopLevelTab?: TopLevelTab;
   initialCreatorTab?: CreatorTab;
   initialAudienceTab?: AudienceTab;
+  onAskAssistSubmit?: (query: string) => void;
 }
 
 export function FilterPopover({ 
@@ -42,6 +44,7 @@ export function FilterPopover({
   initialTopLevelTab,
   initialCreatorTab,
   initialAudienceTab,
+  onAskAssistSubmit,
 }: FilterPopoverProps) {
   const [topLevelTab, setTopLevelTab] = useState<TopLevelTab>(initialTopLevelTab || 'Creator');
   const [creatorTab, setCreatorTab] = useState<CreatorTab>(initialCreatorTab || 'Gender');
@@ -58,6 +61,10 @@ export function FilterPopover({
   const [audienceGenderSelection, setAudienceGenderSelection] = useState<{ gender: 'male' | 'female' | null; percentage: number }>(externalFilterState?.audienceGenderSelection || { gender: null, percentage: 0 });
   const [audienceAgeSelection, setAudienceAgeSelection] = useState<{ ages: string[]; range: { min: number; max: number } }>(externalFilterState?.audienceAgeSelection || { ages: [], range: { min: 10, max: 65 } });
   const [audienceLocationSelection, setAudienceLocationSelection] = useState<string | null>(externalFilterState?.audienceLocationSelection || null);
+  
+  // Ask Assist state
+  const [askAssistQuery, setAskAssistQuery] = useState("");
+  const [askAssistActive, setAskAssistActive] = useState(false);
   
   const [platformConfigurations, setPlatformConfigurations] = useState<{[key: string]: any}>(externalFilterState?.platformConfigurations || {});
 
@@ -92,6 +99,13 @@ export function FilterPopover({
   const creatorTabRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const audienceTabRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const platformTabRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const askAssistInputRef = useRef<HTMLInputElement>(null);
+  
+  // Auto-focus Ask Assist input on mount
+  useEffect(() => {
+    askAssistInputRef.current?.focus();
+    setAskAssistActive(true);
+  }, []);
   
   const [topLevelIndicator, setTopLevelIndicator] = useState({ left: 0, width: 0 });
   const [creatorIndicator, setCreatorIndicator] = useState({ left: 0, width: 0 });
@@ -157,8 +171,7 @@ export function FilterPopover({
     const tabs: TopLevelTab[] = ['Agency', 'Creator', 'Audience', 'Platforms'];
     
     return (
-      <div className="content-stretch flex items-center relative rounded-[8px] shrink-0 w-full bg-[rgba(58,73,95,0.05)]">
-        <div aria-hidden="true" className="absolute border border-[rgba(48,61,79,0.1)] border-solid inset-[-1px] pointer-events-none rounded-[9px]" />
+      <div className="content-stretch flex items-center relative rounded-[8px] shrink-0 w-full bg-[rgba(58,73,95,0.05)] border border-solid border-[rgba(48,61,79,0.1)] overflow-hidden">
         {tabs.map((tab) => {
           const count = filterCounts[tab];
           const isActive = topLevelTab === tab;
@@ -204,8 +217,7 @@ export function FilterPopover({
     const tabs: CreatorTab[] = ['Gender', 'Age', 'Location', 'Verticals'];
     
     return (
-      <div className="content-stretch flex items-center relative rounded-[8px] shrink-0 w-full">
-        <div aria-hidden="true" className="absolute border border-[rgba(48,61,79,0.1)] border-solid inset-[-1px] pointer-events-none rounded-[9px]" />
+      <div className="content-stretch flex items-center relative rounded-[8px] shrink-0 w-full border border-solid border-[rgba(48,61,79,0.1)]">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -237,8 +249,7 @@ export function FilterPopover({
     const tabs: AudienceTab[] = ['Gender', 'Age', 'Location'];
     
     return (
-      <div className="content-stretch flex items-center relative rounded-[8px] shrink-0 w-full">
-        <div aria-hidden="true" className="absolute border border-[rgba(48,61,79,0.1)] border-solid inset-[-1px] pointer-events-none rounded-[9px]" />
+      <div className="content-stretch flex items-center relative rounded-[8px] shrink-0 w-full border border-solid border-[rgba(48,61,79,0.1)]">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -451,7 +462,7 @@ export function FilterPopover({
     }
 
     return (
-      <div className="content-stretch flex flex-col gap-[8px] items-start pb-0 pt-[12px] px-[12px] relative shrink-0 w-full">
+      <div className="content-stretch flex flex-col gap-[8px] items-start pb-0 pt-[12px] px-[12px] relative shrink-0 w-full bg-white">
         <div aria-hidden="true" className="absolute border-[rgba(0,0,0,0.05)] border-solid border-t inset-0 pointer-events-none" />
         <div className="css-g0mm18 flex flex-col font-['Hanken_Grotesk:Medium',sans-serif] font-medium justify-center leading-[0] relative shrink-0 text-[#54657d] text-[12px]">
           <p className="css-ew64yg leading-[20px]">{subtitle}</p>
@@ -465,8 +476,60 @@ export function FilterPopover({
     <div 
       className="bg-white content-stretch flex flex-col items-start justify-center overflow-clip relative rounded-[8px] shadow-[0px_4px_16px_0px_rgba(28,33,40,0.25)] w-[360px]"
     >
+      {/* Ask Assist Input */}
+      <div className="content-stretch flex items-center p-[12px] relative shrink-0 w-full bg-white">
+        <div className="relative h-[32px] w-full">
+          <div
+            className="content-stretch flex gap-[8px] items-center px-[12px] py-0 relative rounded-[8px] size-full"
+            onMouseEnter={() => setAskAssistActive(true)}
+            onMouseLeave={() => setAskAssistActive(false)}
+          >
+            <div
+              aria-hidden="true"
+              className="absolute border border-solid inset-0 pointer-events-none rounded-[8px]"
+              style={{
+                borderColor:
+                  askAssistActive || askAssistQuery
+                    ? "var(--table-border-header)"
+                    : "var(--quickfilter-border)",
+              }}
+            />
+            <input
+              ref={askAssistInputRef}
+              type="text"
+              placeholder="e.g. Female fashionistas with 5% ENG rate"
+              value={askAssistQuery}
+              onChange={(e) => setAskAssistQuery(e.target.value)}
+              onFocus={() => setAskAssistActive(true)}
+              onBlur={() => setAskAssistActive(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && askAssistQuery.trim() && onAskAssistSubmit) {
+                  onAskAssistSubmit(askAssistQuery.trim());
+                  // Clear input after submission
+                  setTimeout(() => {
+                    setAskAssistQuery("");
+                  }, 500);
+                }
+              }}
+              className="basis-0 font-['Hanken_Grotesk:Medium',sans-serif] font-medium leading-[20px] min-h-px min-w-px grow relative shrink-0 text-[12px] bg-transparent border-none outline-none"
+              style={{
+                color: askAssistQuery
+                  ? "var(--quickfilter-text-active)"
+                  : "var(--quickfilter-text-placehoder)",
+              }}
+            />
+            <div
+              className="size-[20px] shrink-0"
+              style={{ color: "var(--quickfilter-icon)" }}
+            >
+              <MagicIcon />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Top level tabs */}
-      <div className="content-stretch flex items-center justify-end p-[12px] relative shrink-0 w-full">
+      <div className="content-stretch flex items-center justify-end p-[12px] pt-0 relative shrink-0 w-full bg-white">
         {renderTopLevelTabs()}
       </div>
 
@@ -474,17 +537,17 @@ export function FilterPopover({
       {getSubtabSection()}
 
       {/* Content - scrollable if needed */}
-      <div className="relative shrink-0 w-full overflow-y-auto">
-        <div className="content-stretch flex flex-col items-start pb-[12px] pt-0 px-[12px] relative w-full">
+      <div className="relative shrink-0 w-full overflow-y-auto bg-white">
+        <div className="content-stretch flex flex-col items-start pb-[12px] pt-0 px-[12px] relative w-full bg-white">
           {renderContent()}
         </div>
       </div>
 
       {/* Footer */}
       {topLevelTab === 'Creator' && creatorTab === 'Gender' && (
-        <div className="relative shrink-0 w-full">
+        <div className="relative shrink-0 w-full bg-white">
           <div aria-hidden="true" className="absolute border-[rgba(0,0,0,0.05)] border-solid border-t inset-0 pointer-events-none" />
-          <div className="content-stretch flex items-start p-[12px] relative w-full">
+          <div className="content-stretch flex items-start p-[12px] relative w-full bg-white">
             <div className="css-g0mm18 flex flex-col font-['Founders_Grotesk:Regular',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#54657d] text-[12px]">
               <p className="css-ew64yg leading-[16px]">Select up to two</p>
             </div>

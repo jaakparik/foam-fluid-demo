@@ -1,4 +1,4 @@
-import { SearchDuotone } from './SearchDuotone';
+import { Search } from './foamicons/Search';
 
 interface SearchIconProps {
   className?: string;
@@ -7,7 +7,7 @@ interface SearchIconProps {
 
 export function SearchIcon({ className = "size-[16px]", color }: SearchIconProps) {
   return (
-    <SearchDuotone
+    <Search
       size={16}
       strokeWidth="var(--icon-stroke-width)"
       className={className}
