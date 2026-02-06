@@ -17,9 +17,10 @@ interface ContentItem {
   score: number;
 }
 
-// Generate Nike content items - 20 unique items using Nike videos
+// Generate Nike content items - 21 unique items using Nike videos
 const generateNikeContent = (): ContentItem[] => {
   const titles = [
+    "A new set of boots", // Landscape video post
     "Just Do It Morning Run",
     "Air Max Unboxing",
     "Nike Training Day",
@@ -43,21 +44,25 @@ const generateNikeContent = (): ContentItem[] => {
   ];
 
   const platforms: ("instagram" | "tiktok" | "youtube")[] = [
+    "youtube", // First item is YouTube for landscape video
     "instagram",
     "tiktok",
     "youtube",
   ];
-  const creators = ["Chris Allen", "Nike Runner", "Fit Mike", "Sneaker Sarah", "Athletic Amy"];
-  const viewCounts = ["1.2M", "856K", "2.1M", "445K", "1.8M", "678K", "3.2M", "512K", "967K", "1.5M", "723K", "1.1M", "889K", "2.4M", "634K", "1.7M", "445K", "978K", "1.3M", "567K"];
-  const reachCounts = ["600K", "428K", "1.05M", "223K", "900K", "339K", "1.6M", "256K", "484K", "750K", "362K", "550K", "445K", "1.2M", "317K", "850K", "223K", "489K", "650K", "284K"];
-  const clickCounts = ["180K", "128K", "315K", "67K", "270K", "102K", "480K", "77K", "145K", "225K", "109K", "165K", "133K", "360K", "95K", "255K", "67K", "147K", "195K", "85K"];
-  const scores = [92, 78, 88, 65, 91, 73, 95, 68, 82, 87, 71, 84, 76, 93, 69, 89, 67, 81, 86, 72];
+  const creators = ["Whistlin Diesel", "Nike Runner", "Fit Mike", "Sneaker Sarah", "Athletic Amy"];
+  const viewCounts = ["428K", "1.2M", "856K", "2.1M", "445K", "1.8M", "678K", "3.2M", "512K", "967K", "1.5M", "723K", "1.1M", "889K", "2.4M", "634K", "1.7M", "445K", "978K", "1.3M", "567K"];
+  const reachCounts = ["245K", "600K", "428K", "1.05M", "223K", "900K", "339K", "1.6M", "256K", "484K", "750K", "362K", "550K", "445K", "1.2M", "317K", "850K", "223K", "489K", "650K", "284K"];
+  const clickCounts = ["18.6K", "180K", "128K", "315K", "67K", "270K", "102K", "480K", "77K", "145K", "225K", "109K", "165K", "133K", "360K", "95K", "255K", "67K", "147K", "195K", "85K"];
+  const scores = [95, 92, 78, 88, 65, 91, 73, 95, 68, 82, 87, 71, 84, 76, 93, 69, 89, 67, 81, 86, 72];
+  // Video indices - spread across all 26 available videos (0-24 regular, 25 landscape)
+  // Using unique indices: 25 (landscape), then 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 1, 3, 5, 7, 9, 11, 13
+  const videoIndices = [25, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 1, 3, 5, 7, 9, 11, 13];
 
-  return Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
+  return Array.from({ length: 21 }, (_, i) => ({
+    id: i === 0 ? 100 : i, // First item has id 100 to match postsData
     title: titles[i],
-    // Use Nike videos - we have 20 unique videos
-    videoUrl: nikeVideos[i % nikeVideos.length],
+    // Use Nike videos - first uses landscape, rest use regular videos
+    videoUrl: nikeVideos[videoIndices[i]],
     views: viewCounts[i],
     reach: reachCounts[i],
     clicks: clickCounts[i],

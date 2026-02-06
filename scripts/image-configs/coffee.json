@@ -1,0 +1,9 @@
+{
+  "topic": "coffee",
+  "mood": "social media, lifestyle, influencer content, UGC style, authentic",
+  "orientation": "portrait",
+  "quality": "standard",
+  "count": 20,
+  "outputDir": "public/generated-images",
+  "batchName": "coffee"
+}

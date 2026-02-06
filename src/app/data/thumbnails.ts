@@ -269,7 +269,6 @@ export const nikeVideos = [
   "https://proto.dev.foam.io/assets/videos/nike_video-10.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-11.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-12.mp4",
-  "https://proto.dev.foam.io/assets/videos/nike_video-1.mp4", // video-13 was broken, using video-1 instead
   "https://proto.dev.foam.io/assets/videos/nike_video-14.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-15.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-16.mp4",
@@ -277,6 +276,13 @@ export const nikeVideos = [
   "https://proto.dev.foam.io/assets/videos/nike_video-18.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-19.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-20.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-21.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-22.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-23.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-24.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-25.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-26.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_wd.mp4",
 ];
 
 /**

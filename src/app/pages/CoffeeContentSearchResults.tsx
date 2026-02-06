@@ -1,4 +1,4 @@
-import { CoffeeContentGrid, COFFEE_CONTENT_COUNT, getAllCoffeeContentIds, getCoffeeContentItemsByIds } from "../components/CoffeeContentGrid";
+import { CoffeeContentGrid, COFFEE_CONTENT_COUNT, getAllCoffeeContentIds, getCoffeeContentItemsByIds, getAllCoffeeContentItems } from "../components/CoffeeContentGrid";
 import { PostsTable } from "../components/PostsTable";
 import { coffeePosts, getCoffeePostsByIds, PostItem } from "../data/postsData";
 import { AppliedFiltersBar, FilterValue } from "../components/AppliedFiltersBar";
@@ -87,6 +87,51 @@ export function CoffeeContentSearchResults({
   // Content detail modal state
   const [contentDetailModalOpen, setContentDetailModalOpen] = useState(false);
   const [selectedContentForModal, setSelectedContentForModal] = useState<PostItem | null>(null);
+  const [currentPostIndex, setCurrentPostIndex] = useState(0);
+
+  // Get sorted content items (same as grid view)
+  const sortedGridContent = useMemo(() => {
+    const items = getAllCoffeeContentItems();
+    if (!sortState) return items;
+
+    const parseViewCount = (count: string) => {
+      if (!count) return 0;
+      const num = parseFloat(count);
+      if (count.includes("M")) return num * 1000000;
+      if (count.includes("K")) return num * 1000;
+      return num;
+    };
+
+    return [...items].sort((a, b) => {
+      let aValue: string | number;
+      let bValue: string | number;
+
+      switch (sortState.field) {
+        case "name":
+          aValue = a.title.toLowerCase();
+          bValue = b.title.toLowerCase();
+          break;
+        case "totalAudience":
+          aValue = parseViewCount(a.views);
+          bValue = parseViewCount(b.views);
+          break;
+        default:
+          return 0;
+      }
+
+      if (aValue < bValue) return sortState.direction === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortState.direction === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [sortState]);
+
+  // Filter content same as grid
+  const filteredGridContent = useMemo(() => {
+    if (!quickFilter) return sortedGridContent;
+    return sortedGridContent.filter((item) =>
+      item.title.toLowerCase().includes(quickFilter.toLowerCase())
+    );
+  }, [quickFilter, sortedGridContent]);
 
   // Handle content card click - open detail modal
   // Maps grid content to full PostItem data
@@ -105,8 +150,39 @@ export function CoffeeContentSearchResults({
     // Find the matching post from coffeePosts by matching title
     const matchingPost = coffeePosts.find(p => p.title === content.title);
     if (matchingPost) {
+      // Find index in the filtered grid content (same order as displayed)
+      const index = filteredGridContent.findIndex(item => item.title === content.title);
+      setCurrentPostIndex(index >= 0 ? index : 0);
       setSelectedContentForModal(matchingPost);
       setContentDetailModalOpen(true);
+    }
+  };
+
+  // Navigate to next post in modal - uses same order as grid view
+  const handleNextPost = () => {
+    if (currentPostIndex < filteredGridContent.length - 1) {
+      const nextIndex = currentPostIndex + 1;
+      setCurrentPostIndex(nextIndex);
+      // Find matching post from coffeePosts by title
+      const nextGridItem = filteredGridContent[nextIndex];
+      const matchingPost = coffeePosts.find(p => p.title === nextGridItem.title);
+      if (matchingPost) {
+        setSelectedContentForModal(matchingPost);
+      }
+    }
+  };
+
+  // Navigate to previous post in modal - uses same order as grid view
+  const handlePreviousPost = () => {
+    if (currentPostIndex > 0) {
+      const prevIndex = currentPostIndex - 1;
+      setCurrentPostIndex(prevIndex);
+      // Find matching post from coffeePosts by title
+      const prevGridItem = filteredGridContent[prevIndex];
+      const matchingPost = coffeePosts.find(p => p.title === prevGridItem.title);
+      if (matchingPost) {
+        setSelectedContentForModal(matchingPost);
+      }
     }
   };
 
@@ -548,8 +624,13 @@ export function CoffeeContentSearchResults({
           reachEngRate: selectedContentForModal.reachEngRate,
           views: selectedContentForModal.views,
           viewEngRate: selectedContentForModal.viewEngRate,
+          caption: selectedContentForModal.caption,
         } : null}
         onCreatorClick={handleCreatorClick}
+        onNext={handleNextPost}
+        onPrevious={handlePreviousPost}
+        hasNext={currentPostIndex < filteredGridContent.length - 1}
+        hasPrevious={currentPostIndex > 0}
       />
     </div>
   );
