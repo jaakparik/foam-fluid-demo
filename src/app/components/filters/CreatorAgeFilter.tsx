@@ -6,9 +6,10 @@ type AgePreset = 'custom' | 'over18' | 'over21';
 interface CreatorAgeFilterProps {
   selectedAge?: { min: number; max: number };
   onSelectionChange?: (age: { min: number; max: number }) => void;
+  onApply?: () => void;
 }
 
-export function CreatorAgeFilter({ selectedAge = { min: 12, max: 80 }, onSelectionChange }: CreatorAgeFilterProps = {}) {
+export function CreatorAgeFilter({ selectedAge = { min: 12, max: 80 }, onSelectionChange, onApply }: CreatorAgeFilterProps = {}) {
   const [agePreset, setAgePreset] = useState<AgePreset>('custom');
   const [minAge, setMinAge] = useState(selectedAge.min);
   const [maxAge, setMaxAge] = useState(selectedAge.max);
@@ -24,6 +25,13 @@ export function CreatorAgeFilter({ selectedAge = { min: 12, max: 80 }, onSelecti
   const notifyChange = (min: number, max: number) => {
     if (onSelectionChange) {
       onSelectionChange({ min, max });
+    }
+  };
+
+  // Handle Enter key to apply and close
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && onApply) {
+      onApply();
     }
   };
 
@@ -110,6 +118,7 @@ export function CreatorAgeFilter({ selectedAge = { min: 12, max: 80 }, onSelecti
                     setMinAge(newMin);
                     notifyChange(newMin, maxAge);
                   }}
+                  onKeyDown={handleKeyDown}
                   className="flex flex-[1_0_0] flex-col font-['Hanken_Grotesk:Light',sans-serif] font-light justify-center leading-[0] min-h-px min-w-px relative text-[#8b94a2] text-[12px] bg-transparent border-none outline-none px-[8px] h-full w-full"
                   placeholder="12"
                 />
@@ -137,6 +146,7 @@ export function CreatorAgeFilter({ selectedAge = { min: 12, max: 80 }, onSelecti
                     setMaxAge(newMax);
                     notifyChange(minAge, newMax);
                   }}
+                  onKeyDown={handleKeyDown}
                   className="flex flex-[1_0_0] flex-col font-['Hanken_Grotesk:Light',sans-serif] font-light justify-center leading-[0] min-h-px min-w-px relative text-[#8b94a2] text-[12px] bg-transparent border-none outline-none px-[8px] h-full w-full"
                   placeholder="80"
                 />

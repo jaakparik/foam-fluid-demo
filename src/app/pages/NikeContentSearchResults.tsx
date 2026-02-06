@@ -1,6 +1,6 @@
-import { CoffeeContentGrid, COFFEE_CONTENT_COUNT, getAllCoffeeContentIds, getCoffeeContentItemsByIds } from "../components/CoffeeContentGrid";
+import { NikeContentGrid, NIKE_CONTENT_COUNT, getAllNikeContentIds, getNikeContentItemsByIds } from "../components/NikeContentGrid";
 import { PostsTable } from "../components/PostsTable";
-import { coffeePosts, getCoffeePostsByIds, PostItem } from "../data/postsData";
+import { nikePosts, getNikePostsByIds, PostItem } from "../data/postsData";
 import { AppliedFiltersBar, FilterValue } from "../components/AppliedFiltersBar";
 import { InsightsDefault } from "../components/InsightsDefault";
 import { InsightsDefaultPostsHorizontal } from "../components/InsightsDefaultPostsHorizontal";
@@ -18,15 +18,15 @@ import { TalentSearchToolbar, SearchHistoryItem } from "../components/TalentSear
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useFlyingAnimation } from "../contexts/FlyingAnimationContext";
 
-interface CoffeeContentSearchResultsProps {
+interface NikeContentSearchResultsProps {
   isDark?: boolean;
 }
 
-export function CoffeeContentSearchResults({
+export function NikeContentSearchResults({
   isDark = false,
-}: CoffeeContentSearchResultsProps) {
+}: NikeContentSearchResultsProps) {
   const [searchParams] = useSearchParams();
-  const initialSearchTerm = searchParams.get("q") || "Coffee";
+  const initialSearchTerm = searchParams.get("q") || "Nike";
   const { searchState, setSearchHistory: setSharedSearchHistory, setHistoryIndex: setSharedHistoryIndex, addToHistory: addToSharedHistory } = useSearch();
   const { savePosts } = useSavedItems();
   const { triggerFlyAnimation } = useFlyingAnimation();
@@ -102,8 +102,8 @@ export function CoffeeContentSearchResults({
     date: string;
     score: number;
   }) => {
-    // Find the matching post from coffeePosts by matching title
-    const matchingPost = coffeePosts.find(p => p.title === content.title);
+    // Find the matching post from nikePosts by matching title or use the content data
+    const matchingPost = nikePosts.find(p => p.title === content.title);
     if (matchingPost) {
       setSelectedContentForModal(matchingPost);
       setContentDetailModalOpen(true);
@@ -114,6 +114,7 @@ export function CoffeeContentSearchResults({
   const handleCreatorClick = (creatorId: string) => {
     // Navigate to creator profile - for now just close modal
     setContentDetailModalOpen(false);
+    // Could use navigate(`/talent/${creatorId}`) if routing is set up
     console.log("Navigate to creator:", creatorId);
   };
 
@@ -139,7 +140,7 @@ export function CoffeeContentSearchResults({
   };
 
   const handleSelectAll = () => {
-    const allIds = getAllCoffeeContentIds();
+    const allIds = getAllNikeContentIds();
     setSelectedContent(new Set(allIds));
   };
 
@@ -162,13 +163,13 @@ export function CoffeeContentSearchResults({
   };
 
   // Get selected items for thumbnail display
-  const selectedItems = getCoffeeContentItemsByIds(selectedContent, selectionPositions);
+  const selectedItems = getNikeContentItemsByIds(selectedContent, selectionPositions);
 
   // Helper to create a history snapshot
   const createHistorySnapshot = (label?: string): SearchHistoryItem => {
     return {
       searchTerm: currentSearchTerm,
-      resultCount: 245,
+      resultCount: 320,
       filters: {
         audienceLocation: filterState?.audienceLocationSelection ?? null,
         instagramEngRate: false,
@@ -185,7 +186,7 @@ export function CoffeeContentSearchResults({
 
   // Handle search term change
   const handleSearchTermChange = (newSearchTerm: string) => {
-    addToHistory(createHistorySnapshot(`"${currentSearchTerm}" 245 results found`));
+    addToHistory(createHistorySnapshot(`"${currentSearchTerm}" 320 results found`));
     setCurrentSearchTerm(newSearchTerm);
     setIsSearching(true);
     setTimeout(() => {
@@ -330,12 +331,12 @@ export function CoffeeContentSearchResults({
     setSavedFilters([]);
   };
 
-  // Tab counts for content search results - Posts selected
+  // Tab counts for Nike content search results - Posts selected
   const tabCounts = {
-    talent: 45,
-    posts: 245,
-    mediaKits: 8,
-    brands: 12,
+    talent: 12,
+    posts: 320,
+    mediaKits: 5,
+    brands: 1,
   };
 
   return (
@@ -356,7 +357,7 @@ export function CoffeeContentSearchResults({
         <TalentSearchToolbar
           isDark={isDark}
           searchTerm={currentSearchTerm}
-          resultCount={245}
+          resultCount={320}
           tabCounts={tabCounts}
           sortState={sortState}
           onSortChange={setSortState}
@@ -388,7 +389,7 @@ export function CoffeeContentSearchResults({
         />
         {(appliedFilters.length > 0 || currentSearchTerm) && (
           <AppliedFiltersBar
-            resultCount={245}
+            resultCount={320}
             resultType="posts"
             filters={appliedFilters}
             onClear={handleClearFilters}
@@ -448,7 +449,7 @@ export function CoffeeContentSearchResults({
                 isDark={isDark}
                 sortState={sortState}
                 onSortChange={setSortState}
-                posts={coffeePosts}
+                posts={nikePosts}
                 selectedContent={selectedContent}
                 onSelectionChange={setSelectedContent}
                 onPositionCapture={handlePositionCapture}
@@ -456,7 +457,7 @@ export function CoffeeContentSearchResults({
                 activePostId={activePostForInsights?.id ?? null}
               />
             ) : (
-              <CoffeeContentGrid
+              <NikeContentGrid
                 isDark={isDark}
                 sortState={sortState}
                 quickFilter={quickFilter}
@@ -477,7 +478,7 @@ export function CoffeeContentSearchResults({
               <InsightsMatchPostHorizontal post={activePostForInsights} />
             ) : (
               <InsightsDefaultPostsHorizontal
-                resultCount={245}
+                resultCount={320}
                 searchTerm={currentSearchTerm}
               />
             )}
@@ -488,7 +489,7 @@ export function CoffeeContentSearchResults({
       {/* Selection Toast */}
       <SelectionToast
         selectedCount={selectedContent.size}
-        totalCount={COFFEE_CONTENT_COUNT}
+        totalCount={NIKE_CONTENT_COUNT}
         onSelectAll={handleSelectAll}
         onShare={handleShare}
         onAddTo={handleAddTo}

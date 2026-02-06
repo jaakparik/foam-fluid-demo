@@ -1,4 +1,82 @@
 /**
+ * Midjourney coffee images (local)
+ */
+export const coffeeMidjourneyImages = [
+  "/generated-images/coffee-midjourney/coffee_coffee_related_tiktok_short_--chaos_100_--ar_34_--raw_c18f5b5d-c317-4dc0-85e2-1ce200fae1a4_0.png",
+  "/generated-images/coffee-midjourney/coffee_coffee_related_tiktok_short_--chaos_100_--ar_34_--raw_c18f5b5d-c317-4dc0-85e2-1ce200fae1a4_1.png",
+  "/generated-images/coffee-midjourney/coffee_coffee_related_tiktok_short_--chaos_100_--ar_34_--raw_c18f5b5d-c317-4dc0-85e2-1ce200fae1a4_2.png",
+  "/generated-images/coffee-midjourney/coffee_coffee_related_tiktok_short_--chaos_100_--ar_34_--raw_c18f5b5d-c317-4dc0-85e2-1ce200fae1a4_3.png",
+  "/generated-images/coffee-midjourney/coffee_coffee_related_tiktok_short_--chaos_50_--raw_--profil_f2d401ef-4b14-41a1-9b12-37565ef4696a_0.png",
+  "/generated-images/coffee-midjourney/coffee_espresso_related_instagram_short_with_female_--chaos__9d12a38a-0901-4f6b-bdf4-b487649523ed_0.png",
+  "/generated-images/coffee-midjourney/coffee_espresso_related_instagram_short_with_female_--chaos__9d12a38a-0901-4f6b-bdf4-b487649523ed_1.png",
+  "/generated-images/coffee-midjourney/coffee_espresso_related_instagram_short_with_female_--chaos__9d12a38a-0901-4f6b-bdf4-b487649523ed_2.png",
+  "/generated-images/coffee-midjourney/coffee_espresso_related_instagram_short_with_female_--chaos__9d12a38a-0901-4f6b-bdf4-b487649523ed_3.png",
+  "/generated-images/coffee-midjourney/coffee_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_0.png",
+  "/generated-images/coffee-midjourney/coffee_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_1.png",
+  "/generated-images/coffee-midjourney/coffee_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_2.png",
+  "/generated-images/coffee-midjourney/coffee_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_3.png",
+];
+
+/**
+ * Parukas images (local) - lifestyle/coffee content
+ */
+export const parukasImages = [
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__0d20f2ef-e767-4ce1-97c8-0a48ad8b547d_0.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__0d20f2ef-e767-4ce1-97c8-0a48ad8b547d_1.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__0d20f2ef-e767-4ce1-97c8-0a48ad8b547d_2.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__0d20f2ef-e767-4ce1-97c8-0a48ad8b547d_3.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__5067fa88-d47d-4e2f-82c6-4e30911be109_0.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__5067fa88-d47d-4e2f-82c6-4e30911be109_1.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__5067fa88-d47d-4e2f-82c6-4e30911be109_2.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__5067fa88-d47d-4e2f-82c6-4e30911be109_3.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__a24fc948-f183-4037-8968-4cdb0ebd445f_0.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__a24fc948-f183-4037-8968-4cdb0ebd445f_1.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__a24fc948-f183-4037-8968-4cdb0ebd445f_2.png",
+  "/generated-images/parukas/parukas_espresso_related_instagram_short_with_female_--chaos__a24fc948-f183-4037-8968-4cdb0ebd445f_3.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_0.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_1.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6670103e-67c2-4de5-b710-06cbc362d38a_2.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6e89665e-ec1a-4cb7-bc48-b68c2e4d2b3f_0.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6e89665e-ec1a-4cb7-bc48-b68c2e4d2b3f_1.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6e89665e-ec1a-4cb7-bc48-b68c2e4d2b3f_2.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_6e89665e-ec1a-4cb7-bc48-b68c2e4d2b3f_3.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_c806d628-e3eb-4739-ad01-424389218bfe_0.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_c806d628-e3eb-4739-ad01-424389218bfe_1.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_c806d628-e3eb-4739-ad01-424389218bfe_2.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_c806d628-e3eb-4739-ad01-424389218bfe_3.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_d4a89a89-8c45-4784-bb47-5e60e61924a8_0.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_d4a89a89-8c45-4784-bb47-5e60e61924a8_1.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_d4a89a89-8c45-4784-bb47-5e60e61924a8_2.png",
+  "/generated-images/parukas/parukas_macchiato_male_instagram_short_--chaos_100_--ar_34_--_d4a89a89-8c45-4784-bb47-5e60e61924a8_3.png",
+];
+
+/**
+ * DALL-E generated coffee images (local)
+ */
+export const coffeeDalleImages = [
+  "/generated-images/coffee/coffee-001.png",
+  "/generated-images/coffee/coffee-002.png",
+  "/generated-images/coffee/coffee-003.png",
+  "/generated-images/coffee/coffee-004.png",
+  "/generated-images/coffee/coffee-005.png",
+  "/generated-images/coffee/coffee-006.png",
+  "/generated-images/coffee/coffee-007.png",
+  "/generated-images/coffee/coffee-008.png",
+  "/generated-images/coffee/coffee-009.png",
+  "/generated-images/coffee/coffee-010.png",
+  "/generated-images/coffee/coffee-011.png",
+  "/generated-images/coffee/coffee-012.png",
+  "/generated-images/coffee/coffee-013.png",
+  "/generated-images/coffee/coffee-014.png",
+  "/generated-images/coffee/coffee-015.png",
+  "/generated-images/coffee/coffee-016.png",
+  "/generated-images/coffee/coffee-017.png",
+  "/generated-images/coffee/coffee-018.png",
+  "/generated-images/coffee/coffee-019.png",
+  "/generated-images/coffee/coffee-020.png",
+];
+
+/**
  * Coffee thumbnail image URLs for use throughout the application
  */
 export const coffeeThumbnails = [
@@ -191,7 +269,7 @@ export const nikeVideos = [
   "https://proto.dev.foam.io/assets/videos/nike_video-10.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-11.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-12.mp4",
-  "https://proto.dev.foam.io/assets/videos/nike_video-13.mp4",
+  "https://proto.dev.foam.io/assets/videos/nike_video-1.mp4", // video-13 was broken, using video-1 instead
   "https://proto.dev.foam.io/assets/videos/nike_video-14.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-15.mp4",
   "https://proto.dev.foam.io/assets/videos/nike_video-16.mp4",

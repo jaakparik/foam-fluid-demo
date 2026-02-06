@@ -14,6 +14,40 @@ interface ContentCardEnhancedProps {
   platform?: "instagram" | "tiktok" | "youtube" | "snapchat";
   isDark?: boolean;
   creator?: string;
+  score?: number;
+  date?: string;
+  onClick?: () => void;
+}
+
+// Format date string to short format (e.g., "Jan 15")
+function formatShortDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// Score badge component for cards
+function ScoreBadge({ score }: { score: number }) {
+  const getScoreColor = (s: number) => {
+    if (s >= 85) return { bg: "rgba(34, 197, 94, 0.15)", text: "#16a34a" };
+    if (s >= 70) return { bg: "rgba(234, 179, 8, 0.15)", text: "#ca8a04" };
+    return { bg: "rgba(239, 68, 68, 0.15)", text: "#dc2626" };
+  };
+
+  const colors = getScoreColor(score);
+
+  return (
+    <div
+      className="inline-flex items-center justify-center px-[5px] py-[1px] rounded-[4px] shrink-0"
+      style={{ background: colors.bg }}
+    >
+      <span
+        className="font-['Hanken_Grotesk',sans-serif] font-semibold text-[11px] leading-[14px]"
+        style={{ color: colors.text }}
+      >
+        {score}%
+      </span>
+    </div>
+  );
 }
 
 function InstagramIcon() {
@@ -212,6 +246,9 @@ export function ContentCardEnhanced({
   platform = "instagram",
   isDark = false,
   creator,
+  score,
+  date,
+  onClick,
 }: ContentCardEnhancedProps) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -262,6 +299,15 @@ export function ContentCardEnhanced({
     }
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger if clicking on checkbox or button
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('[data-checkbox]')) {
+      return;
+    }
+    onClick?.();
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -272,6 +318,7 @@ export function ContentCardEnhanced({
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleCardClick}
     >
       <div
         className={`content-stretch flex flex-col items-start overflow-hidden relative rounded-[12px] w-full transition-all duration-300 ${
@@ -303,6 +350,7 @@ export function ContentCardEnhanced({
           
           {/* Checkbox */}
           <div
+            data-checkbox
             className={`absolute z-10 transition-all duration-300 ${
               checked
                 ? "top-[4px] right-[4px] opacity-100"
@@ -330,18 +378,19 @@ export function ContentCardEnhanced({
           <div className="size-full">
             <div className="box-border content-stretch flex flex-col gap-[8px] items-start p-[10px] relative w-full">
               <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full">
-                {/* Platform + Name */}
+                {/* Platform + Name + Score */}
                 <div
                   className="content-stretch flex gap-[4px] items-center relative shrink-0 w-full"
                   data-name="Platform+Name"
                 >
                   <PlatformIcon platform={platform} />
                   <p
-                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[18px] overflow-ellipsis overflow-hidden relative shrink-0 text-[13px] text-nowrap whitespace-pre"
+                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[18px] overflow-ellipsis overflow-hidden flex-1 text-[13px] text-nowrap whitespace-pre min-w-0"
                     style={{ color: isDark ? "#f3f5f6" : "#15191e" }}
                   >
                     {title}
                   </p>
+                  {score !== undefined && <ScoreBadge score={score} />}
                 </div>
 
                 {/* Metrics */}
@@ -379,17 +428,25 @@ export function ContentCardEnhanced({
                 </div>
               </div>
 
-              {/* Talent Name + Chart Button */}
+              {/* Talent Name + Date + Chart Button */}
               <div
-                className="content-stretch flex items-center justify-between relative shrink-0 w-full"
+                className="content-stretch flex items-center justify-between relative shrink-0 w-full gap-[6px]"
                 data-name="TalentRow"
               >
                 {creator && (
                   <p
-                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[16px] text-[11px] truncate flex-1 mr-[6px]"
+                    className="font-['Hanken_Grotesk',sans-serif] font-medium leading-[16px] text-[11px] truncate flex-1 min-w-0"
                     style={{ color: isDark ? "#b7bdc7" : "#54657D" }}
                   >
                     {creator}
+                  </p>
+                )}
+                {date && (
+                  <p
+                    className="font-['Hanken_Grotesk',sans-serif] leading-[16px] text-[11px] shrink-0"
+                    style={{ color: isDark ? "#8b94a2" : "#8b94a2" }}
+                  >
+                    {formatShortDate(date)}
                   </p>
                 )}
                 <button

@@ -8,6 +8,7 @@ import { QuickResults } from "./QuickResults";
 import { EntityPicker } from "./EntityPicker";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearch } from "../contexts/SearchContext";
 import { AnimatePresence, motion } from "motion/react";
 import {
   talents,
@@ -58,6 +59,8 @@ export function TopBar({
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const urlSearchQuery = searchParams.get("q") || "";
+  const { searchState } = useSearch();
+  const preferredTab = searchState.preferredTab;
 
   // Initialize search value from URL param
   const [searchValue, setSearchValue] = useState(urlSearchQuery);
@@ -395,6 +398,9 @@ export function TopBar({
       if (isCanadaSearch) {
         // Navigate to Canada search with the actual search query
         navigate(`/canada/search?q=${encodeURIComponent(query)}`);
+      } else if (queryLower.includes("nike")) {
+        // Navigate to Nike content search when query contains "nike"
+        navigate(`/nike/posts?q=${encodeURIComponent(query)}`);
       } else {
         // Check if "Talent" filter is selected - navigate to talent search
         const hasTalentFilter = selectedMentions.some(
@@ -404,7 +410,11 @@ export function TopBar({
         if (hasTalentFilter) {
           navigate(`/talent/search?q=${encodeURIComponent(query)}`);
         } else {
-          navigate(`/talent/search?q=${encodeURIComponent(query)}`);
+          // Navigate to preferred tab (talent or posts) based on user's last choice
+          const searchPath = preferredTab === "posts"
+            ? `/coffee/posts?q=${encodeURIComponent(query)}`
+            : `/talent/search?q=${encodeURIComponent(query)}`;
+          navigate(searchPath);
         }
       }
 

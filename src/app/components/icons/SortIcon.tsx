@@ -1,4 +1,4 @@
-import { 
+import {
   ArrowDownUpDuotone,
   ArrowUpAZDuotone,
   ArrowUpZADuotone,
@@ -11,8 +11,10 @@ import {
   ArrowDownYTDuotone,
   ArrowUpYTDuotone,
   ArrowDownSCDuotone,
-  ArrowUpSCDuotone
+  ArrowUpSCDuotone,
 } from 'foamicons';
+import { ArrowDownWideNarrowDuotone } from './foamicons/ArrowDownWideNarrowDuotone';
+import { ArrowUpNarrowWideDuotone } from './foamicons/ArrowUpNarrowWideDuotone';
 
 interface SortIconProps {
   opacity?: number;
@@ -51,11 +53,14 @@ export function SortIcon({
     );
   }
 
-  // Alphabetical fields (Name, Location)
-  const alphabeticalFields = ['name', 'location'];
-  
+  // Alphabetical fields (Name, Location, Creator)
+  const alphabeticalFields = ['name', 'location', 'creator'];
+
   // Numeric/Audience fields
-  const numericFields = ['age', 'totalAudience', 'followers', 'engagement'];
+  const numericFields = ['age', 'totalAudience', 'followers', 'engagement', 'score', 'reach', 'impressions', 'engagements', 'reachEngRate', 'views', 'viewEngRate'];
+
+  // Date/Time fields
+  const dateFields = ['postedAt', 'date', 'createdAt'];
 
   let IconComponent = ArrowDownUpDuotone;
 
@@ -65,6 +70,9 @@ export function SortIcon({
   } else if (numericFields.includes(field)) {
     // For numeric: 0-1 (asc, low to high = UP) or 1-0 (desc, high to low = DOWN)
     IconComponent = direction === 'asc' ? ArrowDown01Duotone : ArrowDown10Duotone;
+  } else if (dateFields.includes(field)) {
+    // For dates: narrow-wide (asc, oldest first) or wide-narrow (desc, newest first)
+    IconComponent = direction === 'asc' ? ArrowUpNarrowWideDuotone : ArrowDownWideNarrowDuotone;
   } else if (field === 'instagram') {
     // Instagram: I-G with up (asc, low to high) or down (desc, high to low) arrow
     IconComponent = direction === 'asc' ? ArrowUpIGDuotone : ArrowDownIGDuotone;

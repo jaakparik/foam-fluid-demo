@@ -5,18 +5,23 @@ export interface SearchHistoryItem {
   searchTerm: string;
   resultCount: number;
   filters?: {
-    audienceLocation: { country: string; percentage: number } | null;
+    audienceLocation: { country: string; percentage: number } | string | null;
     instagramEngRate: boolean;
     creatorGender: string[];
+    creatorAgeFilter?: boolean;
+    followerEngRate?: boolean;
   };
   label?: string;
 }
+
+type PreferredTab = "talent" | "posts";
 
 interface SearchState {
   searchTerm: string;
   searchHistory: SearchHistoryItem[];
   historyIndex: number;
   filterState: FilterState;
+  preferredTab: PreferredTab;
 }
 
 interface SearchContextType {
@@ -26,6 +31,7 @@ interface SearchContextType {
   setHistoryIndex: (index: number) => void;
   setFilterState: (state: FilterState) => void;
   addToHistory: (item: SearchHistoryItem) => void;
+  setPreferredTab: (tab: PreferredTab) => void;
 }
 
 const defaultFilterState: FilterState = {
@@ -48,6 +54,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     searchHistory: [],
     historyIndex: -1,
     filterState: defaultFilterState,
+    preferredTab: "talent",
   });
 
   const setSearchTerm = (term: string) => {
@@ -80,6 +87,10 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const setPreferredTab = (tab: PreferredTab) => {
+    setSearchState((prev) => ({ ...prev, preferredTab: tab }));
+  };
+
   return (
     <SearchContext.Provider
       value={{
@@ -89,6 +100,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
         setHistoryIndex,
         setFilterState,
         addToHistory,
+        setPreferredTab,
       }}
     >
       {children}

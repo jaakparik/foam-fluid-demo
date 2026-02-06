@@ -40,7 +40,30 @@ const set10AdditionalIds = [
 const set10TalentIds = [...set5TalentIds, ...set10AdditionalIds];
 
 // ============================================================================
-// SET 15: Second filter level (15 talents)
+// SET 25: Creator age 21-80 filter (25 talents)
+// Includes all 10 from set10 + 15 additional talents
+// ============================================================================
+const set25AdditionalIds = [
+  9,  // Mia Torres - Female, Food/Education/Lifestyle
+  17, // Ava Scott Maryland - Female, Fitness/Wellness/Lifestyle
+  23, // Zoe Rivers - Female, Fashion/DIY/Advocacy
+  27, // Bella Ortiz - Female, Entertainment/Lifestyle/Fashion
+  41, // Jake Thompson - Male, Fitness/Sport/Wellness
+  2,  // Liam Turner - Male, Tech/Family/Travel
+  4,  // Marcus Hill - Male, Fashion/Lifestyle/Creativity
+  5,  // Chloe Nguyen Richards - Female, Gaming/Tech/Creativity
+  24, // Amira Khan - Female, Fashion/Lifestyle/Advocacy
+  28, // Sasha Kim - Female, Fashion/Beauty/Lifestyle
+  29, // Diane Brooks - Female, Food/Family/Lifestyle
+  19, // Ella Brooks - Female, Art/Creativity/Education
+  21, // Emily Carter - Female, Comedy/Lifestyle/Entertainment
+  26, // Harper Lane - Female, Music/Entertainment/Lifestyle
+  34, // Luca Rossi - Male, Fashion/Lifestyle/Creativity
+];
+const set25TalentIds = [...set10TalentIds, ...set25AdditionalIds];
+
+// ============================================================================
+// SET 15: Second filter level (15 talents) - kept for backward compatibility
 // Includes all 10 from set10 + 5 additional talents
 // ============================================================================
 const set15AdditionalIds = [
@@ -93,6 +116,7 @@ const set235TalentIds = talents.map((t) => t.id);
 export const searchResultSet5: Talent[] = getTalentsByIds(set5TalentIds);
 export const searchResultSet10: Talent[] = getTalentsByIds(set10TalentIds);
 export const searchResultSet15: Talent[] = getTalentsByIds(set15TalentIds);
+export const searchResultSet25: Talent[] = getTalentsByIds(set25TalentIds);
 export const searchResultSet35: Talent[] = getTalentsByIds(set35TalentIds);
 export const searchResultSet235: Talent[] = getTalentsByIds(set235TalentIds);
 
@@ -134,6 +158,7 @@ export const searchResultSetMale: Talent[] = searchResultSet235.filter(
 export interface SearchResultSets {
   set235: Talent[];
   set35: Talent[];
+  set25: Talent[];
   set15: Talent[];
   set10: Talent[];
   set5: Talent[];
@@ -142,29 +167,32 @@ export interface SearchResultSets {
 export const searchResultSets: SearchResultSets = {
   set235: searchResultSet235,
   set35: searchResultSet35,
+  set25: searchResultSet25,
   set15: searchResultSet15,
   set10: searchResultSet10,
   set5: searchResultSet5,
 };
 
-// Get counts for display
+// Get counts for display - coffee filtering flow
+// coffee (45) -> age 21-80 (25) -> follower eng 5% (10) -> IG eng 5% (5)
 export const searchResultCounts = {
-  initial: searchResultSet235.length,      // 45
-  firstFilter: searchResultSet35.length,   // 35
-  secondFilter: searchResultSet15.length,  // 15
-  thirdFilter: searchResultSet5.length,    // 5
+  initial: searchResultSet235.length,        // 45 - coffee search
+  ageFilter: searchResultSet25.length,       // 25 - Creator age 21-80
+  followerEngFilter: searchResultSet10.length, // 10 - Follower eng rate 5%
+  igEngFilter: searchResultSet5.length,      // 5 - IG ENG rate 5%
 } as const;
 
 // Helper to verify nesting (for debugging)
+// Flow: set5 ⊂ set10 ⊂ set25 ⊂ set235
 export function verifyNesting(): boolean {
-  const set5InSet15 = set5TalentIds.every((id) => set15TalentIds.includes(id));
-  const set15InSet35 = set15TalentIds.every((id) => set35TalentIds.includes(id));
-  const set35InSet235 = set35TalentIds.every((id) => set235TalentIds.includes(id));
-  
-  console.log("Set 5 talents in Set 15:", set5InSet15);
-  console.log("Set 15 talents in Set 35:", set15InSet35);
-  console.log("Set 35 talents in Set 235:", set35InSet235);
-  console.log("Set sizes - 5:", searchResultSet5.length, "15:", searchResultSet15.length, "35:", searchResultSet35.length, "235:", searchResultSet235.length);
-  
-  return set5InSet15 && set15InSet35 && set35InSet235;
+  const set5InSet10 = set5TalentIds.every((id) => set10TalentIds.includes(id));
+  const set10InSet25 = set10TalentIds.every((id) => set25TalentIds.includes(id));
+  const set25InSet235 = set25TalentIds.every((id) => set235TalentIds.includes(id));
+
+  console.log("Set 5 talents in Set 10:", set5InSet10);
+  console.log("Set 10 talents in Set 25:", set10InSet25);
+  console.log("Set 25 talents in Set 235:", set25InSet235);
+  console.log("Set sizes - 5:", searchResultSet5.length, "10:", searchResultSet10.length, "25:", searchResultSet25.length, "235:", searchResultSet235.length);
+
+  return set5InSet10 && set10InSet25 && set25InSet235;
 }

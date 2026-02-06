@@ -11,6 +11,7 @@ import { TalentSearchResults } from "./pages/TalentSearchResults";
 import { CanadaSearchResults } from "./pages/CanadaSearchResults";
 import { FullSearchResults } from "./pages/FullSearchResults";
 import { CoffeeContentSearchResults } from "./pages/CoffeeContentSearchResults";
+import { NikeContentSearchResults } from "./pages/NikeContentSearchResults";
 import { SaveForLater } from "./pages/SaveForLater";
 import { NewMediaKit } from "./pages/NewMediaKit";
 import { PublicMediaKit } from "./pages/PublicMediaKit";
@@ -75,6 +76,7 @@ export default function App() {
                       <Route path="/canada/search" element={<CanadaSearchResults isDark={isDark} />} />
                       <Route path="/search" element={<FullSearchResults isDark={isDark} />} />
                       <Route path="/coffee/posts" element={<CoffeeContentSearchResults isDark={isDark} />} />
+                      <Route path="/nike/posts" element={<NikeContentSearchResults isDark={isDark} />} />
                       <Route path="/save-for-later" element={<SaveForLater isDark={isDark} />} />
                     </Routes>
                   </div>

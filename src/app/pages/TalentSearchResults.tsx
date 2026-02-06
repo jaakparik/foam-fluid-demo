@@ -1,7 +1,9 @@
 import { TalentTable } from "../components/TalentTable";
 import { AppliedFiltersBar, FilterValue } from "../components/AppliedFiltersBar";
 import { InsightsDefault } from "../components/InsightsDefault";
+import { InsightsDefaultHorizontal } from "../components/InsightsDefaultHorizontal";
 import { InsightsMatch } from "../components/InsightsMatch";
+import { InsightsMatchHorizontal, getTalentMatchScore } from "../components/InsightsMatchHorizontal";
 import { SelectionToast } from "../components/SelectionToast";
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -14,6 +16,7 @@ import {
   searchResultSetFemale,
   searchResultSetMale,
   searchResultSet35,
+  searchResultSet25,
   searchResultSet15,
   searchResultSet10,
   searchResultSet5,
@@ -25,6 +28,145 @@ import { useFlyingAnimation } from "../contexts/FlyingAnimationContext";
 
 interface TalentSearchResultsProps {
   isDark?: boolean;
+}
+
+// Skeleton row component for loading state
+function SkeletonRow() {
+  return (
+    <div className="flex items-center gap-[12px] px-[16px] py-[12px] border-b border-[rgba(58,73,95,0.1)]">
+      {/* Checkbox placeholder */}
+      <div className="w-[16px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* Avatar placeholder */}
+      <div className="w-[40px] h-[40px] rounded-full bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* Name and verticals */}
+      <div className="flex-1 flex flex-col gap-[4px]">
+        <div className="w-[140px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+        <div className="w-[100px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+      </div>
+      {/* Age */}
+      <div className="w-[32px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* Gender */}
+      <div className="w-[48px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* Location */}
+      <div className="w-[80px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* Instagram */}
+      <div className="w-[60px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* TikTok */}
+      <div className="w-[60px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* YouTube */}
+      <div className="w-[60px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+      {/* Status */}
+      <div className="w-[70px] h-[24px] rounded-full bg-[rgba(58,73,95,0.1)] animate-pulse" />
+    </div>
+  );
+}
+
+// Skeleton table component
+function SkeletonTable() {
+  return (
+    <div className="flex flex-col w-full h-full">
+      {/* Header row */}
+      <div className="flex items-center gap-[12px] px-[16px] py-[10px] border-b border-[rgba(58,73,95,0.1)] bg-[rgba(58,73,95,0.02)]">
+        <div className="w-[16px] h-[16px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+        <div className="w-[40px]" />
+        <div className="flex-1">
+          <div className="w-[60px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+        </div>
+        <div className="w-[32px]"><div className="w-[24px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+        <div className="w-[48px]"><div className="w-[40px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+        <div className="w-[80px]"><div className="w-[56px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+        <div className="w-[60px]"><div className="w-[48px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+        <div className="w-[60px]"><div className="w-[40px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+        <div className="w-[60px]"><div className="w-[48px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+        <div className="w-[70px]"><div className="w-[40px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" /></div>
+      </div>
+      {/* Data rows */}
+      {Array.from({ length: 10 }).map((_, i) => (
+        <SkeletonRow key={i} />
+      ))}
+    </div>
+  );
+}
+
+// Skeleton insights panel
+function SkeletonInsightsPanel() {
+  return (
+    <div
+      className="flex flex-col rounded-[8px] overflow-hidden"
+      style={{
+        background: "white",
+        border: "1px solid rgba(58, 73, 95, 0.1)",
+      }}
+    >
+      <div className="flex gap-[24px] items-start p-[16px]">
+        {/* Averages Section */}
+        <div className="flex-1 flex flex-col gap-[12px] min-w-0">
+          <div className="w-[80px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+          <div className="flex flex-col gap-[8px]">
+            <div className="flex justify-between">
+              <div className="w-[120px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+              <div className="w-[40px] h-[14px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+            </div>
+            <div className="flex justify-between">
+              <div className="w-[80px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+              <div className="w-[24px] h-[14px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+            </div>
+            <div className="flex justify-between">
+              <div className="w-[100px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+              <div className="w-[48px] h-[14px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-px self-stretch" style={{ background: "rgba(58, 73, 95, 0.1)" }} />
+
+        {/* Top Verticals Section */}
+        <div className="flex-1 flex flex-col gap-[12px] min-w-0">
+          <div className="w-[90px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+          <div className="flex flex-col gap-[8px]">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="flex flex-col gap-[4px]">
+                <div className="flex justify-between">
+                  <div className="w-[60px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+                  <div className="w-[30px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+                </div>
+                <div className="h-[4px] w-full rounded-full bg-[rgba(58,73,95,0.1)] animate-pulse" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="w-px self-stretch" style={{ background: "rgba(58, 73, 95, 0.1)" }} />
+
+        {/* Search Quality Section */}
+        <div className="flex-1 flex flex-col gap-[12px] min-w-0">
+          <div className="w-[100px] h-[16px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+          <div className="flex flex-col gap-[8px]">
+            <div className="flex items-baseline gap-[4px]">
+              <div className="w-[40px] h-[28px] rounded bg-[rgba(58,73,95,0.1)] animate-pulse" />
+              <div className="w-[30px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+            </div>
+            <div className="w-[160px] h-[12px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+            <div className="flex gap-[16px]">
+              <div className="w-[70px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+              <div className="w-[60px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div
+        className="px-[16px] py-[12px] text-center"
+        style={{
+          borderTop: "1px solid rgba(58, 73, 95, 0.1)",
+          background: "rgba(58, 73, 95, 0.1)"
+        }}
+      >
+        <div className="w-[280px] h-[14px] rounded bg-[rgba(58,73,95,0.08)] animate-pulse mx-auto" />
+      </div>
+    </div>
+  );
 }
 
 export function TalentSearchResults({
@@ -79,6 +221,24 @@ export function TalentSearchResults({
   const [isSearching, setIsSearching] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  // Initial loading state (skeleton)
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  // Insights panel animation state (slides in after table loads)
+  const [showInsightsPanel, setShowInsightsPanel] = useState(false);
+
+  // Set initial loading to false after 2 seconds, then animate insights panel
+  useEffect(() => {
+    const loadingTimer = setTimeout(() => {
+      setIsInitialLoading(false);
+      // After table appears, animate in the insights panel with a small delay
+      setTimeout(() => {
+        setShowInsightsPanel(true);
+      }, 200);
+    }, 2000);
+    return () => clearTimeout(loadingTimer);
+  }, []);
+
   // Hidden filters state (Set of "filterIndex-valueIndex" keys)
   const [hiddenFilters, setHiddenFilters] = useState<Set<string>>(new Set());
 
@@ -111,16 +271,24 @@ export function TalentSearchResults({
   
   // Track Instagram Eng Rate filter from Ask Assist
   const [instagramEngRateFilter, setInstagramEngRateFilter] = useState(false);
+
+  // Track Creator age 21-80 filter
+  const [creatorAgeFilter, setCreatorAgeFilter] = useState(false);
+
+  // Track Follower eng rate 5% filter
+  const [followerEngRateFilter, setFollowerEngRateFilter] = useState(false);
   
   // Helper to create a history snapshot of current state
   const createHistorySnapshot = (label?: string): SearchHistoryItem => {
     return {
       searchTerm: currentSearchTerm,
-      resultCount: getResultCountForSearchTerm(currentSearchTerm),
+      resultCount: currentResultCount || getResultCountForSearchTerm(currentSearchTerm),
       filters: {
         audienceLocation: filterState?.audienceLocationSelection ?? null,
         instagramEngRate: instagramEngRateFilter,
         creatorGender: filterState?.creatorGenderSelection ?? [],
+        creatorAgeFilter: creatorAgeFilter,
+        followerEngRate: followerEngRateFilter,
       },
       label,
     };
@@ -160,31 +328,36 @@ export function TalentSearchResults({
   const handleHistoryItemClick = (item: SearchHistoryItem, index: number) => {
     // Set the search term to the clicked item
     setCurrentSearchTerm(item.searchTerm);
-    
+
     // Restore filter states from history
     if (item.filters) {
       setFilterState((prev) => ({
         ...prev,
         audienceLocationSelection: item.filters?.audienceLocation ?? null,
         creatorGenderSelection: item.filters?.creatorGender ?? [],
+        creatorAgeSelection: item.filters?.creatorAgeFilter ? { min: 21, max: 80 } : { min: 12, max: 80 },
       }));
       setInstagramEngRateFilter(item.filters?.instagramEngRate ?? false);
+      setFollowerEngRateFilter(item.filters?.followerEngRate ?? false);
+      setCreatorAgeFilter(item.filters?.creatorAgeFilter ?? false);
       setAskAssistActive(!!item.filters?.audienceLocation);
     } else {
       // Reset filters if no filter data in history
       setAskAssistActive(false);
       setInstagramEngRateFilter(false);
+      setFollowerEngRateFilter(false);
+      setCreatorAgeFilter(false);
     }
-    
+
     // Update URL to reflect the search term
     setSearchParams({ q: item.searchTerm });
-    
+
     // Set history index to this position (not clearing history)
     setHistoryIndex(index);
-    
+
     // Trigger animation
     setIsSearching(true);
-    
+
     // Add to recent items
     addRecentItem({
       id: `search-talent-${item.searchTerm}`,
@@ -193,7 +366,7 @@ export function TalentSearchResults({
       sublabel: "Talent",
       count: item.resultCount,
     });
-    
+
     // After animation, refresh
     setTimeout(() => {
       setIsSearching(false);
@@ -205,45 +378,98 @@ export function TalentSearchResults({
   const handleAskAssistSubmit = (query: string) => {
     const lowerQuery = query.toLowerCase();
     setIsSearching(true);
-    
+
     // After 3 seconds, stop animation and apply filters based on query
     setTimeout(() => {
       setIsSearching(false);
       setRefreshKey((prev) => prev + 1);
-      
-      if (lowerQuery.includes("followers") && lowerQuery.includes("canada")) {
+
+      // Check for "Creator age 21-80" filter
+      if (lowerQuery.includes("creator") && lowerQuery.includes("age") && (lowerQuery.includes("21") || lowerQuery.includes("80"))) {
         // Add current state to history before applying filter
         addToHistory(createHistorySnapshot(`"${currentSearchTerm}" ${getResultCountForSearchTerm(currentSearchTerm)} results found`));
-        
-        // "followers are in canada" → show Canada filter with 15 results
+
+        // Activate creator age filter (shows 25 results)
+        setCreatorAgeFilter(true);
+        setFilterState((prev) => ({
+          ...prev,
+          creatorAgeSelection: { min: 21, max: 80 },
+        }));
+      }
+      // Check for "IG eng rate 5%" filter (must check before general eng rate)
+      else if (lowerQuery.includes("ig") && lowerQuery.includes("eng") && lowerQuery.includes("5")) {
+        // Add current state to history before applying filter
+        let currentLabel = `"${currentSearchTerm}"`;
+        if (followerEngRateFilter) {
+          currentLabel += " + Follower Eng Rate ≥ 5%";
+        } else if (creatorAgeFilter) {
+          currentLabel += " + Age: 21-80";
+        } else {
+          currentLabel += ` ${getResultCountForSearchTerm(currentSearchTerm)} results found`;
+        }
+        addToHistory(createHistorySnapshot(currentLabel));
+
+        // Activate Instagram eng rate filter (shows 5 results)
+        setInstagramEngRateFilter(true);
+      }
+      // Check for "Follower eng rate 5%" filter OR general "eng rate min 5%" pattern
+      else if ((lowerQuery.includes("follower") && lowerQuery.includes("eng") && lowerQuery.includes("5")) ||
+               (lowerQuery.includes("eng") && lowerQuery.includes("rate") && lowerQuery.includes("min") && lowerQuery.includes("5"))) {
+        // Add current state to history before applying filter
+        const currentLabel = creatorAgeFilter
+          ? `"${currentSearchTerm}" + Age: 21-80`
+          : `"${currentSearchTerm}" ${getResultCountForSearchTerm(currentSearchTerm)} results found`;
+        addToHistory(createHistorySnapshot(currentLabel));
+
+        // Activate follower eng rate filter (shows 10 results)
+        setFollowerEngRateFilter(true);
+      }
+      // Check for "IG eng rate 5%" filter (alternative pattern with full "instagram" word)
+      else if (lowerQuery.includes("instagram") && lowerQuery.includes("eng") && lowerQuery.includes("5")) {
+        // Add current state to history before applying filter
+        let currentLabel = `"${currentSearchTerm}"`;
+        if (followerEngRateFilter) {
+          currentLabel += " + Follower Eng Rate ≥ 5%";
+        } else if (creatorAgeFilter) {
+          currentLabel += " + Age: 21-80";
+        } else {
+          currentLabel += ` ${getResultCountForSearchTerm(currentSearchTerm)} results found`;
+        }
+        addToHistory(createHistorySnapshot(currentLabel));
+
+        // Activate Instagram eng rate filter (shows 5 results)
+        setInstagramEngRateFilter(true);
+      }
+      // Legacy: followers in canada
+      else if (lowerQuery.includes("followers") && lowerQuery.includes("canada")) {
+        addToHistory(createHistorySnapshot(`"${currentSearchTerm}" ${getResultCountForSearchTerm(currentSearchTerm)} results found`));
         setAskAssistActive(true);
         setFilterState((prev) => ({
           ...prev,
           audienceLocationSelection: "Canada",
         }));
-      } else if (lowerQuery.includes("instagram") && lowerQuery.includes("eng") && lowerQuery.includes("5")) {
-        // Add current state to history before applying filter
-        addToHistory(createHistorySnapshot(
-          askAssistActive 
-            ? `"${currentSearchTerm}" + Audience: Canada`
-            : `"${currentSearchTerm}" ${getResultCountForSearchTerm(currentSearchTerm)} results found`
-        ));
-        
-        // "instagram eng rate over 5%" → add Instagram Eng Rate filter with 5 results
-        setInstagramEngRateFilter(true);
       }
     }, 3000);
   };
   
   const [sortState, setSortState] = useState<SortState>({
-    field: "name",
-    direction: "asc",
+    field: "score",
+    direction: "desc",
   });
   const [showPreciseFilters, setShowPreciseFilters] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [showMatchInsights, setShowMatchInsights] = useState(true);
-  const [hoveredTalent, setHoveredTalent] = useState<string | null>(null);
+  const [activeTalentForInsights, setActiveTalentForInsights] = useState<{ name: string; avatarUrl: string } | null>(null);
   const [selectedTalents, setSelectedTalents] = useState<Set<string>>(new Set());
+
+  // Handle score cell click - toggle insights panel for this talent
+  const handleScoreClick = (talentName: string, avatarUrl: string) => {
+    if (activeTalentForInsights?.name === talentName) {
+      setActiveTalentForInsights(null);
+    } else {
+      setActiveTalentForInsights({ name: talentName, avatarUrl });
+    }
+  };
   const [quickFilter, setQuickFilter] = useState("");
   const [showColumnDropdown, setShowColumnDropdown] = useState(false);
   const [columnVisibility, setColumnVisibility] = useState({
@@ -348,6 +574,50 @@ export function TalentSearchResults({
       }
     }
 
+    // Detect follower engagement rate pattern - "eng rate min X%" or "eng rate > X%"
+    const followerEngPattern = /eng(?:agement)?\s+rate\s+(?:min|>|over|above)\s*(\d+)%?/i;
+    const followerEngMatch = followerEngPattern.exec(term);
+    if (followerEngMatch && !followerEngRateFilter) {
+      // Start loading animation
+      setIsSearching(true);
+
+      // Add to history and set filter after animation
+      setTimeout(() => {
+        addToHistory(createHistorySnapshot(
+          creatorAgeFilter
+            ? `"${currentSearchTerm.replace(followerEngMatch[0], '').trim()}" + Age: 21-80`
+            : `"${currentSearchTerm.replace(followerEngMatch[0], '').trim()}" ${getResultCountForSearchTerm(currentSearchTerm)} results found`
+        ));
+        setFollowerEngRateFilter(true);
+        setIsSearching(false);
+        setRefreshKey((prev) => prev + 1);
+      }, 1000);
+    }
+
+    // Detect IG engagement rate pattern - "ig eng rate X%" or "instagram eng rate X%"
+    const igEngPattern = /(?:ig|instagram)\s+eng(?:agement)?\s+rate\s*(?:min|>|over|above)?\s*(\d+)%?/i;
+    const igEngMatch = igEngPattern.exec(term);
+    if (igEngMatch && !instagramEngRateFilter) {
+      // Start loading animation
+      setIsSearching(true);
+
+      // Add to history and set filter after animation
+      setTimeout(() => {
+        let currentLabel = `"${currentSearchTerm.replace(igEngMatch[0], '').trim()}"`;
+        if (followerEngRateFilter) {
+          currentLabel += " + Follower Eng Rate ≥ 5%";
+        } else if (creatorAgeFilter) {
+          currentLabel += " + Age: 21-80";
+        } else {
+          currentLabel += ` ${getResultCountForSearchTerm(currentSearchTerm)} results found`;
+        }
+        addToHistory(createHistorySnapshot(currentLabel));
+        setInstagramEngRateFilter(true);
+        setIsSearching(false);
+        setRefreshKey((prev) => prev + 1);
+      }, 1000);
+    }
+
     // Update filterState if we found any filters from search
     if (newGenders.length > 0 || newVerticals.length > 0 || newLocations.length > 0 || newAudienceLocation) {
       setFilterState(prev => ({
@@ -358,17 +628,19 @@ export function TalentSearchResults({
         audienceLocationSelection: newAudienceLocation || prev.audienceLocationSelection,
       }));
     }
-  }, [currentSearchTerm]);
+  }, [currentSearchTerm, followerEngRateFilter, instagramEngRateFilter, creatorAgeFilter]);
 
   const [savedFilters, setSavedFilters] = useState<
     Array<{ name: string; filterState: FilterState }>
   >([]);
 
   // Determine which talent set to show based on search term and filters
+  // Filter hierarchy (most restrictive first):
+  // IG ENG rate 5% (5) → Follower eng rate 5% (10) → Creator age 21-80 (25) → Base search (45)
   const currentTalentData = useMemo(() => {
     let baseSet;
-    
-    // Instagram Eng Rate filter takes priority (shows 5 results)
+
+    // Instagram Eng Rate filter takes highest priority (shows 5 results)
     if (instagramEngRateFilter) {
       // Override engagement rates for the 5 talents
       const engRateOverrides: Record<number, string> = {
@@ -382,32 +654,45 @@ export function TalentSearchResults({
         ...t,
         instagramEngagementRate: engRateOverrides[t.id] || t.instagramEngagementRate,
       }));
-    } else if (askAssistActive) {
-      // Ask Assist with Canada filter - check if macchiato search
+    }
+    // Follower eng rate filter shows 10 results
+    else if (followerEngRateFilter) {
+      baseSet = searchResultSet10;
+    }
+    // Creator age 21-80 filter shows 25 results
+    else if (creatorAgeFilter) {
+      baseSet = searchResultSet25;
+    }
+    // Ask Assist with Canada filter (legacy support)
+    else if (askAssistActive) {
       if (currentSearchTerm.toLowerCase() === "macchiato") {
-        // Macchiato + Canada shows 10 results
         baseSet = searchResultSet10;
       } else {
-        // Other searches with Canada filter show 15 results
         baseSet = searchResultSet15;
       }
     } else {
       // Use search term to determine the set
       baseSet = getTalentSetForSearchTerm(currentSearchTerm);
     }
-    
+
     // Then check if gender filter is applied
+    let filteredSet = baseSet;
     if (filterState.creatorGenderSelection.length === 1) {
       if (filterState.creatorGenderSelection.includes("female")) {
-        return baseSet.filter((t) => t.gender === "Female");
+        filteredSet = baseSet.filter((t) => t.gender === "Female");
       }
       if (filterState.creatorGenderSelection.includes("male")) {
-        return baseSet.filter((t) => t.gender === "Male");
+        filteredSet = baseSet.filter((t) => t.gender === "Male");
       }
     }
-    
-    return baseSet;
-  }, [filterState.creatorGenderSelection, currentSearchTerm, askAssistActive, instagramEngRateFilter]);
+
+    // Sort by match score (higher scores first)
+    return [...filteredSet].sort((a, b) => {
+      const scoreA = getTalentMatchScore(a.name);
+      const scoreB = getTalentMatchScore(b.name);
+      return scoreB - scoreA;
+    });
+  }, [filterState.creatorGenderSelection, currentSearchTerm, askAssistActive, instagramEngRateFilter, creatorAgeFilter, followerEngRateFilter]);
 
   // Current result count based on filtered data
   const currentResultCount = currentTalentData.length;
@@ -512,6 +797,14 @@ export function TalentSearchResults({
         remainingTerm = remainingTerm.replace(engMatch2[0].toLowerCase(), ' ');
       }
 
+      // Pattern 2c: General follower engagement rate - "eng rate min X%" or "eng rate > X%"
+      // Note: The filter state is set via useEffect, this just adds the chip and cleans up the remaining term
+      const followerEngPattern = /eng(?:agement)?\s+rate\s+(?:min|>|over|above)\s*(\d+)%?/gi;
+      let followerEngMatch;
+      while ((followerEngMatch = followerEngPattern.exec(currentSearchTerm)) !== null) {
+        remainingTerm = remainingTerm.replace(followerEngMatch[0].toLowerCase(), ' ');
+      }
+
       // Pattern 3: Verticals - "likes [topic]" or "talks about [topic]"
       const verticalsPattern = /(?:likes|talks\s+about)\s+(\w+)/gi;
       let verticalMatch;
@@ -602,7 +895,7 @@ export function TalentSearchResults({
       }
 
       // Context words that indicate filter type (not search terms)
-      const contextWords = ['talent', 'creator', 'creators', 'audience', 'followers', 'is', 'are', 'the', 'a', 'an', 'and', 'or', 'with', 'in', 'from', 'based', 'located', 'likes', 'talks', 'about', 'ig', 'instagram', 'tt', 'tiktok', 'yt', 'youtube', 'eng', 'engagement', 'rate', 'over', 'above'];
+      const contextWords = ['talent', 'creator', 'creators', 'audience', 'followers', 'is', 'are', 'the', 'a', 'an', 'and', 'or', 'with', 'in', 'from', 'based', 'located', 'likes', 'talks', 'about', 'ig', 'instagram', 'tt', 'tiktok', 'yt', 'youtube', 'eng', 'engagement', 'rate', 'over', 'above', 'min', '5%', '5'];
 
       // Process remaining words for simple patterns
       const words = remainingTerm.split(/\s+/).filter(w => w.length > 0);
@@ -803,6 +1096,30 @@ export function TalentSearchResults({
       });
     }
 
+    // Creator Age Filter (from Ask Assist)
+    if (creatorAgeFilter) {
+      // Check if creator age wasn't already added from filterState
+      const hasAgeFromFilterState = filters.some(f => f.filterType === "creator-age");
+      if (!hasAgeFromFilterState) {
+        filters.push({
+          label: "Creator Age",
+          operator: "is",
+          values: ["21-80"],
+          filterType: "creator-age-filter",
+        });
+      }
+    }
+
+    // Follower Eng Rate (from Ask Assist)
+    if (followerEngRateFilter) {
+      filters.push({
+        label: "Follower ENG Rate",
+        operator: "≥",
+        values: ["5%"],
+        filterType: "follower-eng-rate",
+      });
+    }
+
     // Instagram Eng Rate (from Ask Assist) - skip if already added from search parsing
     if (instagramEngRateFilter) {
       // Check if Instagram engagement rate was already added from search parsing
@@ -821,7 +1138,7 @@ export function TalentSearchResults({
     }
 
     return filters;
-  }, [filterState, instagramEngRateFilter, currentSearchTerm]);
+  }, [filterState, instagramEngRateFilter, followerEngRateFilter, creatorAgeFilter, currentSearchTerm]);
 
   const handleClearFilters = () => {
     setFilterState({
@@ -836,6 +1153,8 @@ export function TalentSearchResults({
       platformConfigurations: {},
     });
     setInstagramEngRateFilter(false);
+    setFollowerEngRateFilter(false);
+    setCreatorAgeFilter(false);
     setAskAssistActive(false);
   };
 
@@ -1017,8 +1336,20 @@ export function TalentSearchResults({
       }));
       addToHistory(createHistorySnapshot(`Deleted filter: ${value}`));
     } else if (filter?.filterType === 'platform-engagement' || filter?.filterType === 'instagram-eng-rate') {
-      // Clear engagement rate
+      // Clear Instagram engagement rate
       setInstagramEngRateFilter(false);
+      addToHistory(createHistorySnapshot(`Deleted filter: ${value}`));
+    } else if (filter?.filterType === 'follower-eng-rate') {
+      // Clear follower engagement rate
+      setFollowerEngRateFilter(false);
+      addToHistory(createHistorySnapshot(`Deleted filter: ${value}`));
+    } else if (filter?.filterType === 'creator-age-filter') {
+      // Clear creator age filter
+      setCreatorAgeFilter(false);
+      setFilterState(prev => ({
+        ...prev,
+        creatorAgeSelection: { min: 12, max: 80 },
+      }));
       addToHistory(createHistorySnapshot(`Deleted filter: ${value}`));
     } else {
       addToHistory(createHistorySnapshot(`Deleted filter: ${value}`));
@@ -1112,16 +1443,58 @@ export function TalentSearchResults({
   const handleFilterPopoverClose = () => {
     // Check if filters changed during this session
     if (filterStateOnOpen) {
+      // Check if creator age changed to a non-default value
+      const ageChanged = (
+        filterStateOnOpen.creatorAgeSelection.min !== filterState.creatorAgeSelection.min ||
+        filterStateOnOpen.creatorAgeSelection.max !== filterState.creatorAgeSelection.max
+      );
+      const isAgeFiltered = filterState.creatorAgeSelection.min !== 12 || filterState.creatorAgeSelection.max !== 80;
+
+      // Determine the new creatorAgeFilter value
+      const newCreatorAgeFilter = ageChanged && isAgeFiltered ? true : (ageChanged && !isAgeFiltered ? false : creatorAgeFilter);
+
+      // Calculate the expected result count based on NEW filter state
+      // Filter hierarchy: IG eng (5) → Follower eng (10) → Age (25) → Base (45)
+      let expectedResultCount = currentResultCount;
+      if (instagramEngRateFilter) {
+        expectedResultCount = 5;
+      } else if (followerEngRateFilter) {
+        expectedResultCount = 10;
+      } else if (newCreatorAgeFilter) {
+        expectedResultCount = 25;
+      } else {
+        expectedResultCount = getResultCountForSearchTerm(currentSearchTerm);
+      }
+
+      // Activate/deactivate creator age filter with loading animation
+      if (ageChanged && isAgeFiltered) {
+        setIsSearching(true);
+        setTimeout(() => {
+          setCreatorAgeFilter(true);
+          setIsSearching(false);
+          setRefreshKey((prev) => prev + 1);
+        }, 1000);
+      } else if (ageChanged && !isAgeFiltered) {
+        setIsSearching(true);
+        setTimeout(() => {
+          setCreatorAgeFilter(false);
+          setIsSearching(false);
+          setRefreshKey((prev) => prev + 1);
+        }, 1000);
+      }
+
       const changeLabel = generateFilterChangeLabel(filterStateOnOpen, filterState);
       if (changeLabel) {
         // Add the NEW filter state as a new version in history
         addToHistory({
           searchTerm: currentSearchTerm,
-          resultCount: currentResultCount,
+          resultCount: expectedResultCount,
           filters: {
             audienceLocation: filterState.audienceLocationSelection,
             instagramEngRate: instagramEngRateFilter,
             creatorGender: filterState.creatorGenderSelection,
+            creatorAgeFilter: newCreatorAgeFilter,
+            followerEngRate: followerEngRateFilter,
           },
           label: `Added filter: ${changeLabel}`,
         });
@@ -1223,7 +1596,7 @@ export function TalentSearchResults({
       </div>
 
       {/* Content Area - Talent Table + Insights Panel */}
-      <div className="flex-1 mx-[20px] mt-[16px] mb-[20px] flex gap-[16px]">
+      <div className="flex-1 mx-[20px] mt-[16px] mb-[20px] flex flex-col gap-[16px] overflow-hidden">
         {/* Talent Table */}
         <div
           className="content-stretch flex flex-col items-start relative flex-1 overflow-hidden rounded-[8px]"
@@ -1233,13 +1606,13 @@ export function TalentSearchResults({
           }}
         >
           {/* Growing line animation */}
-          {isSearching && (
+          {(isSearching || isInitialLoading) && (
             <div className="w-full h-[3px] relative overflow-hidden">
               <div
                 className="absolute top-0 left-0 h-full"
                 style={{
                   background: "var(--nav-notification-badge)",
-                  animation: "growLine 3s ease-out forwards",
+                  animation: isInitialLoading ? "growLine 2s ease-out forwards" : "growLine 3s ease-out forwards",
                 }}
               />
               <style>{`
@@ -1255,6 +1628,9 @@ export function TalentSearchResults({
             </div>
           )}
 
+          {isInitialLoading ? (
+            <SkeletonTable />
+          ) : (
           <TalentTable
             isDark={isDark}
             sortState={sortState}
@@ -1264,19 +1640,35 @@ export function TalentSearchResults({
             columnVisibility={columnVisibility}
             refreshKey={refreshKey}
             talentData={currentTalentData}
-            onRowHover={setHoveredTalent}
+            onScoreClick={handleScoreClick}
+            activeTalent={activeTalentForInsights?.name ?? null}
             selectedTalents={selectedTalents}
             onSelectionChange={setSelectedTalents}
           />
+          )}
         </div>
 
-        {/* Insights Panel - shown when toggle is on */}
-        {showMatchInsights && (
-          <div className="w-[240px] shrink-0">
-            {hoveredTalent === "Lauren Blake" ? (
-              <InsightsMatch talentName={hoveredTalent} />
+        {/* Insights Panel - shown below table with slide-up animation */}
+        {showMatchInsights && !isInitialLoading && (
+          <div
+            className="transition-all duration-500 ease-out"
+            style={{
+              opacity: showInsightsPanel ? 1 : 0,
+              transform: showInsightsPanel ? 'translateY(0)' : 'translateY(20px)',
+            }}
+          >
+            {activeTalentForInsights ? (
+              <InsightsMatchHorizontal
+                talentName={activeTalentForInsights.name}
+                avatarUrl={activeTalentForInsights.avatarUrl}
+              />
             ) : (
-              <InsightsDefault />
+              <InsightsDefaultHorizontal
+                resultCount={currentResultCount}
+                creatorAgeFilter={creatorAgeFilter}
+                followerEngRateFilter={followerEngRateFilter}
+                instagramEngRateFilter={instagramEngRateFilter}
+              />
             )}
           </div>
         )}

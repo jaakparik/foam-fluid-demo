@@ -120,9 +120,9 @@ export function MediaKits({
         className="sticky top-0 z-20 px-[32px] pb-[16px]"
         style={{ background: "var(--page-background)" }}
       >
-        <TalentFilterBar 
-          isDark={isDark} 
-          title="Media Kits" 
+        <TalentFilterBar
+          isDark={isDark}
+          title="Media Kits"
           count="1,832"
           onAddClick={() => setShowTalentModal(true)}
         />

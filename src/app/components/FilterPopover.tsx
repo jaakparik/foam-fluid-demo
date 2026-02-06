@@ -36,15 +36,17 @@ interface FilterPopoverProps {
   initialCreatorTab?: CreatorTab;
   initialAudienceTab?: AudienceTab;
   onAskAssistSubmit?: (query: string) => void;
+  onClose?: () => void;
 }
 
-export function FilterPopover({ 
-  filterState: externalFilterState, 
+export function FilterPopover({
+  filterState: externalFilterState,
   onFilterChange,
   initialTopLevelTab,
   initialCreatorTab,
   initialAudienceTab,
   onAskAssistSubmit,
+  onClose,
 }: FilterPopoverProps) {
   const [topLevelTab, setTopLevelTab] = useState<TopLevelTab>(initialTopLevelTab || 'Creator');
   const [creatorTab, setCreatorTab] = useState<CreatorTab>(initialCreatorTab || 'Gender');
@@ -374,7 +376,7 @@ export function FilterPopover({
         return <CreatorGenderFilter selectedGenders={creatorGenderSelection} onSelectionChange={setCreatorGenderSelection} />;
       }
       if (creatorTab === 'Age') {
-        return <CreatorAgeFilter selectedAge={creatorAgeSelection} onSelectionChange={setCreatorAgeSelection} />;
+        return <CreatorAgeFilter selectedAge={creatorAgeSelection} onSelectionChange={setCreatorAgeSelection} onApply={onClose} />;
       }
       if (creatorTab === 'Location') {
         return <CreatorLocationFilter selectedLocations={creatorLocationSelection} onSelectionChange={setCreatorLocationSelection} />;

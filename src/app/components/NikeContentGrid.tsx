@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { SortState } from "./SortDropdown";
-import { coffeeVideos, coffeeThumbnails } from "../data/thumbnails";
+import { nikeVideos } from "../data/thumbnails";
 import { ContentCardEnhanced } from "./ContentCardEnhanced";
 
 // Define content item type
@@ -17,29 +17,29 @@ interface ContentItem {
   score: number;
 }
 
-// Generate Coffee content items - 20 unique items (8 videos + 12 images as videos)
-const generateCoffeeContent = (): ContentItem[] => {
+// Generate Nike content items - 20 unique items using Nike videos
+const generateNikeContent = (): ContentItem[] => {
   const titles = [
-    "Morning Brew Ritual",
-    "Latte Art Mastery",
-    "Pour Over Perfection",
-    "Espresso Shot Tutorial",
-    "Coffee Bean Roasting",
-    "Café Vibes ASMR",
-    "Cold Brew Recipe",
-    "Barista Training Day",
-    "French Press Guide",
-    "Coffee Shop Tour",
-    "Cappuccino Art",
-    "Iced Coffee Summer",
-    "Coffee Farm Visit",
-    "Matcha vs Coffee",
-    "Home Brewing Tips",
-    "Coffee Gadgets Review",
-    "Mocha Monday",
-    "Ethiopian Coffee",
-    "Specialty Coffee Unbox",
-    "Coffee & Productivity",
+    "Just Do It Morning Run",
+    "Air Max Unboxing",
+    "Nike Training Day",
+    "Sneaker Collection Tour",
+    "Jordan 1 Retro Review",
+    "Nike Athlete Workout",
+    "Running Challenge",
+    "Nike Tech Fleece Fit",
+    "Basketball Practice",
+    "Nike Pro Tips",
+    "Marathon Prep",
+    "Street Style Nike",
+    "Gym Session Nike",
+    "Nike x Collab Drop",
+    "Running Shoe Guide",
+    "Nike Gear Review",
+    "Fitness Motivation",
+    "Nike Store Haul",
+    "Sneaker Care Tips",
+    "Nike Training Club",
   ];
 
   const platforms: ("instagram" | "tiktok" | "youtube")[] = [
@@ -47,17 +47,17 @@ const generateCoffeeContent = (): ContentItem[] => {
     "tiktok",
     "youtube",
   ];
-  const creators = ["Emma Barista", "Coffee Chris", "Latte Lisa", "Bean Master", "Café Clara"];
-  const viewCounts = ["312K", "189K", "567K", "234K", "421K", "178K", "645K", "298K", "156K", "489K", "223K", "367K", "412K", "198K", "534K", "276K", "389K", "445K", "321K", "267K"];
-  const reachCounts = ["156K", "89K", "234K", "112K", "201K", "78K", "312K", "145K", "67K", "223K", "98K", "178K", "189K", "87K", "256K", "134K", "167K", "198K", "145K", "123K"];
-  const clickCounts = ["45K", "23K", "67K", "34K", "56K", "19K", "78K", "41K", "22K", "61K", "28K", "49K", "52K", "26K", "72K", "38K", "44K", "58K", "39K", "31K"];
-  const scores = [88, 72, 91, 66, 85, 70, 94, 63, 79, 90, 68, 83, 77, 89, 64, 86, 71, 82, 75, 69];
+  const creators = ["Chris Allen", "Nike Runner", "Fit Mike", "Sneaker Sarah", "Athletic Amy"];
+  const viewCounts = ["1.2M", "856K", "2.1M", "445K", "1.8M", "678K", "3.2M", "512K", "967K", "1.5M", "723K", "1.1M", "889K", "2.4M", "634K", "1.7M", "445K", "978K", "1.3M", "567K"];
+  const reachCounts = ["600K", "428K", "1.05M", "223K", "900K", "339K", "1.6M", "256K", "484K", "750K", "362K", "550K", "445K", "1.2M", "317K", "850K", "223K", "489K", "650K", "284K"];
+  const clickCounts = ["180K", "128K", "315K", "67K", "270K", "102K", "480K", "77K", "145K", "225K", "109K", "165K", "133K", "360K", "95K", "255K", "67K", "147K", "195K", "85K"];
+  const scores = [92, 78, 88, 65, 91, 73, 95, 68, 82, 87, 71, 84, 76, 93, 69, 89, 67, 81, 86, 72];
 
   return Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
     title: titles[i],
-    // Cycle through the 8 coffee videos for all items
-    videoUrl: coffeeVideos[i % coffeeVideos.length].video,
+    // Use Nike videos - we have 20 unique videos
+    videoUrl: nikeVideos[i % nikeVideos.length],
     views: viewCounts[i],
     reach: reachCounts[i],
     clicks: clickCounts[i],
@@ -68,20 +68,20 @@ const generateCoffeeContent = (): ContentItem[] => {
   }));
 };
 
-const contentItems = generateCoffeeContent();
+const contentItems = generateNikeContent();
 
 // Export total count for use by parent components
-export const COFFEE_CONTENT_COUNT = contentItems.length;
+export const NIKE_CONTENT_COUNT = contentItems.length;
 
 // Export all content IDs for select all functionality
-export const getAllCoffeeContentIds = (): number[] => contentItems.map((item) => item.id);
+export const getAllNikeContentIds = (): number[] => contentItems.map((item) => item.id);
 
 // Export all content items for use by PostsTable
-export const getAllCoffeeContentItems = () => contentItems;
+export const getAllNikeContentItems = () => contentItems;
 
 // Export function to get content items by IDs (for thumbnail display)
 // Optionally includes source positions for fly-in animation
-export const getCoffeeContentItemsByIds = (
+export const getNikeContentItemsByIds = (
   ids: Set<number>,
   positions?: Map<number, { x: number; y: number }>
 ): { id: number; videoUrl: string; title: string; creator: string; views: string; reach: string; clicks: string; platform: "instagram" | "tiktok" | "youtube"; sourceX?: number; sourceY?: number }[] => {
@@ -104,7 +104,7 @@ export const getCoffeeContentItemsByIds = (
     });
 };
 
-interface CoffeeContentGridProps {
+interface NikeContentGridProps {
   isDark?: boolean;
   sortState?: SortState;
   quickFilter?: string;
@@ -116,7 +116,7 @@ interface CoffeeContentGridProps {
   onContentClick?: (content: ContentItem) => void;
 }
 
-export function CoffeeContentGrid({
+export function NikeContentGrid({
   isDark = false,
   sortState,
   quickFilter,
@@ -124,7 +124,7 @@ export function CoffeeContentGrid({
   onSelectionChange,
   onPositionCapture,
   onContentClick,
-}: CoffeeContentGridProps) {
+}: NikeContentGridProps) {
   const handleContentSelect = (contentId: number, checked: boolean, sourcePosition?: { x: number; y: number }) => {
     const newSet = new Set(selectedContent);
     if (checked) {
@@ -185,7 +185,7 @@ export function CoffeeContentGrid({
 
   return (
     <div className="w-full">
-      <div className="grid gap-[12px] grid-cols-[repeat(auto-fill,minmax(160px,1fr))]">
+      <div className="grid gap-[16px] grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
         {filteredContent.map((item) => (
           <ContentCardEnhanced
             key={item.id}

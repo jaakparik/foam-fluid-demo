@@ -11,6 +11,7 @@ import { Connections, ConnectionInfo } from "./Connections";
 import { useState, useMemo, useRef, useEffect } from "react";
 import { SortState } from "./SortDropdown";
 import { useNavigate } from "react-router-dom";
+import { getTalentMatchScore } from "./InsightsMatchHorizontal";
 
 interface TalentTableProps {
   isDark?: boolean;
@@ -21,7 +22,8 @@ interface TalentTableProps {
   columnVisibility?: ColumnVisibility;
   refreshKey?: number;
   talentData?: Talent[];
-  onRowHover?: (talentName: string | null) => void;
+  onScoreClick?: (talentName: string, avatarUrl: string) => void;
+  activeTalent?: string | null;
   selectedTalents?: Set<string>;
   onSelectionChange?: (selected: Set<string>) => void;
 }
@@ -288,6 +290,15 @@ function HeaderContent({
           onSort={onSort}
         />
       )}
+      {/* Score column */}
+      <TableHeaderCellWithSort
+        label="Score"
+        width="70px"
+        centered
+        field="score"
+        currentSort={currentSort}
+        onSort={onSort}
+      />
       {showEngagementRate && (
         <div
           className="content-stretch flex gap-[4px] h-[32px] items-center justify-center px-[4px] py-[6px] relative shrink-0 w-[100px]"
@@ -408,7 +419,7 @@ function HeaderContent({
 function Avatar({ imageUrl }: { imageUrl: string }) {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0 size-[40px]">
-      <div className="relative rounded-[4px] shrink-0 size-[40px]">
+      <div className="relative rounded-full shrink-0 size-[40px]">
         <div className="overflow-clip relative rounded-[inherit] size-full">
           <img
             alt=""
@@ -418,7 +429,7 @@ function Avatar({ imageUrl }: { imageUrl: string }) {
         </div>
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none rounded-[4px]"
+          className="absolute inset-0 pointer-events-none rounded-full"
         />
       </div>
     </div>
@@ -434,7 +445,8 @@ function TableRow({
   showTotalAudience,
   showEngagementRate,
   isDark,
-  onHover,
+  onScoreClick,
+  isScoreActive,
 }: {
   talent: (typeof talents)[0];
   isSelected: boolean;
@@ -443,8 +455,10 @@ function TableRow({
   showTotalAudience?: boolean;
   showEngagementRate?: boolean;
   isDark?: boolean;
-  onHover?: (talentName: string | null) => void;
+  onScoreClick?: (talentName: string, avatarUrl: string) => void;
+  isScoreActive?: boolean;
 }) {
+  const [isHovered, setIsHovered] = useState(false);
   const nameParts = talent.name.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ");
@@ -456,20 +470,32 @@ function TableRow({
   };
 
   const handleMouseEnter = () => {
-    onHover?.(talent.name);
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
-    onHover?.(null);
+    setIsHovered(false);
+  };
+
+  const handleScoreClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onScoreClick?.(talent.name, talent.avatarImage);
+  };
+
+  const matchScore = getTalentMatchScore(talent.name);
+
+  // Determine background color based on state
+  const getRowBackground = () => {
+    if (isSelected) return "var(--table-row-bg-selected)";
+    if (isHovered) return "rgba(58, 73, 95, 0.05)";
+    return "var(--table-row-bg)";
   };
 
   return (
     <div
-      className="content-stretch flex items-center relative shrink-0 w-full h-[52px]"
+      className="content-stretch flex items-center relative shrink-0 w-full h-[52px] transition-colors duration-150"
       style={{
-        background: isSelected
-          ? "var(--table-row-bg-selected)"
-          : "var(--table-row-bg)",
+        background: getRowBackground(),
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -519,6 +545,37 @@ function TableRow({
           </div>
         </div>
       )}
+
+      {/* Score - Clickable */}
+      <div
+        className="content-stretch flex h-full items-center justify-center p-[4px] relative shrink-0 w-[70px] cursor-pointer transition-colors duration-150"
+        style={{
+          background: isScoreActive ? "rgba(21, 95, 239, 0.1)" : "transparent",
+        }}
+        onClick={handleScoreClick}
+      >
+        <div
+          className="flex items-center justify-center px-[8px] py-[2px] rounded-full"
+          style={{
+            background: matchScore >= 85 ? "rgba(34, 197, 94, 0.15)" :
+                       matchScore >= 70 ? "rgba(59, 130, 246, 0.15)" :
+                       matchScore >= 55 ? "rgba(234, 179, 8, 0.15)" :
+                       "rgba(156, 163, 175, 0.15)",
+          }}
+        >
+          <p
+            className="font-['Hanken_Grotesk',sans-serif] font-medium text-[12px] leading-[16px]"
+            style={{
+              color: matchScore >= 85 ? "#16a34a" :
+                     matchScore >= 70 ? "#2563eb" :
+                     matchScore >= 55 ? "#ca8a04" :
+                     "#6b7280",
+            }}
+          >
+            {matchScore}
+          </p>
+        </div>
+      </div>
 
       {/* Instagram Engagement Rate - only show when precise filters active */}
       {showEngagementRate && (
@@ -766,7 +823,8 @@ export function TalentTable({
   },
   refreshKey = 0,
   talentData,
-  onRowHover,
+  onScoreClick,
+  activeTalent,
   selectedTalents,
   onSelectionChange,
 }: TalentTableProps) {
@@ -847,6 +905,10 @@ export function TalentTable({
           aValue = a.name.toLowerCase();
           bValue = b.name.toLowerCase();
           break;
+        case "score":
+          aValue = getTalentMatchScore(a.name);
+          bValue = getTalentMatchScore(b.name);
+          break;
         case "age":
           aValue = a.age;
           bValue = b.age;
@@ -917,7 +979,8 @@ export function TalentTable({
           }
           showEngagementRate={showEngagementRate}
           isDark={isDark}
-          onHover={onRowHover}
+          onScoreClick={onScoreClick}
+          isScoreActive={activeTalent === talent.name}
         />
       ))}
     </div>

@@ -13,6 +13,7 @@ import Filters from "../../imports/Filters";
 import { SortDropdown, SortState } from "./SortDropdown";
 import { ViewSelector, ViewMode } from "./ViewSelector";
 import { FilterPopover, FilterState } from "./FilterPopover";
+import { useSearch } from "../contexts/SearchContext";
 
 type TabType = "overview" | "talent" | "posts" | "mediaKits" | "brands" | "lists";
 
@@ -31,6 +32,8 @@ export interface SearchHistoryItem {
     audienceLocation?: string | null;
     instagramEngRate?: boolean;
     creatorGender?: string[];
+    creatorAgeFilter?: boolean;
+    followerEngRate?: boolean;
   };
   label?: string; // Human readable description of what changed
 }
@@ -151,6 +154,7 @@ export function TalentSearchToolbar({
   onMatchInsightsChange,
 }: TalentSearchToolbarProps) {
   const navigate = useNavigate();
+  const { setPreferredTab } = useSearch();
   const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -185,6 +189,10 @@ export function TalentSearchToolbar({
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
+    // Save tab preference for talent/posts so future searches land on the same tab
+    if (tab === "talent" || tab === "posts") {
+      setPreferredTab(tab);
+    }
     // Navigate to appropriate page based on tab, preserving search term
     const searchParam = searchTerm ? `?q=${encodeURIComponent(searchTerm)}` : "";
     if (tab === "overview") {
@@ -574,6 +582,7 @@ export function TalentSearchToolbar({
             initialCreatorTab={dynamicFilterTab?.creator || filterPopoverInitialTab?.creator}
             initialAudienceTab={dynamicFilterTab?.audience || filterPopoverInitialTab?.audience}
             onAskAssistSubmit={onAskAssistSubmit}
+            onClose={() => setShowFilterPopover(false)}
           />
         </div>
       )}
